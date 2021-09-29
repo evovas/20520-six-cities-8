@@ -1,3 +1,6 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/f7b111db697f793e59f3/maintainability)](https://codeclimate.com/github/zvovas/20520-six-cities-8/maintainability)
+
+
 # Личный проект «Шесть городов»
 
 * Студент: [Евгений Вовас](https://up.htmlacademy.ru/react/8/user/20520).
