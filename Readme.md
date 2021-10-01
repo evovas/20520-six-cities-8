@@ -1,5 +1,5 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/f7b111db697f793e59f3/maintainability)](https://codeclimate.com/github/zvovas/20520-six-cities-8/maintainability)
-
+[![Project check](https://github.com/zvovas/20520-six-cities-8/actions/workflows/check.yml/badge.svg)](https://github.com/zvovas/20520-six-cities-8/actions/workflows/check.yml)
 
 # Личный проект «Шесть городов»
 
