@@ -1,7 +1,7 @@
-import Header from '../header/header';
-import FavoritesLocation from '../favorites-location/favorites-location';
+import Header from '../../components/header/header';
+import FavoritesLocation from '../../components/favorites-location/favorites-location';
 
-function FavoritesPage(): JSX.Element {
+function Favorites(): JSX.Element {
   return (
     <div className='page'>
       <Header/>
@@ -25,4 +25,4 @@ function FavoritesPage(): JSX.Element {
   );
 }
 
-export default FavoritesPage;
+export default Favorites;

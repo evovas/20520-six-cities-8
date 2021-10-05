@@ -1,7 +1,9 @@
-import Header from '../header/header';
-import NearPlacesCard from '../near-places-card/near-places-card';
+import Header from '../../components/header/header';
+import CardList from '../../components/card-list/card-list';
 
-function PropertyPage(): JSX.Element {
+const cards = Array.from({length: 3}, (_, i) => i);
+
+function Property(): JSX.Element {
   return (
     <div className='page'>
       <Header/>
@@ -227,9 +229,7 @@ function PropertyPage(): JSX.Element {
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
             <div className='near-places__list places__list'>
-              <NearPlacesCard/>
-              <NearPlacesCard/>
-              <NearPlacesCard/>
+              <CardList cards={cards} cardType={'near-places'}/>
             </div>
           </section>
         </div>
@@ -238,4 +238,4 @@ function PropertyPage(): JSX.Element {
   );
 }
 
-export default PropertyPage;
+export default Property;
