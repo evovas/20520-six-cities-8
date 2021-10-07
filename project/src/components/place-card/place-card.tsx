@@ -2,9 +2,11 @@ type CardProps = {
   cardType: string;
 }
 
+const ArticleClassName = new Map([['cities', 'cities__place-card'], ['favorites', 'favorites__card'], ['near-places', 'near-places__card']]);
+
 function PlaceCard({cardType}: CardProps): JSX.Element {
   return (
-    <article className={`${cardType}${cardType === 'cities' ? '__place-card' : '__card'} place-card`}>
+    <article className={`${ArticleClassName.get(cardType)} place-card`}>
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <a href='/#'>
           <img className='place-card__image' src={'img/apartment-01.jpg'}
@@ -23,7 +25,7 @@ function PlaceCard({cardType}: CardProps): JSX.Element {
             <svg className='place-card__bookmark-icon' width='18' height='19'>
               <use xlinkHref='#icon-bookmark'/>
             </svg>
-            <span className='visually-hidden'>{cardType === 'cities' ? 'To bookmarks' : 'In bookmarks'}</span>
+            <span className='visually-hidden'>To bookmarks</span>
           </button>
         </div>
         <div className='place-card__rating rating'>

@@ -3,7 +3,7 @@ import CardList from '../../components/card-list/card-list';
 
 const cards = Array.from({length: 3}, (_, i) => i);
 
-function Property(): JSX.Element {
+function Room(): JSX.Element {
   return (
     <div className='page'>
       <Header/>
@@ -238,4 +238,4 @@ function Property(): JSX.Element {
   );
 }
 
-export default Property;
+export default Room;
