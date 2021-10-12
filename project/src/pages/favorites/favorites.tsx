@@ -1,5 +1,5 @@
 import Header from '../../components/header/header';
-import FavoritesLocation from '../../components/favorites-location/favorites-location';
+import FavoritesLocations from '../../components/favorites-location/favorites-location';
 import {Offers} from '../../types/offers';
 
 type OffersProps = {
@@ -15,7 +15,7 @@ function Favorites({offers}: OffersProps): JSX.Element {
           <section className='favorites'>
             <h1 className='favorites__title'>Saved listing</h1>
             <ul className='favorites__list'>
-              <FavoritesLocation offers={offers}/>
+              <FavoritesLocations offers={offers}/>
             </ul>
           </section>
         </div>
