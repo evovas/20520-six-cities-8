@@ -2,14 +2,14 @@ import Header from '../../components/header/header';
 import Sorting from '../../components/sorting/sorting';
 import LocationTabs from '../../components/location-tabs/location-tabs';
 import CardList from '../../components/card-list/card-list';
+import {Offers} from '../../types/offers';
 
 type MainPageProps = {
   placesCount: number;
+  offers: Offers;
 }
 
-const cards = Array.from({length: 5}, (_, i) => i);
-
-function Main({placesCount}: MainPageProps): JSX.Element {
+function Main({placesCount, offers}: MainPageProps): JSX.Element {
   return (
     <div className='page page--gray page--main'>
       <Header/>
@@ -23,7 +23,7 @@ function Main({placesCount}: MainPageProps): JSX.Element {
               <b className='places__found'>{placesCount} places to stay in Amsterdam</b>
               <Sorting/>
               <div className='cities__places-list places__list tabs__content'>
-                <CardList cards={cards} cardType={'cities'}/>
+                <CardList offers={offers} cardType={'cities'}/>
               </div>
             </section>
             <div className='cities__right-section'>

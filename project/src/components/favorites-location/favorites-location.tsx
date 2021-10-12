@@ -1,8 +1,11 @@
 import CardList from '../card-list/card-list';
+import {Offers} from '../../types/offers';
 
-const cards = Array.from({length: 2}, (_, i) => i);
+type FavoritesLocationProps = {
+  offers: Offers;
+}
 
-function FavoritesLocation(): JSX.Element {
+function FavoritesLocation({offers}: FavoritesLocationProps): JSX.Element {
   return (
     <li className='favorites__locations-items'>
       <div className='favorites__locations locations locations--current'>
@@ -13,7 +16,7 @@ function FavoritesLocation(): JSX.Element {
         </div>
       </div>
       <div className='favorites__places'>
-        <CardList cards={cards} cardType={'favorites'}/>
+        <CardList offers={offers} cardType={'favorites'}/>
       </div>
     </li>
   );

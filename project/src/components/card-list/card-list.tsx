@@ -1,14 +1,18 @@
 import PlaceCard from '../place-card/place-card';
+import {Offers} from '../../types/offers';
+import {useState} from 'react';
 
 type CardListProps = {
-  cards: number[];
+  offers: Offers;
   cardType: string;
 }
 
-function CardList({cards, cardType}: CardListProps): JSX.Element {
+function CardList({offers, cardType}: CardListProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState(null);
+
   return (
     <>
-      {cards.map((item) => <PlaceCard key={item} cardType={cardType}/>)}
+      {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} cardType={cardType} />)}
     </>
   );
 }

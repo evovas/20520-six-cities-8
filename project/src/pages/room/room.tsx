@@ -1,12 +1,27 @@
 import Header from '../../components/header/header';
 import CardList from '../../components/card-list/card-list';
+import {Offers} from '../../types/offers';
+import {useParams} from 'react-router-dom';
+import NotFound from '../not-found/not-found';
 
-const cards = Array.from({length: 3}, (_, i) => i);
+type RoomProps = {
+  offers: Offers;
+}
 
-function Room(): JSX.Element {
+type PageParams = {
+  id: string;
+}
+
+function Room({offers}: RoomProps): JSX.Element {
+  const {id:pageId} = useParams<PageParams>();
+  const currentOffer = offers.find((offer) => offer.id === parseInt(pageId, 10));
+  if (!currentOffer) {
+    return <NotFound />;
+  }
+
   return (
     <div className='page'>
-      <Header/>
+      <Header />
 
       <main className='page__main page__main--property'>
         <section className='property'>
@@ -39,7 +54,7 @@ function Room(): JSX.Element {
               </div>
               <div className='property__name-wrapper'>
                 <h1 className='property__name'>
-                  Beautiful &amp; luxurious studio at great location
+                  {currentOffer.title}
                 </h1>
                 <button className='property__bookmark-button button' type='button'>
                   <svg className='property__bookmark-icon' width='31' height='33'>
@@ -50,7 +65,7 @@ function Room(): JSX.Element {
               </div>
               <div className='property__rating rating'>
                 <div className='property__stars rating__stars'>
-                  <span style={{width: '80%'}}/>
+                  <span style={{width: '100%'}}/>
                   <span className='visually-hidden'>Rating</span>
                 </div>
                 <span className='property__rating-value rating__value'>4.8</span>
@@ -229,7 +244,7 @@ function Room(): JSX.Element {
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
             <div className='near-places__list places__list'>
-              <CardList cards={cards} cardType={'near-places'}/>
+              <CardList offers={offers.slice(0, 3)} cardType={'near-places'}/>
             </div>
           </section>
         </div>
