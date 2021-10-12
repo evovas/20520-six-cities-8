@@ -5,14 +5,14 @@ import {useState} from 'react';
 type CardListProps = {
   offers: Offers;
   cardType: string;
+  handleMouseEnterCard?: (id: number) => void;
+  handleMouseLeaveCard?: () => void;
 }
 
-function CardList({offers, cardType}: CardListProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState(null);
-
+function CardList({offers, cardType, handleMouseEnterCard, handleMouseLeaveCard}: CardListProps): JSX.Element {
   return (
     <>
-      {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} cardType={cardType} />)}
+      {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} cardType={cardType} onMouseEnterCard={handleMouseEnterCard} onMouseLeaveCard={handleMouseLeaveCard} />)}
     </>
   );
 }

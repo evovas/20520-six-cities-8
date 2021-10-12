@@ -1,10 +1,11 @@
-import {Link, useHistory} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offers';
 
 type CardProps = {
   offer: Offer;
   cardType: string;
+  onMouseEnterCard?: (id: number) => void;
+  onMouseLeaveCard?: () => void;
 }
 
 const ArticleClassName = new Map([['cities', 'cities__place-card'], ['favorites', 'favorites__card'], ['near-places', 'near-places__card']]);
@@ -15,9 +16,21 @@ const PREMIUM_LABEL = (
   </div>
 );
 
-function PlaceCard({offer, cardType}: CardProps): JSX.Element {
+function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardProps): JSX.Element {
+  const mouseEnterHandler = () => {
+    if (onMouseEnterCard) {
+      onMouseEnterCard(offer.id);
+    }
+  };
+
+  const mouseLeaveHandler = () => {
+    if (onMouseLeaveCard) {
+      onMouseLeaveCard();
+    }
+  };
+
   return (
-    <article className={`${ArticleClassName.get(cardType)} place-card`}>
+    <article className={`${ArticleClassName.get(cardType)} place-card`} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
       {offer.isPremium && PREMIUM_LABEL}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
