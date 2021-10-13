@@ -9,13 +9,13 @@ type OffersProps = {
 function Favorites({offers}: OffersProps): JSX.Element {
   return (
     <div className='page'>
-      <Header/>
+      <Header />
       <main className='page__main page__main--favorites'>
         <div className='page__favorites-container container'>
           <section className='favorites'>
             <h1 className='favorites__title'>Saved listing</h1>
             <ul className='favorites__list'>
-              <FavoritesLocations offers={offers}/>
+              <FavoritesLocations offers={offers} />
             </ul>
           </section>
         </div>

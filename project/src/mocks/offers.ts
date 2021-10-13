@@ -1,7 +1,5 @@
-import {City, Location, Offers} from '../types/offers';
+import {Offers} from '../types/offers';
 import {USERS} from './users';
-
-const getRandomImageSrc = (): string => `https://picsum.photos/260/200?random=${Math.random()}`;
 
 export const OFFERS: Offers = [
   {
@@ -18,7 +16,7 @@ export const OFFERS: Offers = [
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     goods: ['Lorem ipsum', 'Adipiscing elit', 'Tempor incididunt', 'Magna', 'Aliqua'],
     host: USERS[0],
-    images: [getRandomImageSrc(), getRandomImageSrc(), getRandomImageSrc()],
+    images: ['https://picsum.photos/id/110/260/200', 'https://picsum.photos/id/120/260/200', 'https://picsum.photos/id/130/260/200'],
     isFavorite: true,
     isPremium: true,
     location: {
@@ -27,7 +25,7 @@ export const OFFERS: Offers = [
       zoom: 8,
     },
     maxAdults: 4,
-    previewImage: getRandomImageSrc(),
+    previewImage: 'https://picsum.photos/id/1/260/200',
     price: 100,
     rating: 4.2,
     title: 'Lorem ipsum dolor sit amet',
@@ -47,7 +45,7 @@ export const OFFERS: Offers = [
     description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     goods: ['Ut enim ad', 'Quis nostrud', 'Laboris nisi', 'Commodo', 'Consequat'],
     host: USERS[1],
-    images: [getRandomImageSrc(), getRandomImageSrc(), getRandomImageSrc()],
+    images: ['https://picsum.photos/id/140/260/200', 'https://picsum.photos/id/200/260/200', 'https://picsum.photos/id/300/260/200'],
     isFavorite: false,
     isPremium: false,
     location: {
@@ -56,7 +54,7 @@ export const OFFERS: Offers = [
       zoom: 8,
     },
     maxAdults: 3,
-    previewImage: getRandomImageSrc(),
+    previewImage: 'https://picsum.photos/id/140/260/200',
     price: 200,
     rating: 3.6,
     title: 'Ullamco laboris nisi ut aliquip',
@@ -76,7 +74,7 @@ export const OFFERS: Offers = [
     description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
     goods: ['Duis aute', 'Reprehenderit', 'Fugiat nulla', 'Cillum', 'Dolore'],
     host: USERS[2],
-    images: [getRandomImageSrc(), getRandomImageSrc(), getRandomImageSrc()],
+    images: ['https://picsum.photos/id/400/260/200', 'https://picsum.photos/id/500/260/200', 'https://picsum.photos/id/600/260/200'],
     isFavorite: true,
     isPremium: false,
     location: {
@@ -85,7 +83,7 @@ export const OFFERS: Offers = [
       zoom: 8,
     },
     maxAdults: 2,
-    previewImage: getRandomImageSrc(),
+    previewImage: 'https://picsum.photos/id/400/260/200',
     price: 300,
     rating: 4.8,
     title: 'Duis aute irure dolor',
@@ -105,7 +103,7 @@ export const OFFERS: Offers = [
     description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     goods: ['Excepteur sint', 'Officia deserunt', 'deserunt', 'Mollit anim', 'Est laborum'],
     host: USERS[3],
-    images: [getRandomImageSrc(), getRandomImageSrc(), getRandomImageSrc()],
+    images: ['https://picsum.photos/id/700/260/200', 'https://picsum.photos/id/800/260/200', 'https://picsum.photos/id/900/260/200'],
     isFavorite: false,
     isPremium: true,
     location: {
@@ -114,10 +112,10 @@ export const OFFERS: Offers = [
       zoom: 8,
     },
     maxAdults: 10,
-    previewImage: getRandomImageSrc(),
+    previewImage: 'https://picsum.photos/id/700/260/200',
     price: 400,
     rating: 4.9,
     title: 'Excepteur sint occaecat cupidatat',
     type: 'penthouse',
-  }
+  },
 ];

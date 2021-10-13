@@ -7,15 +7,13 @@ import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import Favorites from '../../pages/favorites/favorites';
 import {Offers} from '../../types/offers';
-import {Reviews} from '../../types/reviews';
 
 type AppProps = {
   placesCount: number;
   offers: Offers;
-  reviews: Reviews;
 }
 
-function App({placesCount, offers, reviews}: AppProps): JSX.Element {
+function App({placesCount, offers}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>

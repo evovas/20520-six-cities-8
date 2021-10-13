@@ -5,6 +5,11 @@ type FavoritesLocationProps = {
   offers: Offers;
 }
 
+type CityAndOffers = {
+  city: string;
+  cityOffers: Offers;
+}
+
 const spliceOffersByCity = (offers: Offers): Map<string, Offers> => {
   const sortedOffers = new Map();
   let prevCity = null;
@@ -22,11 +27,6 @@ const spliceOffersByCity = (offers: Offers): Map<string, Offers> => {
   return sortedOffers;
 };
 
-type CityAndOffers = {
-  city: string;
-  cityOffers: Offers;
-}
-
 function FavoritesLocationsByCity ({city, cityOffers}: CityAndOffers): JSX.Element {
   return (
     <li className='favorites__locations-items'>
@@ -38,7 +38,7 @@ function FavoritesLocationsByCity ({city, cityOffers}: CityAndOffers): JSX.Eleme
         </div>
       </div>
       <div className='favorites__places'>
-        <CardList offers={cityOffers} cardType={'favorites'}/>
+        <CardList offers={cityOffers} cardType={'favorites'} />
       </div>
     </li>
   );
@@ -46,7 +46,9 @@ function FavoritesLocationsByCity ({city, cityOffers}: CityAndOffers): JSX.Eleme
 
 function FavoritesLocations({offers}: FavoritesLocationProps): JSX.Element {
   return (
-    <div>{Array.from(spliceOffersByCity(offers), ([city, cityOffers]) => ({city, cityOffers})).map((cityAndOffers) => FavoritesLocationsByCity(cityAndOffers))}</div>
+    <div>{Array.from(spliceOffersByCity(offers), ([city, cityOffers]) => ({city, cityOffers}))
+      .map((cityAndOffers) => FavoritesLocationsByCity(cityAndOffers))}
+    </div>
   );
 }
 
