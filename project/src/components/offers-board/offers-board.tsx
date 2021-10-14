@@ -1,21 +1,22 @@
+import {useState} from 'react';
 import Sorting from '../sorting/sorting';
 import CardList from '../card-list/card-list';
-import {Offers} from '../../types/offers';
-import {useState} from 'react';
+import {Offer} from '../../types/offers';
+import Map from '../map/map';
 
 type CardListAndMapProps = {
   placesCount: number;
-  offers: Offers;
+  offers: Offer[];
 }
 
-function CardListAndMap({placesCount, offers}: CardListAndMapProps): JSX.Element {
+function OffersBoard({placesCount, offers}: CardListAndMapProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<null | number>(null);
 
-  const handleMouseEnterCard = (id: number) => {
+  const onMouseEnterCard = (id: number) => {
     setActiveCard(id);
   };
 
-  const handleMouseLeaveCard = () => {
+  const onMouseLeaveCard = () => {
     setActiveCard(null);
   };
 
@@ -28,17 +29,17 @@ function CardListAndMap({placesCount, offers}: CardListAndMapProps): JSX.Element
         <b className='places__found'>{placesCount} places to stay in Amsterdam</b>
         <Sorting />
         <div className='cities__places-list places__list tabs__content'>
-          <CardList offers={offers} cardType={'cities'}
-            handleMouseEnterCard={handleMouseEnterCard}
-            handleMouseLeaveCard={handleMouseLeaveCard}
+          <CardList
+            offers={offers}
+            cardType={'cities'}
+            onMouseEnterCard={onMouseEnterCard}
+            onMouseLeaveCard={onMouseLeaveCard}
           />
         </div>
       </section>
-      <div className='cities__right-section'>
-        <section className='cities__map map'/>
-      </div>
+      <Map />
     </div>
   );
 }
 
-export default CardListAndMap;
+export default OffersBoard;

@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offers';
+import PremiumLabel from '../premium-label/premium-label';
 
 type CardProps = {
   offer: Offer;
@@ -10,11 +11,6 @@ type CardProps = {
 
 const ArticleClassName = new Map([['cities', 'cities__place-card'], ['favorites', 'favorites__card'], ['near-places', 'near-places__card']]);
 const ACTIVE_BOOKMARK_CLASS_NAME = 'place-card__bookmark-button--active';
-const PREMIUM_LABEL = (
-  <div className="place-card__mark">
-    <span>Premium</span>
-  </div>
-);
 
 function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardProps): JSX.Element {
   const mouseEnterHandler = () => {
@@ -31,7 +27,7 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
 
   return (
     <article className={`${ArticleClassName.get(cardType)} place-card`} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
-      {offer.isPremium && PREMIUM_LABEL}
+      {offer.isPremium && <PremiumLabel className={'place-card__mark'} />}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
           <img className='place-card__image' src={offer.previewImage}

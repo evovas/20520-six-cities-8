@@ -1,11 +1,11 @@
 import Header from '../../components/header/header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
-import {Offers} from '../../types/offers';
-import CardListAndMap from '../../components/card-list-and-map/card-list-and-map';
+import {Offer} from '../../types/offers';
+import OffersBoard from '../../components/offers-board/offers-board';
 
 type MainPageProps = {
   placesCount: number;
-  offers: Offers;
+  offers: Offer[];
 }
 
 function Main({placesCount, offers}: MainPageProps): JSX.Element {
@@ -16,7 +16,7 @@ function Main({placesCount, offers}: MainPageProps): JSX.Element {
         <h1 className='visually-hidden'>Cities</h1>
         <LocationTabs />
         <div className='cities'>
-          <CardListAndMap placesCount={placesCount} offers={offers} />
+          <OffersBoard placesCount={placesCount} offers={offers} />
         </div>
       </main>
     </div>

@@ -1,26 +1,21 @@
 import {useParams} from 'react-router-dom';
-import {Offers} from '../../types/offers';
+import {Offer} from '../../types/offers';
 import Header from '../../components/header/header';
 import CardList from '../../components/card-list/card-list';
 import NotFound from '../not-found/not-found';
 import HostUser from '../../components/host-user/host-user';
 import PropertyReviews from '../../components/property-reviews/property-reviews';
+import PremiumLabel from '../../components/premium-label/premium-label';
 
 type RoomProps = {
-  offers: Offers;
+  offers: Offer[];
 }
 
 type PageParams = {
   id: string;
 }
 
-
 const ACTIVE_BOOKMARK_CLASS_NAME = 'property__bookmark-button--active';
-const PREMIUM_LABEL = (
-  <div className='property__mark'>
-    <span>Premium</span>
-  </div>
-);
 
 function Room({offers}: RoomProps): JSX.Element {
   const {id:pageId} = useParams<PageParams>();
@@ -46,7 +41,7 @@ function Room({offers}: RoomProps): JSX.Element {
           </div>
           <div className='property__container container'>
             <div className='property__wrapper'>
-              {currentOffer.isPremium && PREMIUM_LABEL}
+              {currentOffer.isPremium && <PremiumLabel className={'property__mark'} />}
               <div className='property__name-wrapper'>
                 <h1 className='property__name'>
                   {currentOffer.title}
