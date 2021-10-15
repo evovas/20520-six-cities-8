@@ -1,19 +1,21 @@
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
+import {Offer} from '../../types/offers';
+import {Review} from '../../types/reviews';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import Favorites from '../../pages/favorites/favorites';
-import {Offer} from '../../types/offers';
 
 type AppProps = {
   placesCount: number;
   offers: Offer[];
+  reviews: Review[];
 }
 
-function App({placesCount, offers}: AppProps): JSX.Element {
+function App({placesCount, offers, reviews}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
@@ -30,7 +32,7 @@ function App({placesCount, offers}: AppProps): JSX.Element {
           <Login />
         </Route>
         <Route exact path={AppRoute.Room}>
-          <Room offers={offers} />
+          <Room offers={offers} reviews={reviews} />
         </Route>
         <Route>
           <NotFound />

@@ -1,13 +1,8 @@
-import CardList from '../card-list/card-list';
 import {Offer} from '../../types/offers';
+import FavoritesLocationsByCity from '../favorites-locations-by-city/favorites-locations-by-city';
 
-type FavoritesLocationProps = {
+type FavoritesListProps = {
   offers: Offer[];
-}
-
-type CityAndOffers = {
-  city: string;
-  cityOffers: Offer[];
 }
 
 const spliceOffersByCity = (offers: Offer[]): {[key: string]: Offer[]} => (
@@ -21,38 +16,13 @@ const spliceOffersByCity = (offers: Offer[]): {[key: string]: Offer[]} => (
   }, {})
 );
 
-function FavoritesLocationsByCity({city, cityOffers}: CityAndOffers): JSX.Element {
+function FavoritesList({offers}: FavoritesListProps): JSX.Element {
   return (
-    <li className='favorites__locations-items'>
-      <div className='favorites__locations locations locations--current'>
-        <div className='locations__item'>
-          <a className='locations__item-link' href='/#'>
-            <span>{city}</span>
-          </a>
-        </div>
-      </div>
-      <div className='favorites__places'>
-        <CardList offers={cityOffers} cardType={'favorites'} />
-      </div>
-    </li>
-  );
-}
-
-function GroupedByCityOffers({offers}: {offers: Offer[]}): JSX.Element {
-  return (
-    <>
+    <div>
       {
         Object.entries(spliceOffersByCity(offers)).map(([city, cityOffers]) =>
           <FavoritesLocationsByCity key={city} city={city} cityOffers={cityOffers} />)
       }
-    </>
-  );
-}
-
-function FavoritesList({offers}: FavoritesLocationProps): JSX.Element {
-  return (
-    <div>
-      <GroupedByCityOffers offers={offers} />
     </div>
   );
 }

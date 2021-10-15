@@ -1,7 +1,7 @@
-import {Reviews} from '../types/reviews';
+import {Review} from '../types/reviews';
 import {USERS} from './users';
 
-export const REVIEWS: Reviews = [
+export const REVIEWS: Review[] = [
   {
     id: 1,
     comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
