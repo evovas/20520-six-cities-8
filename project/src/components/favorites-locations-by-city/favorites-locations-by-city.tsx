@@ -1,22 +1,26 @@
 import CardList from '../card-list/card-list';
+import {Offer} from '../../types/offers';
 
-const cards = Array.from({length: 2}, (_, i) => i);
+type FavoritesLocationsByCityProps = {
+  city: string;
+  cityOffers: Offer[];
+}
 
-function FavoritesLocation(): JSX.Element {
+function FavoritesLocationsByCity({city, cityOffers}: FavoritesLocationsByCityProps): JSX.Element {
   return (
     <li className='favorites__locations-items'>
       <div className='favorites__locations locations locations--current'>
         <div className='locations__item'>
           <a className='locations__item-link' href='/#'>
-            <span>Amsterdam</span>
+            <span>{city}</span>
           </a>
         </div>
       </div>
       <div className='favorites__places'>
-        <CardList cards={cards} cardType={'favorites'}/>
+        <CardList offers={cityOffers} cardType={'favorites'} />
       </div>
     </li>
   );
 }
 
-export default FavoritesLocation;
+export default FavoritesLocationsByCity;
