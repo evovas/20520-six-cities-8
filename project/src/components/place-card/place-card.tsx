@@ -34,7 +34,7 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
         <Link to={`/offer/${offer.id}`}>
           <img className='place-card__image' src={offer.previewImage}
             width={cardType === 'favorites' ? '150' : '260'}
-            height={cardType === 'favorites' ? '110' : '200'} alt='Place image'
+            height={cardType === 'favorites' ? '110' : '200'} alt={offer.title}
           />
         </Link>
       </div>
