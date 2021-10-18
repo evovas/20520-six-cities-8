@@ -3,6 +3,9 @@ import leaflet from 'leaflet';
 import {Map} from 'leaflet';
 import {City} from '../types/offers';
 
+const URL_TEMPLATE = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
 function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
   city: City,
@@ -23,9 +26,9 @@ function useMap(
 
       leaflet
         .tileLayer(
-          'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+          URL_TEMPLATE,
           {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            attribution: ATTRIBUTION,
           },
         )
         .addTo(instance);

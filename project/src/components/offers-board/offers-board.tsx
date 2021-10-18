@@ -1,8 +1,8 @@
 import {useState} from 'react';
-import {City, Offer} from '../../types/offers';
 import Sorting from '../sorting/sorting';
 import CardList from '../card-list/card-list';
 import Map from '../map/map';
+import {City, Offer} from '../../types/offers';
 
 type CardListAndMapProps = {
   placesCount: number;
@@ -11,14 +11,14 @@ type CardListAndMapProps = {
 }
 
 function OffersBoard({placesCount, offers, city}: CardListAndMapProps): JSX.Element {
-  const [activeCardID, setActiveCardID] = useState<number | null>(null);
+  const [activeCardId, setActiveCardId] = useState<number | null>(null);
 
   const onMouseEnterCard = (id: number) => {
-    setActiveCardID(id);
+    setActiveCardId(id);
   };
 
   const onMouseLeaveCard = () => {
-    setActiveCardID(null);
+    setActiveCardId(null);
   };
 
   return (
@@ -37,7 +37,7 @@ function OffersBoard({placesCount, offers, city}: CardListAndMapProps): JSX.Elem
           />
         </div>
       </section>
-      <Map offers={offers} city={city} activeCardID={activeCardID} />
+      <Map offers={offers} city={city} activeCardId={activeCardId} />
     </div>
   );
 }

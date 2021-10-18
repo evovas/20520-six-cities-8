@@ -1,13 +1,13 @@
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import {City, Offer} from '../../types/offers';
-import {Review} from '../../types/reviews';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import Favorites from '../../pages/favorites/favorites';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {City, Offer} from '../../types/offers';
+import {Review} from '../../types/reviews';
 
 type AppProps = {
   placesCount: number;

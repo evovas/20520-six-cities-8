@@ -1,18 +1,20 @@
 import {useEffect, useRef} from 'react';
-import leaflet from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import {City, Offer} from '../../types/offers';
+import leaflet, {Marker} from 'leaflet';
 import useMap from '../../hooks/useMap';
+import {City, Offer} from '../../types/offers';
+import 'leaflet/dist/leaflet.css';
 import './map.css';
-import {URL_MARKER_ACTIVE, URL_MARKER_DEFAULT} from '../../const';
 
 type MapProps = {
   offers: Offer[];
   city: City;
-  activeCardID: number | null;
+  activeCardId?: number | null;
 }
 
-function Map({offers, city, activeCardID}: MapProps): JSX.Element {
+const URL_MARKER_DEFAULT = '../img/pin.svg';
+const URL_MARKER_ACTIVE = '../img/pin-active.svg';
+
+function Map({offers, city, activeCardId}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -29,19 +31,26 @@ function Map({offers, city, activeCardID}: MapProps): JSX.Element {
   });
 
   useEffect(() => {
+    const points: Marker[] = [];
+
     if (map) {
       offers.forEach((offer) => {
         const {latitude, longitude} = offer.location;
-        leaflet.marker({
+
+        const point = leaflet.marker({
           lat: latitude,
           lng: longitude,
         }, {
-          icon: activeCardID !== undefined && activeCardID === offer.id ? activeIcon : defaultIcon,
+          icon: activeCardId === offer.id ? activeIcon : defaultIcon,
         })
           .addTo(map);
+
+        points.push(point);
       });
     }
-  }, [map, offers, activeCardID]);
+
+    return () => points.forEach((point) => point.remove());
+  }, [map, offers, activeCardId]);
 
   return (
     <div className='cities__right-section'>

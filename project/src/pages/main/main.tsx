@@ -1,7 +1,7 @@
 import Header from '../../components/header/header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
-import {City, Offer} from '../../types/offers';
 import OffersBoard from '../../components/offers-board/offers-board';
+import {City, Offer} from '../../types/offers';
 
 type MainPageProps = {
   placesCount: number;
