@@ -1,6 +1,6 @@
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Offer} from '../../types/offers';
+import {City, Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
@@ -13,14 +13,15 @@ type AppProps = {
   placesCount: number;
   offers: Offer[];
   reviews: Review[];
+  city: City;
 }
 
-function App({placesCount, offers, reviews}: AppProps): JSX.Element {
+function App({placesCount, offers, reviews, city}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <Main placesCount={placesCount} offers={offers} />
+          <Main placesCount={placesCount} offers={offers} city={city} />
         </Route>
         <PrivateRoute
           exact

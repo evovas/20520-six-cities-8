@@ -1,14 +1,15 @@
 import Header from '../../components/header/header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
-import {Offer} from '../../types/offers';
+import {City, Offer} from '../../types/offers';
 import OffersBoard from '../../components/offers-board/offers-board';
 
 type MainPageProps = {
   placesCount: number;
   offers: Offer[];
+  city: City;
 }
 
-function Main({placesCount, offers}: MainPageProps): JSX.Element {
+function Main({placesCount, offers, city}: MainPageProps): JSX.Element {
   return (
     <div className='page page--gray page--main'>
       <Header />
@@ -16,7 +17,7 @@ function Main({placesCount, offers}: MainPageProps): JSX.Element {
         <h1 className='visually-hidden'>Cities</h1>
         <LocationTabs />
         <div className='cities'>
-          <OffersBoard placesCount={placesCount} offers={offers} />
+          <OffersBoard placesCount={placesCount} offers={offers} city={city} />
         </div>
       </main>
     </div>
