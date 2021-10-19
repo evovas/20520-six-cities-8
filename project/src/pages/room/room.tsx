@@ -10,6 +10,8 @@ import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
 import {calculateRatingStars} from '../../utils';
 import './room.css';
+import Map from '../../components/map/map';
+import {AMSTERDAM_CITY} from '../../mocks/offers';
 
 type RoomProps = {
   offers: Offer[];
@@ -30,6 +32,7 @@ function Room({offers, reviews}: RoomProps): JSX.Element {
   }
 
   const {id, bedrooms, description, goods, host, images, isFavorite, isPremium, maxAdults, price, rating, title, type} = currentOffer;
+  const nearPlaces = offers.slice(0, NEAR_PLACES_COUNT);
 
   return (
     <div className='page'>
@@ -104,13 +107,13 @@ function Room({offers, reviews}: RoomProps): JSX.Element {
               <PropertyReviews offerId={id} reviews={reviews} />
             </div>
           </div>
-          <section className='property__map map'/>
+          <Map mapType={'property__map'} offers={nearPlaces} city={AMSTERDAM_CITY} />
         </section>
         <div className='container'>
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
             <div className='near-places__list places__list'>
-              <CardList offers={offers.slice(0, NEAR_PLACES_COUNT)} cardType={'near-places'} />
+              <CardList offers={nearPlaces} cardType={'near-places'} />
             </div>
           </section>
         </div>
