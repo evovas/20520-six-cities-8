@@ -1,15 +1,15 @@
 import {useParams} from 'react-router-dom';
 import cn from 'classnames';
-import {Offer} from '../../types/offers';
-import {Review} from '../../types/reviews';
-import {calculateRatingStars} from '../../utils';
-import './room.css';
 import Header from '../../components/header/header';
 import CardList from '../../components/card-list/card-list';
 import NotFound from '../not-found/not-found';
 import HostUser from '../../components/host-user/host-user';
 import PropertyReviews from '../../components/property-reviews/property-reviews';
 import PremiumLabel from '../../components/premium-label/premium-label';
+import {Offer} from '../../types/offers';
+import {Review} from '../../types/reviews';
+import {calculateRatingStars} from '../../utils';
+import './room.css';
 
 type RoomProps = {
   offers: Offer[];

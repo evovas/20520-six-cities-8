@@ -1,6 +1,6 @@
-import {Review} from '../../types/reviews';
 import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
+import {Review} from '../../types/reviews';
 
 type PropertyReviewsProps = {
   offerId: number;

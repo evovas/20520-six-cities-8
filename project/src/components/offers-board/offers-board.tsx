@@ -1,29 +1,29 @@
 import {useState} from 'react';
 import Sorting from '../sorting/sorting';
 import CardList from '../card-list/card-list';
-import {Offer} from '../../types/offers';
 import Map from '../map/map';
+import {City, Offer} from '../../types/offers';
 
 type CardListAndMapProps = {
   placesCount: number;
   offers: Offer[];
+  city: City;
 }
 
-function OffersBoard({placesCount, offers}: CardListAndMapProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<null | number>(null);
+function OffersBoard({placesCount, offers, city}: CardListAndMapProps): JSX.Element {
+  const [activeCardId, setActiveCardId] = useState<number | null>(null);
 
   const onMouseEnterCard = (id: number) => {
-    setActiveCard(id);
+    setActiveCardId(id);
   };
 
   const onMouseLeaveCard = () => {
-    setActiveCard(null);
+    setActiveCardId(null);
   };
 
   return (
     <div className='cities__places-container container'>
       {/*На время разработки*/}
-      <div>{activeCard}</div>
       <section className='cities__places places'>
         <h2 className='visually-hidden'>Places</h2>
         <b className='places__found'>{placesCount} places to stay in Amsterdam</b>
@@ -37,7 +37,7 @@ function OffersBoard({placesCount, offers}: CardListAndMapProps): JSX.Element {
           />
         </div>
       </section>
-      <Map />
+      <Map offers={offers} city={city} activeCardId={activeCardId} />
     </div>
   );
 }
