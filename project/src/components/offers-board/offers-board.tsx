@@ -38,7 +38,7 @@ function OffersBoard({placesCount, offers, city}: CardListAndMapProps): JSX.Elem
         </div>
       </section>
       <div className='cities__right-section'>
-        <Map mapType={'cities__map'} offers={offers} city={city} activeCardId={activeCardId} />
+        <Map className={'cities__map'} offers={offers} city={city} activeCardId={activeCardId} />
       </div>
     </div>
   );

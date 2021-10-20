@@ -9,7 +9,7 @@ import PremiumLabel from '../../components/premium-label/premium-label';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
 import {calculateRatingStars} from '../../utils';
-import './room.css';
+import styles from './room.module.scss';
 import Map from '../../components/map/map';
 import {AMSTERDAM_CITY} from '../../mocks/offers';
 
@@ -71,7 +71,7 @@ function Room({offers, reviews}: RoomProps): JSX.Element {
                 <span className='property__rating-value rating__value'>{rating}</span>
               </div>
               <ul className='property__features'>
-                <li className='property__feature property__feature--entire'>
+                <li className={cn('property__feature', styles.propertyFeatureEntire)}>
                   {type}
                 </li>
                 <li className='property__feature property__feature--bedrooms'>
@@ -107,7 +107,7 @@ function Room({offers, reviews}: RoomProps): JSX.Element {
               <PropertyReviews offerId={id} reviews={reviews} />
             </div>
           </div>
-          <Map mapType={'property__map'} offers={nearPlaces} city={AMSTERDAM_CITY} />
+          <Map className={'property__map'} offers={nearPlaces} city={AMSTERDAM_CITY} />
         </section>
         <div className='container'>
           <section className='near-places places'>

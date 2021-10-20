@@ -1,12 +1,13 @@
 import {useEffect, useRef} from 'react';
 import leaflet, {Marker} from 'leaflet';
+import cn from 'classnames';
 import useMap from '../../hooks/useMap';
 import {City, Offer} from '../../types/offers';
 import 'leaflet/dist/leaflet.css';
-import './map.css';
+import styles from './map.module.scss';
 
 type MapProps = {
-  mapType: string;
+  className: string;
   offers: Offer[];
   city: City;
   activeCardId?: number | null;
@@ -15,7 +16,7 @@ type MapProps = {
 const URL_MARKER_DEFAULT = '../img/pin.svg';
 const URL_MARKER_ACTIVE = '../img/pin-active.svg';
 
-function Map({mapType, offers, city, activeCardId}: MapProps): JSX.Element {
+function Map({className, offers, city, activeCardId}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -54,7 +55,7 @@ function Map({mapType, offers, city, activeCardId}: MapProps): JSX.Element {
   }, [map, offers, activeCardId]);
 
   return (
-    <section className={`${mapType} map`} ref={mapRef} />
+    <section className={cn('map', styles[className])} ref={mapRef} />
   );
 }
 
