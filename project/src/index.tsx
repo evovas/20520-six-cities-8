@@ -5,12 +5,7 @@ import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
 import {reducer} from './store/reducer';
-import {OFFERS} from './mocks/offers';
 import {REVIEWS} from './mocks/reviews';
-
-const Setting = {
-  PLACES_COUNT: 312,
-};
 
 const store = createStore(reducer, composeWithDevTools());
 
