@@ -5,32 +5,30 @@ import Map from '../map/map';
 import {City, Offer} from '../../types/offers';
 
 type CardListAndMapProps = {
-  placesCount: number;
-  offers: Offer[];
-  city: City;
+  currentCityOffers: Offer[];
 }
 
-function OffersBoard({placesCount, offers, city}: CardListAndMapProps): JSX.Element {
+function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
+  const currentCity: City = currentCityOffers[0].city;
+
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
 
   const onMouseEnterCard = (id: number) => {
     setActiveCardId(id);
   };
-
   const onMouseLeaveCard = () => {
     setActiveCardId(null);
   };
 
   return (
     <div className='cities__places-container container'>
-      {/*На время разработки*/}
       <section className='cities__places places'>
         <h2 className='visually-hidden'>Places</h2>
-        <b className='places__found'>{placesCount} places to stay in Amsterdam</b>
+        <b className='places__found'>{currentCityOffers.length} places to stay in {currentCity.name}</b>
         <Sorting />
         <div className='cities__places-list places__list tabs__content'>
           <CardList
-            offers={offers}
+            offers={currentCityOffers}
             cardType={'cities'}
             onMouseEnterCard={onMouseEnterCard}
             onMouseLeaveCard={onMouseLeaveCard}
@@ -38,7 +36,7 @@ function OffersBoard({placesCount, offers, city}: CardListAndMapProps): JSX.Elem
         </div>
       </section>
       <div className='cities__right-section'>
-        <Map className={'cities__map'} offers={offers} city={city} activeCardId={activeCardId} />
+        <Map className={'cities__map'} offers={currentCityOffers} city={currentCity} activeCardId={activeCardId} />
       </div>
     </div>
   );

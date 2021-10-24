@@ -1,4 +1,4 @@
-import {ActionType, ProcessOffersAction, SelectCityAction} from '../types/action';
+import {ActionType, CreateOffersListAction, SelectCityAction} from '../types/action';
 import {Offer} from '../types/offers';
 
 export const selectCity = (currentCityName: string): SelectCityAction => ({
@@ -6,7 +6,7 @@ export const selectCity = (currentCityName: string): SelectCityAction => ({
   payload: currentCityName,
 });
 
-export const processOffers = (offers: Offer[]): ProcessOffersAction => ({
-  type: ActionType.ProcessOffers,
+export const createOffersList = (offers: Offer[]): CreateOffersListAction => ({
+  type: ActionType.CreateOffersList,
   payload: offers,
 });

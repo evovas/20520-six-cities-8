@@ -32,6 +32,13 @@ function Map({className, offers, city, activeCardId}: MapProps): JSX.Element {
     iconAnchor: [13, 39],
   });
 
+  if (map) {
+    map.setView({
+      lat: city.location.latitude,
+      lng: city.location.longitude,
+    }, city.location.zoom);
+  }
+
   useEffect(() => {
     const points: Marker[] = [];
 

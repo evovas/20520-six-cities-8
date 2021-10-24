@@ -2,7 +2,7 @@ import {Offer} from './offers';
 
 export enum ActionType {
   SelectCity = 'booking/selectCity',
-  ProcessOffers = 'data/processOffers',
+  CreateOffersList = 'data/createOffersList',
 }
 
 export type SelectCityAction = {
@@ -10,9 +10,9 @@ export type SelectCityAction = {
   payload: string;
 }
 
-export type ProcessOffersAction = {
-  type: ActionType.ProcessOffers;
+export type CreateOffersListAction = {
+  type: ActionType.CreateOffersList;
   payload: Offer[];
 }
 
-export type Actions = SelectCityAction | ProcessOffersAction;
+export type Actions = SelectCityAction | CreateOffersListAction;
