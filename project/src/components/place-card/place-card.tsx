@@ -3,7 +3,7 @@ import cn from 'classnames';
 import PremiumLabel from '../premium-label/premium-label';
 import {Offer} from '../../types/offers';
 import {calculateRatingStars} from '../../utils';
-import './place-card.css';
+import styles from './place-card.module.scss';
 
 type CardProps = {
   offer: Offer;
@@ -60,7 +60,7 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
         <h2 className='place-card__name'>
           <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className='place-card__type'>{offer.type}</p>
+        <p className={styles.placeCardType}>{offer.type}</p>
       </div>
     </article>
   );

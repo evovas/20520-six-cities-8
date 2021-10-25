@@ -10,11 +10,20 @@ export const AMSTERDAM_CITY: City = {
   name: 'Amsterdam',
 };
 
+export const PARIS_CITY: City = {
+  location: {
+    latitude: 48.5209553943508,
+    longitude: 2.19309666406198,
+    zoom: 10,
+  },
+  name: 'Paris',
+};
+
 export const OFFERS: Offer[] = [
   {
     id: 1,
     bedrooms: 3,
-    city: AMSTERDAM_CITY,
+    city: PARIS_CITY,
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     goods: ['Lorem ipsum', 'Adipiscing elit', 'Tempor incididunt', 'Magna', 'Aliqua'],
     host: USERS[0],
@@ -22,8 +31,8 @@ export const OFFERS: Offer[] = [
     isFavorite: true,
     isPremium: true,
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      latitude: 48.5009553943508,
+      longitude: 2.13309666406198,
       zoom: 8,
     },
     maxAdults: 4,
@@ -36,7 +45,7 @@ export const OFFERS: Offer[] = [
   {
     id: 2,
     bedrooms: 4,
-    city: AMSTERDAM_CITY,
+    city: PARIS_CITY,
     description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     goods: ['Ut enim ad', 'Quis nostrud', 'Laboris nisi', 'Commodo', 'Consequat'],
     host: USERS[1],
@@ -44,8 +53,8 @@ export const OFFERS: Offer[] = [
     isFavorite: false,
     isPremium: false,
     location: {
-      latitude: 52.369553943508,
-      longitude: 4.85309666406198,
+      latitude: 48.5109553943508,
+      longitude: 2.14309666406198,
       zoom: 8,
     },
     maxAdults: 3,
