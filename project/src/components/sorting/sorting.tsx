@@ -5,11 +5,10 @@ import SortingItem from '../sorting-item/sorting-item';
 
 type SortingProps = {
   currentSorting: SortingOption;
-  onChangeSortingOption: (sortingOption: SortingOption) => void;
 }
 
 
-function Sorting({currentSorting, onChangeSortingOption}: SortingProps): JSX.Element {
+function Sorting({currentSorting}: SortingProps): JSX.Element {
   const [isOpenSelect, setIsOpenSelect] = useState<boolean>(false);
 
   const onChangeOpenSelectState = () => {
@@ -31,8 +30,6 @@ function Sorting({currentSorting, onChangeSortingOption}: SortingProps): JSX.Ele
             <SortingItem
               key={option}
               sortingOption={option}
-              currentSorting={currentSorting}
-              onChangeSortingOption={onChangeSortingOption}
               onChangeOpenSelectState={onChangeOpenSelectState}
             />))}
       </ul>
