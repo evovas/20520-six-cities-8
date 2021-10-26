@@ -3,6 +3,8 @@ import Sorting from '../sorting/sorting';
 import CardList from '../card-list/card-list';
 import Map from '../map/map';
 import {City, Offer} from '../../types/offers';
+import {SortingOption} from '../../const';
+import {sortOffers} from '../../offers-sorting';
 
 type CardListAndMapProps = {
   currentCityOffers: Offer[];
@@ -20,15 +22,24 @@ function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
     setActiveCardId(null);
   };
 
+  const [currentSorting, setCurrentSorting] = useState<SortingOption>(SortingOption.Popular);
+
+  const onChangeSortingOption = (sortingOption: SortingOption) => {
+    setCurrentSorting(sortingOption);
+  };
+
   return (
     <div className='cities__places-container container'>
       <section className='cities__places places'>
         <h2 className='visually-hidden'>Places</h2>
         <b className='places__found'>{currentCityOffers.length} places to stay in {currentCity.name}</b>
-        <Sorting />
+        <Sorting
+          currentSorting={currentSorting}
+          onChangeSortingOption={onChangeSortingOption}
+        />
         <div className='cities__places-list places__list tabs__content'>
           <CardList
-            offers={currentCityOffers}
+            offers={sortOffers(currentCityOffers, currentSorting)}
             cardType={'cities'}
             onMouseEnterCard={onMouseEnterCard}
             onMouseLeaveCard={onMouseLeaveCard}
