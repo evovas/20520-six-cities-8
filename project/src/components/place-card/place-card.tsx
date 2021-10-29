@@ -12,7 +12,11 @@ type CardProps = {
   onMouseLeaveCard?: () => void;
 }
 
-const ArticleClassName = new Map([['cities', 'cities__place-card'], ['favorites', 'favorites__card'], ['near-places', 'near-places__card']]);
+const ArticleClassName = new Map([
+  ['cities', 'cities__place-card'],
+  ['favorites', 'favorites__card'],
+  ['near-places', 'near-places__card'],
+]);
 
 function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardProps): JSX.Element {
   const mouseEnterHandler = () => {
@@ -27,6 +31,7 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
     }
   };
 
+  // @ts-ignore
   return (
     <article className={`${ArticleClassName.get(cardType)} place-card`} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
       {offer.isPremium && <PremiumLabel className={'place-card__mark'} />}
@@ -60,7 +65,7 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
         <h2 className='place-card__name'>
           <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className={styles.placeCardType}>{offer.type}</p>
+        <p className={cn(styles.placeCardType, 'place-card__type')}>{offer.type}</p>
       </div>
     </article>
   );

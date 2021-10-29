@@ -9,10 +9,10 @@ type SortingProps = {
 
 
 function Sorting({currentSorting}: SortingProps): JSX.Element {
-  const [isOpenSelect, setIsOpenSelect] = useState<boolean>(false);
+  const [isOpen, setOpen] = useState(false);
 
   const onChangeOpenSelectState = () => {
-    setIsOpenSelect(!isOpenSelect);
+    setOpen(!isOpen);
   };
 
   return (
@@ -24,7 +24,7 @@ function Sorting({currentSorting}: SortingProps): JSX.Element {
           <use xlinkHref='#icon-arrow-select'/>
         </svg>
       </span>
-      <ul className={cn('places__options', 'places__options--custom', {'places__options--opened':isOpenSelect})}>
+      <ul className={cn('places__options', 'places__options--custom', {'places__options--opened':isOpen})}>
         {[...Object.values(SortingOption)]
           .map((option) => (
             <SortingItem
