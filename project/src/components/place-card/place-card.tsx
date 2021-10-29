@@ -31,7 +31,6 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
     }
   };
 
-  // @ts-ignore
   return (
     <article className={`${ArticleClassName.get(cardType)} place-card`} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
       {offer.isPremium && <PremiumLabel className={'place-card__mark'} />}
