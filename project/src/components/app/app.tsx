@@ -1,41 +1,28 @@
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
-import {Dispatch} from '@reduxjs/toolkit';
+import {useSelector} from 'react-redux';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';
 import NotFound from '../../pages/not-found/not-found';
 import Favorites from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
+import Loading from '../../pages/loading/loading';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
-import {Actions} from '../../types/action';
 import {State} from '../../types/state';
-import {createOffersList} from '../../store/action';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {OFFERS} from '../../mocks/offers';
 
 type AppProps = {
   reviews: Review[];
 }
 
-const mapStateToProps = ({offers}: State) => ({
-  offers,
-});
+function App({reviews}: AppProps): JSX.Element {
+  const offers = useSelector<State, Offer[]>((state) => state.offers);
+  const isDataLoaded = useSelector<State, boolean>((state) => state.isDataLoaded);
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  processOffers(offers: Offer[]) {
-    dispatch(createOffersList(offers));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & AppProps;
-
-function App({offers, reviews, processOffers}: ConnectedComponentProps): JSX.Element {
-  processOffers(OFFERS);
+  if (!isDataLoaded) {
+    return <Loading />;
+  }
 
   return (
     <BrowserRouter>
@@ -63,5 +50,4 @@ function App({offers, reviews, processOffers}: ConnectedComponentProps): JSX.Ele
   );
 }
 
-export {App};
-export default connector(App);
+export default App;

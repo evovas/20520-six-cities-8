@@ -1,18 +1,23 @@
-import {ActionType, CreateOffersListAction, SelectCityAction, SelectSortingOptionAction} from '../types/action';
+import {ActionType} from '../types/action';
 import {Offer} from '../types/offers';
-import {SortingOption} from '../const';
+import {AuthorizationStatus, SortingOption} from '../const';
 
-export const selectCity = (currentCityName: string): SelectCityAction => ({
+export const selectCity = (currentCityName: string) => ({
   type: ActionType.SelectCity,
   payload: currentCityName,
-});
+} as const);
 
-export const createOffersList = (offers: Offer[]): CreateOffersListAction => ({
-  type: ActionType.CreateOffersList,
-  payload: offers,
-});
-
-export const selectSortingOption = (currentSorting: SortingOption): SelectSortingOptionAction => ({
+export const selectSortingOption = (currentSorting: SortingOption) => ({
   type: ActionType.SelectSortingOption,
   payload: currentSorting,
-});
+} as const);
+
+export const loadOffers = (offers: Offer[]) => ({
+  type: ActionType.LoadOffers,
+  payload: offers,
+} as const);
+
+export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
+  type: ActionType.RequireAuthorization,
+  payload: authStatus,
+} as const);
