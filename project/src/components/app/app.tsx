@@ -6,7 +6,7 @@ import Room from '../../pages/room/room';
 import NotFound from '../../pages/not-found/not-found';
 import Favorites from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
-import Loading from '../../pages/loading/loading';
+import Loader from '../loader/loader';
 import {Offer} from '../../types/data';
 import {Review} from '../../types/data';
 import {State} from '../../types/state';
@@ -21,7 +21,7 @@ function App({reviews}: AppProps): JSX.Element {
   const isDataLoaded = useSelector<State, boolean>((state) => state.isDataLoaded);
 
   if (!isDataLoaded) {
-    return <Loading />;
+    return <Loader size={15}/>;
   }
 
   return (
