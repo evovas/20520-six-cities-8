@@ -1,10 +1,11 @@
 import {ThunkActionResult} from '../types/action';
-import {Offer} from '../types/offers';
+import {ServerOffer} from '../types/data';
 import {APIRoute} from '../const';
 import {loadOffers} from './action';
+import {adaptOfferToClient} from '../services/adapter';
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get<Offer[]>(APIRoute.Offers);
-    dispatch(loadOffers(data));
+    const {data} = await api.get<ServerOffer[]>(APIRoute.Offers);
+    dispatch(loadOffers(data.map((offer) => adaptOfferToClient(offer))));
   };
