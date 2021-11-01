@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {Review} from '../../types/reviews';
+import {Review} from '../../types/data';
 import {calculateRatingStars} from '../../utils';
 
 type ReviewProps = {

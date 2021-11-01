@@ -1,6 +1,6 @@
 import Header from '../../components/header/header';
 import FavoritesList from '../../components/favorites-list/favorites-list';
-import {Offer} from '../../types/offers';
+import {Offer} from '../../types/data';
 
 type OffersProps = {
   offers: Offer[];

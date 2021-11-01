@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
 import PremiumLabel from '../premium-label/premium-label';
-import {Offer} from '../../types/offers';
+import {Offer} from '../../types/data';
 import {calculateRatingStars} from '../../utils';
 import styles from './place-card.module.scss';
 

@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import Sorting from '../sorting/sorting';
 import CardList from '../card-list/card-list';
 import Map from '../map/map';
-import {City, Offer} from '../../types/offers';
+import {City, Offer} from '../../types/data';
 import {State} from '../../types/state';
 import {sortOffers} from '../../offers-sorting';
 import {SortingOption} from '../../const';

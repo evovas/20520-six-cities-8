@@ -1,4 +1,4 @@
-import {Offer} from './offers';
+import {Offer} from './data';
 import {AuthorizationStatus, SortingOption} from '../const';
 
 export type State = {

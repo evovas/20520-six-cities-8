@@ -7,8 +7,8 @@ import NotFound from '../../pages/not-found/not-found';
 import Favorites from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
 import Loading from '../../pages/loading/loading';
-import {Offer} from '../../types/offers';
-import {Review} from '../../types/reviews';
+import {Offer} from '../../types/data';
+import {Review} from '../../types/data';
 import {State} from '../../types/state';
 import {AppRoute, AuthorizationStatus} from '../../const';
 

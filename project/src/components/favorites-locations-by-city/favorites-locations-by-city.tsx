@@ -1,5 +1,5 @@
 import CardList from '../card-list/card-list';
-import {Offer} from '../../types/offers';
+import {Offer} from '../../types/data';
 
 type FavoritesLocationsByCityProps = {
   city: string;

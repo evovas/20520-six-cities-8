@@ -4,7 +4,7 @@ import Header from '../../components/header/header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
 import OffersBoard from '../../components/offers-board/offers-board';
 import OffersBoardEmpty from '../../components/offers-board-empty/offers-board-empty';
-import {Offer} from '../../types/offers';
+import {Offer} from '../../types/data';
 import {State} from '../../types/state';
 
 type MainPageProps = {

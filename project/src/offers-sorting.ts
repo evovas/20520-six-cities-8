@@ -1,4 +1,4 @@
-import {Offer} from './types/offers';
+import {Offer} from './types/data';
 import {SortingOption} from './const';
 
 const comparePriceLowFirst = (offerA: Offer, offerB: Offer) => offerA.price - offerB.price;

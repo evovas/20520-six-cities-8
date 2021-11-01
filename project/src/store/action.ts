@@ -1,5 +1,5 @@
 import {ActionType} from '../types/action';
-import {Offer} from '../types/offers';
+import {Offer} from '../types/data';
 import {AuthorizationStatus, SortingOption} from '../const';
 
 export const selectCity = (currentCityName: string) => ({

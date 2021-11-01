@@ -1,4 +1,4 @@
-import {Offer, City} from '../types/offers';
+import {Offer, City} from '../types/data';
 import {USERS} from './users';
 
 export const AMSTERDAM_CITY: City = {
