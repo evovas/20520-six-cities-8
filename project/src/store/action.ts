@@ -12,9 +12,17 @@ export const selectSortingOption = (currentSorting: SortingOption) => ({
   payload: currentSorting,
 } as const);
 
-export const loadOffers = (offers: Offer[]) => ({
-  type: ActionType.LoadOffers,
+export const loadOffersRequest = () => ({
+  type: ActionType.LoadOffersRequest,
+} as const);
+
+export const loadOffersSuccess = (offers: Offer[]) => ({
+  type: ActionType.LoadOffersSuccess,
   payload: offers,
+} as const);
+
+export const loadOffersFailed = () => ({
+  type: ActionType.LoadOffersFailed,
 } as const);
 
 export const requireAuthorization = (authStatus: AuthorizationStatus) => ({

@@ -7,21 +7,25 @@ import NotFound from '../../pages/not-found/not-found';
 import Favorites from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
-import {Offer} from '../../types/data';
 import {Review} from '../../types/data';
 import {State} from '../../types/state';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, FetchState} from '../../const';
+import LoadError from '../../pages/load-error/load-error';
 
 type AppProps = {
   reviews: Review[];
 }
 
 function App({reviews}: AppProps): JSX.Element {
-  const offers = useSelector<State, Offer[]>((state) => state.offers);
-  const isDataLoaded = useSelector<State, boolean>((state) => state.isDataLoaded);
+  const offersLoading = useSelector((state: State) => state.offersLoading);
+  const offers = useSelector((state: State) => state.offers);
 
-  if (!isDataLoaded) {
+  if (offersLoading === FetchState.Loading) {
     return <Loader size={15}/>;
+  }
+
+  if (offersLoading === FetchState.Failed) {
+    return <LoadError />;
   }
 
   return (

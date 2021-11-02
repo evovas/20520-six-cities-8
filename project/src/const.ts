@@ -18,6 +18,13 @@ export enum SortingOption {
   TopRatedFirst = 'Top rated first',
 }
 
+export enum FetchState {
+  Idle = 'IDLE',
+  Loading = 'LOADING',
+  Success = 'SUCCESS',
+  Failed = 'FAILED',
+}
+
 export enum APIRoute {
   Offers = '/hotels',
 }
