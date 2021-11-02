@@ -1,5 +1,5 @@
 import UserProLabel from '../user-pro-label/user-pro-label';
-import {User} from '../../types/users';
+import {User} from '../../types/data';
 
 type HostUserProps = {
   user: User;

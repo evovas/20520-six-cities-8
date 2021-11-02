@@ -1,26 +1,20 @@
 import {useState} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Sorting from '../sorting/sorting';
 import CardList from '../card-list/card-list';
 import Map from '../map/map';
-import {City, Offer} from '../../types/offers';
+import {City, Offer} from '../../types/data';
 import {State} from '../../types/state';
 import {sortOffers} from '../../offers-sorting';
+import {SortingOption} from '../../const';
 
 type CardListAndMapProps = {
   currentCityOffers: Offer[];
 }
 
-const mapStateToProps = ({currentSorting}: State) => ({
-  currentSorting,
-});
+function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
+  const currentSorting = useSelector<State, SortingOption>((state) => state.currentSorting);
 
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & CardListAndMapProps;
-
-function OffersBoard({currentSorting, currentCityOffers}: ConnectedComponentProps): JSX.Element {
   const currentCity: City = currentCityOffers[0].city;
 
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
@@ -56,5 +50,4 @@ function OffersBoard({currentSorting, currentCityOffers}: ConnectedComponentProp
   );
 }
 
-export {OffersBoard};
-export default connector(OffersBoard);
+export default OffersBoard;

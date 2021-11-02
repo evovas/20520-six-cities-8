@@ -1,41 +1,32 @@
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
-import {Dispatch} from '@reduxjs/toolkit';
+import {useSelector} from 'react-redux';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';
 import NotFound from '../../pages/not-found/not-found';
 import Favorites from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
-import {Offer} from '../../types/offers';
-import {Review} from '../../types/reviews';
-import {Actions} from '../../types/action';
+import Loader from '../loader/loader';
+import {Review} from '../../types/data';
 import {State} from '../../types/state';
-import {createOffersList} from '../../store/action';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import {OFFERS} from '../../mocks/offers';
+import {AppRoute, AuthorizationStatus, FetchState} from '../../const';
+import LoadError from '../../pages/load-error/load-error';
 
 type AppProps = {
   reviews: Review[];
 }
 
-const mapStateToProps = ({offers}: State) => ({
-  offers,
-});
+function App({reviews}: AppProps): JSX.Element {
+  const offersLoading = useSelector((state: State) => state.offersStatus);
+  const offers = useSelector((state: State) => state.offers);
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  processOffers(offers: Offer[]) {
-    dispatch(createOffersList(offers));
-  },
-});
+  if (offersLoading === FetchState.Loading) {
+    return <Loader size={15}/>;
+  }
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & AppProps;
-
-function App({offers, reviews, processOffers}: ConnectedComponentProps): JSX.Element {
-  processOffers(OFFERS);
+  if (offersLoading === FetchState.Failed) {
+    return <LoadError />;
+  }
 
   return (
     <BrowserRouter>
@@ -63,5 +54,4 @@ function App({offers, reviews, processOffers}: ConnectedComponentProps): JSX.Ele
   );
 }
 
-export {App};
-export default connector(App);
+export default App;
