@@ -8,7 +8,7 @@ const initialState: State = {
   currentCityName: DEFAULT_CITY,
   currentSorting: SortingOption.Popular,
   offers: [],
-  offersLoading: FetchState.Idle,
+  offersStatus: FetchState.Idle,
   authorizationStatus: AuthorizationStatus.Unknown,
 };
 
@@ -19,18 +19,18 @@ const reducer = (state = initialState, action: Actions): State => {
     case ActionType.SelectSortingOption:
       return {...state, currentSorting: action.payload};
     case ActionType.LoadOffersRequest: {
-      return {...state, offersLoading: FetchState.Loading};
+      return {...state, offersStatus: FetchState.Loading};
     }
     case ActionType.LoadOffersSuccess: {
       const offers = action.payload;
       return {
         ...state,
         offers,
-        offersLoading: FetchState.Success,
+        offersStatus: FetchState.Success,
       };
     }
     case ActionType.LoadOffersFailed: {
-      return {...state, offersLoading: FetchState.Failed};
+      return {...state, offersStatus: FetchState.Failed};
     }
     case ActionType.RequireAuthorization:
       return {...state, authorizationStatus: action.payload};

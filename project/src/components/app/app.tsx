@@ -17,7 +17,7 @@ type AppProps = {
 }
 
 function App({reviews}: AppProps): JSX.Element {
-  const offersLoading = useSelector((state: State) => state.offersLoading);
+  const offersLoading = useSelector((state: State) => state.offersStatus);
   const offers = useSelector((state: State) => state.offers);
 
   if (offersLoading === FetchState.Loading) {
