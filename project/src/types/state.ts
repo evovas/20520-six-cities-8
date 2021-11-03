@@ -1,10 +1,10 @@
 import {Offer} from './data';
-import {AuthorizationStatus, FetchState, SortingOption} from '../const';
+import {AuthorizationStatus, FetchStatus, SortingOption} from '../const';
 
 export type State = {
   currentCityName: string;
   currentSorting: SortingOption;
   offers: Offer[] | [];
-  offersStatus: FetchState;
+  offersStatus: FetchStatus;
   authorizationStatus: AuthorizationStatus;
 }

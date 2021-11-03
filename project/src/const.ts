@@ -18,7 +18,7 @@ export enum SortingOption {
   TopRatedFirst = 'Top rated first',
 }
 
-export enum FetchState {
+export enum FetchStatus {
   Idle = 'IDLE',
   Loading = 'LOADING',
   Success = 'SUCCESS',

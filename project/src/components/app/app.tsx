@@ -9,7 +9,7 @@ import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
 import {Review} from '../../types/data';
 import {State} from '../../types/state';
-import {AppRoute, AuthorizationStatus, FetchState} from '../../const';
+import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
 import LoadError from '../../pages/load-error/load-error';
 
 type AppProps = {
@@ -20,11 +20,11 @@ function App({reviews}: AppProps): JSX.Element {
   const offersLoading = useSelector((state: State) => state.offersStatus);
   const offers = useSelector((state: State) => state.offers);
 
-  if (offersLoading === FetchState.Loading) {
+  if (offersLoading === FetchStatus.Loading) {
     return <Loader size={15}/>;
   }
 
-  if (offersLoading === FetchState.Failed) {
+  if (offersLoading === FetchStatus.Failed) {
     return <LoadError />;
   }
 
