@@ -1,0 +1,16 @@
+.loginInputWrapper {
+  position: relative;
+}
+
+.loginInputErrorMessage {
+  position: absolute;
+  top: 40px;
+  left: 0;
+
+  font-size: 13px;
+  color: red;
+}
+
+.loginInputError {
+  border-color: red;
+}
