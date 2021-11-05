@@ -13,7 +13,7 @@ type CardListAndMapProps = {
 }
 
 function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
-  const currentSorting = useSelector<State, SortingOption>((state) => state.currentSorting);
+  const currentSorting = useSelector((state: State) => state.currentSorting);
 
   const currentCity: City = currentCityOffers[0].city;
 

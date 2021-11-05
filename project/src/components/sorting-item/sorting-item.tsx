@@ -11,7 +11,7 @@ type SortingItemProps = {
 
 function SortingItem ({sortingOption, onChangeOpenSelectState}: SortingItemProps): JSX.Element {
   const onChangeSortingOption = useDispatch();
-  const currentSorting = useSelector<State, SortingOption>(((state) => state.currentSorting));
+  const currentSorting = useSelector(((state: State) => state.currentSorting));
 
   const onClick = () => {
     onChangeSortingOption(selectSortingOption(sortingOption));
