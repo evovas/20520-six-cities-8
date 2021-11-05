@@ -1,4 +1,5 @@
 import Logo from '../../components/logo/logo';
+import RandomLocation from '../../components/random-location/random-location';
 
 function NotFound(): JSX.Element {
   return (
@@ -18,6 +19,7 @@ function NotFound(): JSX.Element {
           <section className='login'>
             <h1 className='login__title'>404<br/> This page doesn&apos;t exist.</h1>
           </section>
+          <RandomLocation />
         </div>
       </main>
     </div>
