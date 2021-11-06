@@ -9,6 +9,12 @@ const initialState: State = {
   currentSorting: SortingOption.Popular,
   offers: [],
   offersStatus: FetchStatus.Idle,
+  offer: null,
+  offerStatus: FetchStatus.Idle,
+  nearbyOffers: [],
+  nearbyOffersStatus: FetchStatus.Idle,
+  comments: [],
+  commentsStatus: FetchStatus.Idle,
   checkAuthStatus: FetchStatus.Idle,
   authorizationStatus: AuthorizationStatus.Unknown,
   authorizationRequestStatus: FetchStatus.Idle,
@@ -36,6 +42,48 @@ const reducer = (state = initialState, action: Actions): State => {
     }
     case ActionType.LoadOffersFailed: {
       return {...state, offersStatus: FetchStatus.Failed};
+    }
+    case ActionType.LoadOfferRequest: {
+      return {...state, offerStatus: FetchStatus.Loading};
+    }
+    case ActionType.LoadOfferSuccess: {
+      const offer = action.payload;
+      return {
+        ...state,
+        offer,
+        offerStatus: FetchStatus.Success,
+      };
+    }
+    case ActionType.LoadOfferFailed: {
+      return {...state, offerStatus: FetchStatus.Failed};
+    }
+    case ActionType.LoadNearbyOffersRequest: {
+      return {...state, nearbyOffersStatus: FetchStatus.Loading};
+    }
+    case ActionType.LoadNearbyOffersSuccess: {
+      const nearbyOffers = action.payload;
+      return {
+        ...state,
+        nearbyOffers,
+        nearbyOffersStatus: FetchStatus.Success,
+      };
+    }
+    case ActionType.LoadNearbyOffersFailed: {
+      return {...state, nearbyOffersStatus: FetchStatus.Failed};
+    }
+    case ActionType.LoadCommentsRequest: {
+      return {...state, commentsStatus: FetchStatus.Loading};
+    }
+    case ActionType.LoadCommentsSuccess: {
+      const comments = action.payload;
+      return {
+        ...state,
+        comments,
+        commentsStatus: FetchStatus.Success,
+      };
+    }
+    case ActionType.LoadCommentsFailed: {
+      return {...state, commentsStatus: FetchStatus.Failed};
     }
     case ActionType.CheckAuthRequest: {
       return {...state, checkAuthStatus: FetchStatus.Loading};

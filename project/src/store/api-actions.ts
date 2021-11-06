@@ -1,6 +1,6 @@
 import {toast} from 'react-toastify';
 import {ThunkActionResult} from '../types/action';
-import {ServerOffer} from '../types/data';
+import {ServerReview, ServerOffer} from '../types/data';
 import {APIRoute, AuthorizationStatus} from '../const';
 import {
   checkAuthFailed,
@@ -9,6 +9,15 @@ import {
   loadOffersFailed,
   loadOffersRequest,
   loadOffersSuccess,
+  loadOfferRequest,
+  loadOfferSuccess,
+  loadOfferFailed,
+  loadNearbyOffersRequest,
+  loadNearbyOffersSuccess,
+  loadNearbyOffersFailed,
+  loadCommentsRequest,
+  loadCommentsSuccess,
+  loadCommentsFailed,
   requireAuthorizationFailed,
   requireAuthorizationRequest,
   requireAuthorizationSuccess,
@@ -16,11 +25,11 @@ import {
   requireLogoutRequest,
   requireLogoutSuccess
 } from './action';
-import {adaptOfferToClient} from '../services/adapter';
+import {adaptOfferToClient, adaptReviewToClient} from '../services/adapter';
 import {AuthData} from '../types/auth-data';
 import {dropToken, saveToken, Token} from '../services/token';
 
-const AUTH_FAIL_MESSAGE = 'An error occured, please try later';
+const AUTH_FAIL_MESSAGE = 'An error occurred, please try later';
 
 export const fetchOffersAction = (): ThunkActionResult => (
   async (dispatch, _, api): Promise<void> => {
@@ -30,6 +39,42 @@ export const fetchOffersAction = (): ThunkActionResult => (
       dispatch(loadOffersSuccess(data.map((offer) => adaptOfferToClient(offer))));
     } catch (e) {
       dispatch(loadOffersFailed());
+    }
+  }
+);
+
+export const fetchOfferAction = (pageID: string): ThunkActionResult => (
+  async (dispatch, _, api): Promise<void> => {
+    dispatch(loadOfferRequest());
+    try {
+      const {data} = await api.get<ServerOffer>(`${APIRoute.Offers}/${pageID}`);
+      dispatch(loadOfferSuccess(adaptOfferToClient(data)));
+    } catch (e) {
+      dispatch(loadOfferFailed());
+    }
+  }
+);
+
+export const fetchNearbyOffersAction = (pageID: string): ThunkActionResult => (
+  async (dispatch, _, api): Promise<void> => {
+    dispatch(loadNearbyOffersRequest());
+    try {
+      const {data} = await api.get<ServerOffer[]>(`${APIRoute.Offers}/${pageID}/${APIRoute.Nearby}`);
+      dispatch(loadNearbyOffersSuccess(data.map((offer) => adaptOfferToClient(offer))));
+    } catch (e) {
+      dispatch(loadNearbyOffersFailed());
+    }
+  }
+);
+
+export const fetchCommentsAction = (pageID: string): ThunkActionResult => (
+  async (dispatch, _, api): Promise<void> => {
+    dispatch(loadCommentsRequest());
+    try {
+      const {data} = await api.get<ServerReview[]>(`${APIRoute.Comments}/${pageID}`);
+      dispatch(loadCommentsSuccess(data.map((review) => adaptReviewToClient(review))));
+    } catch (e) {
+      dispatch(loadCommentsFailed());
     }
   }
 );

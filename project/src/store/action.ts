@@ -1,5 +1,5 @@
 import {ActionType} from '../types/action';
-import {Offer} from '../types/data';
+import {Offer, Review} from '../types/data';
 import {AuthorizationStatus, SortingOption} from '../const';
 
 export const selectCity = (currentCityName: string) => ({
@@ -23,6 +23,45 @@ export const loadOffersSuccess = (offers: Offer[]) => ({
 
 export const loadOffersFailed = () => ({
   type: ActionType.LoadOffersFailed,
+} as const);
+
+export const loadOfferRequest = () => ({
+  type: ActionType.LoadOfferRequest,
+} as const);
+
+export const loadOfferSuccess = (offer: Offer) => ({
+  type: ActionType.LoadOfferSuccess,
+  payload: offer,
+} as const);
+
+export const loadOfferFailed = () => ({
+  type: ActionType.LoadOfferFailed,
+} as const);
+
+export const loadNearbyOffersRequest = () => ({
+  type: ActionType.LoadNearbyOffersRequest,
+} as const);
+
+export const loadNearbyOffersSuccess = (offers: Offer[]) => ({
+  type: ActionType.LoadNearbyOffersSuccess,
+  payload: offers,
+} as const);
+
+export const loadNearbyOffersFailed = () => ({
+  type: ActionType.LoadNearbyOffersFailed,
+} as const);
+
+export const loadCommentsRequest = () => ({
+  type: ActionType.LoadCommentsRequest,
+} as const);
+
+export const loadCommentsSuccess = (reviews: Review[]) => ({
+  type: ActionType.LoadCommentsSuccess,
+  payload: reviews,
+} as const);
+
+export const loadCommentsFailed = () => ({
+  type: ActionType.LoadCommentsFailed,
 } as const);
 
 export const checkAuthRequest = () => ({

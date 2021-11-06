@@ -6,6 +6,15 @@ import {
   loadOffersRequest,
   loadOffersSuccess,
   loadOffersFailed,
+  loadOfferRequest,
+  loadOfferSuccess,
+  loadOfferFailed,
+  loadNearbyOffersRequest,
+  loadNearbyOffersSuccess,
+  loadNearbyOffersFailed,
+  loadCommentsRequest,
+  loadCommentsSuccess,
+  loadCommentsFailed,
   requireAuthorizationSuccess,
   requireAuthorizationRequest,
   requireAuthorizationFailed,
@@ -24,6 +33,15 @@ export enum ActionType {
   LoadOffersRequest = 'data/loadOffersRequest',
   LoadOffersSuccess = 'data/loadOffersSuccess',
   LoadOffersFailed = 'data/loadOffersFailed',
+  LoadOfferRequest = 'data/loadOfferRequest',
+  LoadOfferSuccess = 'data/loadOfferSuccess',
+  LoadOfferFailed = 'data/loadOfferFailed',
+  LoadNearbyOffersRequest = 'data/loadNearbyOffersRequest',
+  LoadNearbyOffersSuccess = 'data/loadNearbyOffersSuccess',
+  LoadNearbyOffersFailed = 'data/loadNearbyOffersFailed',
+  LoadCommentsRequest = 'data/loadCommentsRequest',
+  LoadCommentsSuccess = 'data/loadCommentsSuccess',
+  LoadCommentsFailed = 'data/loadCommentsFailed',
   CheckAuthRequest = 'user/checkAuthRequest',
   CheckAuthSuccess = 'user/checkAuthSuccess',
   CheckAuthFailed = 'user/checkAuthFailed',
@@ -41,6 +59,15 @@ export type Actions =
   | ReturnType<typeof loadOffersRequest>
   | ReturnType<typeof loadOffersSuccess>
   | ReturnType<typeof loadOffersFailed>
+  | ReturnType<typeof loadOfferRequest>
+  | ReturnType<typeof loadOfferSuccess>
+  | ReturnType<typeof loadOfferFailed>
+  | ReturnType<typeof loadNearbyOffersRequest>
+  | ReturnType<typeof loadNearbyOffersSuccess>
+  | ReturnType<typeof loadNearbyOffersFailed>
+  | ReturnType<typeof loadCommentsRequest>
+  | ReturnType<typeof loadCommentsSuccess>
+  | ReturnType<typeof loadCommentsFailed>
   | ReturnType<typeof checkAuthRequest>
   | ReturnType<typeof checkAuthSuccess>
   | ReturnType<typeof checkAuthFailed>

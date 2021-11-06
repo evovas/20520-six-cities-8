@@ -68,3 +68,11 @@ export type Review = {
   rating: number;
   user: User;
 }
+
+export type ServerReview = {
+  id: number;
+  comment: string;
+  date: Date;
+  rating: number;
+  user: ServerUser;
+}
