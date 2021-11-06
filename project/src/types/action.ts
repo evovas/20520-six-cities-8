@@ -6,7 +6,15 @@ import {
   loadOffersRequest,
   loadOffersSuccess,
   loadOffersFailed,
-  requireAuthorization
+  requireAuthorizationSuccess,
+  requireAuthorizationRequest,
+  requireAuthorizationFailed,
+  checkAuthRequest,
+  checkAuthSuccess,
+  checkAuthFailed,
+  requireLogoutRequest,
+  requireLogoutSuccess,
+  requireLogoutFailed
 } from '../store/action';
 import {State} from './state';
 
@@ -16,7 +24,15 @@ export enum ActionType {
   LoadOffersRequest = 'data/loadOffersRequest',
   LoadOffersSuccess = 'data/loadOffersSuccess',
   LoadOffersFailed = 'data/loadOffersFailed',
-  RequireAuthorization = 'user/requireAuthorization',
+  CheckAuthRequest = 'user/checkAuthRequest',
+  CheckAuthSuccess = 'user/checkAuthSuccess',
+  CheckAuthFailed = 'user/checkAuthFailed',
+  RequireAuthorizationRequest = 'user/requireAuthorizationRequest',
+  RequireAuthorizationSuccess = 'user/requireAuthorizationSuccess',
+  RequireAuthorizationFailed = 'user/requireAuthorizationFailed',
+  RequireLogoutRequest = 'user/requireLogout',
+  RequireLogoutSuccess = 'user/requireLogout',
+  RequireLogoutFailed = 'user/requireLogout',
 }
 
 export type Actions =
@@ -25,7 +41,15 @@ export type Actions =
   | ReturnType<typeof loadOffersRequest>
   | ReturnType<typeof loadOffersSuccess>
   | ReturnType<typeof loadOffersFailed>
-  | ReturnType<typeof requireAuthorization>;
+  | ReturnType<typeof checkAuthRequest>
+  | ReturnType<typeof checkAuthSuccess>
+  | ReturnType<typeof checkAuthFailed>
+  | ReturnType<typeof requireAuthorizationRequest>
+  | ReturnType<typeof requireAuthorizationSuccess>
+  | ReturnType<typeof requireAuthorizationFailed>
+  | ReturnType<typeof requireLogoutRequest>
+  | ReturnType<typeof requireLogoutSuccess>
+  | ReturnType<typeof requireLogoutFailed>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;

@@ -7,10 +7,10 @@ import NotFound from '../../pages/not-found/not-found';
 import Favorites from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
+import LoadError from '../../pages/load-error/load-error';
 import {Review} from '../../types/data';
 import {State} from '../../types/state';
 import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
-import LoadError from '../../pages/load-error/load-error';
 
 type AppProps = {
   reviews: Review[];
@@ -21,7 +21,7 @@ function App({reviews}: AppProps): JSX.Element {
   const offers = useSelector((state: State) => state.offers);
 
   if (offersLoading === FetchStatus.Loading) {
-    return <Loader size={15}/>;
+    return <Loader size={15} isFullScreen/>;
   }
 
   if (offersLoading === FetchStatus.Failed) {

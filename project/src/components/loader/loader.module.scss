@@ -1,6 +1,14 @@
-.loaderWrapper {
+.loaderWrapperFullScreen {
   height: 100vh;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loaderWrapper {
+  padding: 3px 20px 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;

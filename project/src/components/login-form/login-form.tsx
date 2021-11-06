@@ -1,7 +1,13 @@
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, FormEvent, useState} from 'react';
 import validator from 'validator';
 import cn from 'classnames';
 import styles from './login-form.module.scss';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginAction} from '../../store/api-actions';
+import {State} from '../../types/state';
+import {FetchStatus} from '../../const';
+import Loader from '../loader/loader';
+import {useHistory} from 'react-router-dom';
 
 const PASSWORD_VALIDATION_SETTING = {
   returnScore: false,
@@ -64,10 +70,28 @@ function LoginForm (): JSX.Element {
     setFormState({...formState, [name]: {isValid, value, isDefault: false}});
   };
 
+  const onSubmitForm = useDispatch();
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    onSubmitForm(loginAction({
+      login: formState.email.value,
+      password: formState.password.value,
+    }));
+  };
+
+  const authorizationRequestStatus = useSelector((state: State) => state.authorizationRequestStatus);
+
+  const history = useHistory();
+
+  if (authorizationRequestStatus === FetchStatus.Success) {
+    history.goBack();
+  }
+
   return (
     <section className='login'>
       <h1 className='login__title'>Sign in</h1>
-      <form className='login__form form' action='#' method='post'>
+      <form className='login__form form' action='#' method='post' onSubmit={handleSubmit}>
         {Object.entries(fields).map(([name, label]) => (
           <div key={name} className={cn(styles.loginInputWrapper, 'login__input-wrapper', 'form__input-wrapper')}>
             <label className='visually-hidden' htmlFor={name}>{label}</label>
@@ -93,7 +117,7 @@ function LoginForm (): JSX.Element {
             || formState.password.isDefault
           }
         >
-          Sign in
+          {authorizationRequestStatus === FetchStatus.Loading ? <Loader size={10} /> : 'Sign in'}
         </button>
       </form>
     </section>

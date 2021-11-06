@@ -3,12 +3,13 @@ import styles from './loader.module.scss';
 
 type LoaderProps = {
   size: number;
+  isFullScreen?: boolean;
 };
 
-function Loader({size}: LoaderProps): JSX.Element {
+function Loader({size, isFullScreen}: LoaderProps): JSX.Element {
   return (
-    <div className={styles.loaderWrapper}>
-      <PropagateLoader color={'#4481c3'} size={size} />
+    <div className={isFullScreen ? styles.loaderWrapperFullScreen : styles.loaderWrapper}>
+      <PropagateLoader color={'#66a5e8'} size={size} />
     </div>
   );
 }

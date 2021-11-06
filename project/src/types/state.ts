@@ -6,5 +6,8 @@ export type State = {
   currentSorting: SortingOption;
   offers: Offer[] | [];
   offersStatus: FetchStatus;
+  checkAuthStatus: FetchStatus;
   authorizationStatus: AuthorizationStatus;
+  authorizationRequestStatus: FetchStatus;
+  logoutStatus: FetchStatus;
 }

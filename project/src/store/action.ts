@@ -25,7 +25,40 @@ export const loadOffersFailed = () => ({
   type: ActionType.LoadOffersFailed,
 } as const);
 
-export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
-  type: ActionType.RequireAuthorization,
+export const checkAuthRequest = () => ({
+  type: ActionType.CheckAuthRequest,
+} as const);
+
+export const checkAuthSuccess = (authStatus: AuthorizationStatus) => ({
+  type: ActionType.CheckAuthSuccess,
   payload: authStatus,
+} as const);
+
+export const checkAuthFailed = () => ({
+  type: ActionType.CheckAuthFailed,
+} as const);
+
+export const requireAuthorizationRequest = () => ({
+  type: ActionType.RequireAuthorizationRequest,
+} as const);
+
+export const requireAuthorizationSuccess = (authStatus: AuthorizationStatus) => ({
+  type: ActionType.RequireAuthorizationSuccess,
+  payload: authStatus,
+} as const);
+
+export const requireAuthorizationFailed = () => ({
+  type: ActionType.RequireAuthorizationFailed,
+} as const);
+
+export const requireLogoutRequest = () => ({
+  type: ActionType.RequireLogoutRequest,
+} as const);
+
+export const requireLogoutSuccess = () => ({
+  type: ActionType.RequireLogoutSuccess,
+} as const);
+
+export const requireLogoutFailed = () => ({
+  type: ActionType.RequireLogoutFailed,
 } as const);
