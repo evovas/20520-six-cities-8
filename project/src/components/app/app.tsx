@@ -19,6 +19,7 @@ type AppProps = {
 function App({reviews}: AppProps): JSX.Element {
   const offersLoading = useSelector((state: State) => state.offersStatus);
   const offers = useSelector((state: State) => state.offers);
+  const authorizationStatus = useSelector((state: State) => state.authorizationStatus);
 
   if (offersLoading === FetchStatus.Loading) {
     return <Loader size={15} isFullScreen/>;
@@ -37,12 +38,19 @@ function App({reviews}: AppProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
-          render={() => <Favorites offers={offers} />}
-          authorizationStatus={AuthorizationStatus.Auth}
+          render={() => <Favorites offers={offers.filter((offer) => offer.isFavorite)} />}
+          authorizationStatus={authorizationStatus}
+          verifiableStatus={AuthorizationStatus.Auth}
+          redirectTo={AppRoute.Login}
         />
-        <Route exact path={AppRoute.Login}>
-          <Login />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.Login}
+          render={() => <Login />}
+          authorizationStatus={authorizationStatus}
+          verifiableStatus={AuthorizationStatus.NoAuth}
+          redirectTo={AppRoute.Root}
+        />
         <Route exact path={AppRoute.Room}>
           <Room offers={offers} reviews={reviews} />
         </Route>

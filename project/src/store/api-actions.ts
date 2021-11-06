@@ -1,3 +1,4 @@
+import {toast} from 'react-toastify';
 import {ThunkActionResult} from '../types/action';
 import {ServerOffer} from '../types/data';
 import {APIRoute, AuthorizationStatus} from '../const';
@@ -18,6 +19,8 @@ import {
 import {adaptOfferToClient} from '../services/adapter';
 import {AuthData} from '../types/auth-data';
 import {dropToken, saveToken, Token} from '../services/token';
+
+const AUTH_FAIL_MESSAGE = 'An error occured, please try later';
 
 export const fetchOffersAction = (): ThunkActionResult => (
   async (dispatch, _, api): Promise<void> => {
@@ -52,6 +55,7 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
       dispatch(requireAuthorizationSuccess(AuthorizationStatus.Auth));
     } catch (e) {
       dispatch(requireAuthorizationFailed());
+      toast.info(AUTH_FAIL_MESSAGE);
     }
   }
 );

@@ -4,6 +4,7 @@ import {applyMiddleware, createStore} from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import {ToastContainer} from 'react-toastify';
 import App from './components/app/app';
 import {ThunkAppDispatch} from './types/action';
 import {reducer} from './store/reducer';
@@ -11,10 +12,11 @@ import {checkAuthSuccess} from './store/action';
 import {checkAuthAction, fetchOffersAction} from './store/api-actions';
 import {createAPI} from './services/api';
 import {AuthorizationStatus} from './const';
+import 'react-toastify/dist/ReactToastify.css';
 import {REVIEWS} from './mocks/reviews';
 
 const api = createAPI(
-  () => Promise.reject(store.dispatch(checkAuthSuccess(AuthorizationStatus.NoAuth))),
+  () => store.dispatch(checkAuthSuccess(AuthorizationStatus.NoAuth)),
 );
 
 const store = createStore(
@@ -28,6 +30,7 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <App reviews={REVIEWS} />
     </Provider>
   </React.StrictMode>,

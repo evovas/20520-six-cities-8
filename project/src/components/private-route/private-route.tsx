@@ -4,17 +4,19 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 type PrivateRouteProps = RouteProps & {
   render: () => JSX.Element;
   authorizationStatus: AuthorizationStatus;
+  verifiableStatus: AuthorizationStatus;
+  redirectTo: AppRoute;
 }
 
-function PrivateRoute({exact, path, render, authorizationStatus}: PrivateRouteProps): JSX.Element {
+function PrivateRoute({exact, path, render, authorizationStatus, verifiableStatus, redirectTo}: PrivateRouteProps): JSX.Element {
   return (
     <Route
       exact={exact}
       path={path}
       render={() => (
-        authorizationStatus === AuthorizationStatus.Auth
+        authorizationStatus === verifiableStatus
           ? render()
-          : <Redirect to={AppRoute.Login} />
+          : <Redirect to={redirectTo} />
       )}
     />
   );

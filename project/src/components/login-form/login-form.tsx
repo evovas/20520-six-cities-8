@@ -1,13 +1,13 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import validator from 'validator';
 import cn from 'classnames';
-import styles from './login-form.module.scss';
-import {useDispatch, useSelector} from 'react-redux';
-import {loginAction} from '../../store/api-actions';
+import Loader from '../loader/loader';
 import {State} from '../../types/state';
 import {FetchStatus} from '../../const';
-import Loader from '../loader/loader';
-import {useHistory} from 'react-router-dom';
+import {loginAction} from '../../store/api-actions';
+import styles from './login-form.module.scss';
 
 const PASSWORD_VALIDATION_SETTING = {
   returnScore: false,
