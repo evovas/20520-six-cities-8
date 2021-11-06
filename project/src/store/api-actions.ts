@@ -13,7 +13,7 @@ import {
   requireAuthorizationSuccess,
   requireLogoutFailed,
   requireLogoutRequest,
-  requireLogoutSuccess
+  requireLogoutSuccess,
 } from './action';
 import {adaptOfferToClient} from '../services/adapter';
 import {AuthData} from '../types/auth-data';
@@ -65,7 +65,7 @@ export const logoutAction = (): ThunkActionResult => (
       console.log(2);
       dropToken();
       console.log(3);
-      dispatch(requireLogoutSuccess());
+      dispatch(requireLogoutSuccess(AuthorizationStatus.NoAuth));
       console.log(5);
     } catch (e) {
       dispatch(requireLogoutFailed());

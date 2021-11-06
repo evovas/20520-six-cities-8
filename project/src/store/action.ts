@@ -55,8 +55,9 @@ export const requireLogoutRequest = () => ({
   type: ActionType.RequireLogoutRequest,
 } as const);
 
-export const requireLogoutSuccess = () => ({
+export const requireLogoutSuccess = (authStatus: AuthorizationStatus) => ({
   type: ActionType.RequireLogoutSuccess,
+  payload: authStatus,
 } as const);
 
 export const requireLogoutFailed = () => ({

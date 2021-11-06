@@ -63,7 +63,7 @@ const reducer = (state = initialState, action: Actions): State => {
       console.log('4');
       return {...state,
         logoutStatus: FetchStatus.Success,
-        authorizationStatus: AuthorizationStatus.NoAuth,
+        authorizationStatus: action.payload,
       };
     }
     case ActionType.RequireLogoutFailed: {
