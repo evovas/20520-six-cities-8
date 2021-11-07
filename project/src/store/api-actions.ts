@@ -9,6 +9,9 @@ import {
   loadReviewsFailed,
   loadReviewsRequest,
   loadReviewsSuccess,
+  postReviewRequest,
+  postReviewSuccess,
+  postReviewFailed,
   loadNearbyOffersFailed,
   loadNearbyOffersRequest,
   loadNearbyOffersSuccess,
@@ -23,7 +26,7 @@ import {
   requireAuthorizationSuccess,
   requireLogoutFailed,
   requireLogoutRequest,
-  requireLogoutSuccess, postReviewRequest, postReviewSuccess, postReviewFailed,
+  requireLogoutSuccess
 } from './action';
 import {adaptOfferToClient, adaptReviewToClient} from '../services/adapter';
 import {AuthData} from '../types/auth-data';

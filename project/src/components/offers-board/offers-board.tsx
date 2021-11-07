@@ -6,7 +6,6 @@ import Map from '../map/map';
 import {City, Offer} from '../../types/data';
 import {State} from '../../types/state';
 import {sortOffers} from '../../offers-sorting';
-import {SortingOption} from '../../const';
 
 type CardListAndMapProps = {
   currentCityOffers: Offer[];
