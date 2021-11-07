@@ -64,6 +64,27 @@ export const loadReviewsFailed = () => ({
   type: ActionType.LoadReviewsFailed,
 } as const);
 
+export const dropRoomData = () => ({
+  type: ActionType.DropRoomData,
+} as const);
+
+export const postReviewRequest = () => ({
+  type: ActionType.PostReviewRequest,
+} as const);
+
+export const postReviewSuccess = (reviews: Review[]) => ({
+  type: ActionType.PostReviewSuccess,
+  payload: reviews,
+} as const);
+
+export const postReviewFailed = () => ({
+  type: ActionType.PostReviewFailed,
+} as const);
+
+export const resetPostReview = () => ({
+  type: ActionType.ResetPostReview,
+} as const);
+
 export const checkAuthRequest = () => ({
   type: ActionType.CheckAuthRequest,
 } as const);

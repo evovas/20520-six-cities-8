@@ -1,6 +1,6 @@
 import {toast} from 'react-toastify';
 import {ThunkActionResult} from '../types/action';
-import {ServerOffer, ServerReview} from '../types/data';
+import {ReviewPost, ServerOffer, ServerReview} from '../types/data';
 import {APIRoute, AuthorizationStatus} from '../const';
 import {
   checkAuthFailed,
@@ -23,13 +23,13 @@ import {
   requireAuthorizationSuccess,
   requireLogoutFailed,
   requireLogoutRequest,
-  requireLogoutSuccess
+  requireLogoutSuccess, postReviewRequest, postReviewSuccess, postReviewFailed,
 } from './action';
 import {adaptOfferToClient, adaptReviewToClient} from '../services/adapter';
 import {AuthData} from '../types/auth-data';
 import {dropToken, saveToken, Token} from '../services/token';
 
-const AUTH_FAIL_MESSAGE = 'An error occurred, please try later';
+const FAIL_MESSAGE = 'An error occurred, please try later';
 
 export const fetchOffersAction = (): ThunkActionResult => (
   async (dispatch, _, api): Promise<void> => {
@@ -79,6 +79,19 @@ export const fetchReviewsAction = (pageId: string): ThunkActionResult => (
   }
 );
 
+export const postReviewAction = (pageId: string, {comment, rating}: ReviewPost): ThunkActionResult => (
+  async (dispatch, _, api) => {
+    dispatch(postReviewRequest());
+    try {
+      const {data} = await api.post<ServerReview[]>(`${APIRoute.Comments}/${pageId}`, {comment, rating});
+      dispatch(postReviewSuccess(data.map((review) => adaptReviewToClient(review))));
+    } catch (e) {
+      dispatch(postReviewFailed());
+      toast.info(FAIL_MESSAGE);
+    }
+  }
+);
+
 export const checkAuthAction = (): ThunkActionResult => (
   async (dispatch, _, api): Promise<void> => {
     dispatch(checkAuthRequest());
@@ -100,7 +113,7 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
       dispatch(requireAuthorizationSuccess(AuthorizationStatus.Auth));
     } catch (e) {
       dispatch(requireAuthorizationFailed());
-      toast.info(AUTH_FAIL_MESSAGE);
+      toast.info(FAIL_MESSAGE);
     }
   }
 );

@@ -15,6 +15,11 @@ import {
   loadReviewsRequest,
   loadReviewsSuccess,
   loadReviewsFailed,
+  dropRoomData,
+  postReviewRequest,
+  postReviewSuccess,
+  postReviewFailed,
+  resetPostReview,
   requireAuthorizationSuccess,
   requireAuthorizationRequest,
   requireAuthorizationFailed,
@@ -42,6 +47,11 @@ export enum ActionType {
   LoadReviewsRequest = 'data/loadReviewsRequest',
   LoadReviewsSuccess = 'data/loadReviewsSuccess',
   LoadReviewsFailed = 'data/loadReviewsFailed',
+  DropRoomData = 'data/dropRoomData',
+  PostReviewRequest = 'data/postReviewRequest',
+  PostReviewSuccess = 'data/postReviewSuccess',
+  PostReviewFailed = 'data/postReviewFailed',
+  ResetPostReview = 'data/resetPostReview',
   CheckAuthRequest = 'user/checkAuthRequest',
   CheckAuthSuccess = 'user/checkAuthSuccess',
   CheckAuthFailed = 'user/checkAuthFailed',
@@ -68,6 +78,11 @@ export type Actions =
   | ReturnType<typeof loadReviewsRequest>
   | ReturnType<typeof loadReviewsSuccess>
   | ReturnType<typeof loadReviewsFailed>
+  | ReturnType<typeof dropRoomData>
+  | ReturnType<typeof postReviewRequest>
+  | ReturnType<typeof postReviewSuccess>
+  | ReturnType<typeof postReviewFailed>
+  | ReturnType<typeof resetPostReview>
   | ReturnType<typeof checkAuthRequest>
   | ReturnType<typeof checkAuthSuccess>
   | ReturnType<typeof checkAuthFailed>

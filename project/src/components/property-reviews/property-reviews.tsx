@@ -1,20 +1,26 @@
+import {useSelector} from 'react-redux';
 import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
+import {AuthorizationStatus} from '../../const';
 import {Review} from '../../types/data';
+import {State} from '../../types/state';
 
 type PropertyReviewsProps = {
-  offerId: number;
   reviews: Review[];
+  pageId: string;
 }
 
-function PropertyReviews({offerId, reviews}: PropertyReviewsProps): JSX.Element {
+const MAXIMUM_COMMENTS_COUNT = 10;
+
+const compareReviewDate = (reviewA: Review, reviewB: Review) => reviewB.date.getDate() - reviewA.date.getDate();
+
+function PropertyReviews({pageId, reviews}: PropertyReviewsProps): JSX.Element {
+  const authorizationStatus = useSelector((state: State) => state.authorizationStatus);
   return (
     <section className='property__reviews reviews'>
-      {/*На время разработки*/}
-      <div>{offerId}</div>
       <h2 className='reviews__title'>Reviews &middot; <span className='reviews__amount'>{reviews.length}</span></h2>
-      <ReviewList reviews={reviews} />
-      <ReviewForm />
+      <ReviewList reviews={reviews.sort(compareReviewDate).slice( - MAXIMUM_COMMENTS_COUNT, reviews.length)} />
+      {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm pageId={pageId} />}
     </section>
   );
 }

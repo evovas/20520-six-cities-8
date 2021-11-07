@@ -108,7 +108,7 @@ function LoginForm (): JSX.Element {
             || !formState.password.touched
           }
         >
-          {authorizationRequestStatus === FetchStatus.Loading ? <Loader size={10} /> : 'Sign in'}
+          {authorizationRequestStatus === FetchStatus.Loading ? <Loader size={10} isLoginScreen /> : 'Sign in'}
         </button>
       </form>
     </section>

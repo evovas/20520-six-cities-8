@@ -15,6 +15,7 @@ const initialState: State = {
   nearbyOffersStatus: FetchStatus.Idle,
   reviews: [],
   reviewsStatus: FetchStatus.Idle,
+  reviewPostStatus: FetchStatus.Idle,
   checkAuthStatus: FetchStatus.Idle,
   authorizationStatus: AuthorizationStatus.Unknown,
   authorizationRequestStatus: FetchStatus.Idle,
@@ -75,15 +76,43 @@ const reducer = (state = initialState, action: Actions): State => {
       return {...state, reviewsStatus: FetchStatus.Loading};
     }
     case ActionType.LoadReviewsSuccess: {
-      const comments = action.payload;
+      const reviews = action.payload;
       return {
         ...state,
-        reviews: comments,
+        reviews,
         reviewsStatus: FetchStatus.Success,
       };
     }
     case ActionType.LoadReviewsFailed: {
       return {...state, reviewsStatus: FetchStatus.Failed};
+    }
+    case ActionType.DropRoomData: {
+      return {
+        ...state,
+        offer: null,
+        offerStatus: FetchStatus.Idle,
+        nearbyOffers: [],
+        nearbyOffersStatus: FetchStatus.Idle,
+        reviews: [],
+        reviewsStatus: FetchStatus.Idle,
+      };
+    }
+    case ActionType.PostReviewRequest: {
+      return {...state, reviewPostStatus: FetchStatus.Loading};
+    }
+    case ActionType.PostReviewSuccess: {
+      const reviews = action.payload;
+      return {
+        ...state,
+        reviews,
+        reviewPostStatus: FetchStatus.Success,
+      };
+    }
+    case ActionType.PostReviewFailed: {
+      return {...state, reviewPostStatus: FetchStatus.Failed};
+    }
+    case ActionType.ResetPostReview: {
+      return {...state, reviewPostStatus: FetchStatus.Idle};
     }
     case ActionType.CheckAuthRequest: {
       return {...state, checkAuthStatus: FetchStatus.Loading};

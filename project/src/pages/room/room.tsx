@@ -1,4 +1,6 @@
+import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import cn from 'classnames';
 import Header from '../../components/header/header';
 import CardList from '../../components/card-list/card-list';
@@ -6,13 +8,14 @@ import NotFound from '../not-found/not-found';
 import HostUser from '../../components/host-user/host-user';
 import PropertyReviews from '../../components/property-reviews/property-reviews';
 import PremiumLabel from '../../components/premium-label/premium-label';
-import {calculateRatingStars} from '../../utils';
-import styles from './room.module.scss';
+import Loader from '../../components/loader/loader';
 import Map from '../../components/map/map';
-import {useDispatch, useSelector} from 'react-redux';
-import {fetchReviewsAction, fetchNearbyOffersAction, fetchOfferAction} from '../../store/api-actions';
+import {calculateRatingStars} from '../../utils';
+import {fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction} from '../../store/api-actions';
+import {dropRoomData} from '../../store/action';
 import {State} from '../../types/state';
-import {useEffect} from 'react';
+import {FetchStatus} from '../../const';
+import styles from './room.module.scss';
 
 type PageParams = {
   id: string;
@@ -24,23 +27,32 @@ function Room(): JSX.Element {
   const loadPageOffer = useDispatch();
   const loadNearbyOffers = useDispatch();
   const loadComments = useDispatch();
+  const clearRoomData = useDispatch();
 
   useEffect(() => {
     loadPageOffer(fetchOfferAction(pageId));
     loadNearbyOffers(fetchNearbyOffersAction(pageId));
     loadComments(fetchReviewsAction(pageId));
+    return () => {
+      clearRoomData(dropRoomData());
+    };
   }, [pageId]);
 
 
   const offer = useSelector((state: State) => state.offer);
   const nearbyOffers = useSelector((state: State) => state.nearbyOffers);
   const reviews = useSelector((state: State) => state.reviews);
+  const offerStatus = useSelector((state: State) => state.offerStatus);
+
+  if (offerStatus === FetchStatus.Idle || offerStatus === FetchStatus.Loading){
+    return <Loader size={15} isFullScreen />;
+  }
 
   if (!offer) {
     return <NotFound />;
   }
 
-  const {id, bedrooms, description, goods, host, images, isFavorite, isPremium, maxAdults, price, rating, title, type, city} = offer;
+  const {bedrooms, description, goods, host, images, isFavorite, isPremium, maxAdults, price, rating, title, type, city} = offer;
 
   return (
     <div className='page'>
@@ -112,7 +124,7 @@ function Room(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <PropertyReviews offerId={id} reviews={reviews} />
+              <PropertyReviews pageId={pageId} reviews={reviews} />
             </div>
           </div>
           <Map className={'property__map'} offers={nearbyOffers} city={city} />

@@ -26,11 +26,12 @@ export const adaptReviewToClient = (review: ServerReview): Review => (
     {},
     review,
     {
+      date: new Date(review.date),
       user: Object.assign(
         {},
         review.user,
         {
-          avatarUrl: review.user['avatar_url'],
+          avatarUrl: review.user['avatar_url'] ?? '',
           isPro: review.user['is_pro'],
         },
       ),

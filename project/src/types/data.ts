@@ -76,3 +76,8 @@ export type ServerReview = {
   rating: number;
   user: ServerUser;
 }
+
+export type ReviewPost = {
+  comment: string;
+  rating: string;
+}

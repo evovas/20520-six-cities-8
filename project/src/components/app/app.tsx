@@ -8,7 +8,6 @@ import Favorites from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
 import LoadError from '../../pages/load-error/load-error';
-import {Review} from '../../types/data';
 import {State} from '../../types/state';
 import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
 

@@ -12,6 +12,7 @@ export type State = {
   nearbyOffersStatus: FetchStatus;
   reviews: Review[] | [];
   reviewsStatus: FetchStatus;
+  reviewPostStatus: FetchStatus;
   checkAuthStatus: FetchStatus;
   authorizationStatus: AuthorizationStatus;
   authorizationRequestStatus: FetchStatus;
