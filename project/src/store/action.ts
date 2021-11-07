@@ -51,17 +51,17 @@ export const loadNearbyOffersFailed = () => ({
   type: ActionType.LoadNearbyOffersFailed,
 } as const);
 
-export const loadCommentsRequest = () => ({
-  type: ActionType.LoadCommentsRequest,
+export const loadReviewsRequest = () => ({
+  type: ActionType.LoadReviewsRequest,
 } as const);
 
-export const loadCommentsSuccess = (reviews: Review[]) => ({
-  type: ActionType.LoadCommentsSuccess,
+export const loadReviewsSuccess = (reviews: Review[]) => ({
+  type: ActionType.LoadReviewsSuccess,
   payload: reviews,
 } as const);
 
-export const loadCommentsFailed = () => ({
-  type: ActionType.LoadCommentsFailed,
+export const loadReviewsFailed = () => ({
+  type: ActionType.LoadReviewsFailed,
 } as const);
 
 export const checkAuthRequest = () => ({

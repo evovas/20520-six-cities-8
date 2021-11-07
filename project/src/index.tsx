@@ -13,7 +13,6 @@ import {checkAuthAction, fetchOffersAction} from './store/api-actions';
 import {createAPI} from './services/api';
 import {AuthorizationStatus} from './const';
 import 'react-toastify/dist/ReactToastify.css';
-import {REVIEWS} from './mocks/reviews';
 
 const api = createAPI(
   () => store.dispatch(checkAuthSuccess(AuthorizationStatus.NoAuth)),
@@ -31,7 +30,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App reviews={REVIEWS} />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

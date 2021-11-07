@@ -12,11 +12,7 @@ import {Review} from '../../types/data';
 import {State} from '../../types/state';
 import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
 
-type AppProps = {
-  reviews: Review[];
-}
-
-function App({reviews}: AppProps): JSX.Element {
+function App(): JSX.Element {
   const offersLoading = useSelector((state: State) => state.offersStatus);
   const offers = useSelector((state: State) => state.offers);
   const authorizationStatus = useSelector((state: State) => state.authorizationStatus);
@@ -52,7 +48,7 @@ function App({reviews}: AppProps): JSX.Element {
           redirectTo={AppRoute.Root}
         />
         <Route exact path={AppRoute.Room}>
-          <Room offers={offers} reviews={reviews} />
+          <Room />
         </Route>
         <Route>
           <NotFound />

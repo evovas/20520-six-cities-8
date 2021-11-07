@@ -13,8 +13,8 @@ const initialState: State = {
   offerStatus: FetchStatus.Idle,
   nearbyOffers: [],
   nearbyOffersStatus: FetchStatus.Idle,
-  comments: [],
-  commentsStatus: FetchStatus.Idle,
+  reviews: [],
+  reviewsStatus: FetchStatus.Idle,
   checkAuthStatus: FetchStatus.Idle,
   authorizationStatus: AuthorizationStatus.Unknown,
   authorizationRequestStatus: FetchStatus.Idle,
@@ -71,19 +71,19 @@ const reducer = (state = initialState, action: Actions): State => {
     case ActionType.LoadNearbyOffersFailed: {
       return {...state, nearbyOffersStatus: FetchStatus.Failed};
     }
-    case ActionType.LoadCommentsRequest: {
-      return {...state, commentsStatus: FetchStatus.Loading};
+    case ActionType.LoadReviewsRequest: {
+      return {...state, reviewsStatus: FetchStatus.Loading};
     }
-    case ActionType.LoadCommentsSuccess: {
+    case ActionType.LoadReviewsSuccess: {
       const comments = action.payload;
       return {
         ...state,
-        comments,
-        commentsStatus: FetchStatus.Success,
+        reviews: comments,
+        reviewsStatus: FetchStatus.Success,
       };
     }
-    case ActionType.LoadCommentsFailed: {
-      return {...state, commentsStatus: FetchStatus.Failed};
+    case ActionType.LoadReviewsFailed: {
+      return {...state, reviewsStatus: FetchStatus.Failed};
     }
     case ActionType.CheckAuthRequest: {
       return {...state, checkAuthStatus: FetchStatus.Loading};

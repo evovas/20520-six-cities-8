@@ -10,8 +10,8 @@ export type State = {
   offerStatus: FetchStatus;
   nearbyOffers: Offer[] | [];
   nearbyOffersStatus: FetchStatus;
-  comments: Review[] | [];
-  commentsStatus: FetchStatus;
+  reviews: Review[] | [];
+  reviewsStatus: FetchStatus;
   checkAuthStatus: FetchStatus;
   authorizationStatus: AuthorizationStatus;
   authorizationRequestStatus: FetchStatus;
