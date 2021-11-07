@@ -1,29 +1,29 @@
 import {toast} from 'react-toastify';
 import {ThunkActionResult} from '../types/action';
-import {ServerReview, ServerOffer} from '../types/data';
+import {ServerOffer, ServerReview} from '../types/data';
 import {APIRoute, AuthorizationStatus} from '../const';
 import {
   checkAuthFailed,
   checkAuthRequest,
   checkAuthSuccess,
+  loadCommentsFailed,
+  loadCommentsRequest,
+  loadCommentsSuccess,
+  loadNearbyOffersFailed,
+  loadNearbyOffersRequest,
+  loadNearbyOffersSuccess,
+  loadOfferFailed,
+  loadOfferRequest,
   loadOffersFailed,
   loadOffersRequest,
   loadOffersSuccess,
-  loadOfferRequest,
   loadOfferSuccess,
-  loadOfferFailed,
-  loadNearbyOffersRequest,
-  loadNearbyOffersSuccess,
-  loadNearbyOffersFailed,
-  loadCommentsRequest,
-  loadCommentsSuccess,
-  loadCommentsFailed,
   requireAuthorizationFailed,
   requireAuthorizationRequest,
   requireAuthorizationSuccess,
   requireLogoutFailed,
   requireLogoutRequest,
-  requireLogoutSuccess
+  requireLogoutSuccess,
 } from './action';
 import {adaptOfferToClient, adaptReviewToClient} from '../services/adapter';
 import {AuthData} from '../types/auth-data';
@@ -109,13 +109,9 @@ export const logoutAction = (): ThunkActionResult => (
   async (dispatch, _, api) => {
     dispatch(requireLogoutRequest());
     try {
-      console.log(1);
       await api.delete(APIRoute.Logout);
-      console.log(2);
       dropToken();
-      console.log(3);
-      dispatch(requireLogoutSuccess());
-      console.log(5);
+      dispatch(requireLogoutSuccess(AuthorizationStatus.NoAuth));
     } catch (e) {
       dispatch(requireLogoutFailed());
     }

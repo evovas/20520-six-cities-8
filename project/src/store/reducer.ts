@@ -89,7 +89,11 @@ const reducer = (state = initialState, action: Actions): State => {
       return {...state, checkAuthStatus: FetchStatus.Loading};
     }
     case ActionType.CheckAuthSuccess: {
-      return {...state, checkAuthStatus: FetchStatus.Success, authorizationStatus: action.payload};
+      return {
+        ...state,
+        checkAuthStatus: FetchStatus.Success,
+        authorizationStatus: action.payload,
+      };
     }
     case ActionType.CheckAuthFailed: {
       return {...state, checkAuthStatus: FetchStatus.Failed};
@@ -98,20 +102,22 @@ const reducer = (state = initialState, action: Actions): State => {
       return {...state, authorizationRequestStatus: FetchStatus.Loading};
     }
     case ActionType.RequireAuthorizationSuccess: {
-      return {...state, authorizationRequestStatus: FetchStatus.Success, authorizationStatus: action.payload};
+      return {
+        ...state, authorizationRequestStatus:
+        FetchStatus.Success,
+        authorizationStatus: action.payload,
+      };
     }
     case ActionType.RequireAuthorizationFailed: {
       return {...state, authorizationRequestStatus: FetchStatus.Failed};
     }
     case ActionType.RequireLogoutRequest: {
-      console.log(0);
       return {...state, logoutStatus: FetchStatus.Loading};
     }
     case ActionType.RequireLogoutSuccess: {
-      console.log('4');
       return {...state,
         logoutStatus: FetchStatus.Success,
-        authorizationStatus: AuthorizationStatus.NoAuth,
+        authorizationStatus: action.payload,
       };
     }
     case ActionType.RequireLogoutFailed: {

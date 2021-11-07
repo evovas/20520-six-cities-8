@@ -48,9 +48,9 @@ export enum ActionType {
   RequireAuthorizationRequest = 'user/requireAuthorizationRequest',
   RequireAuthorizationSuccess = 'user/requireAuthorizationSuccess',
   RequireAuthorizationFailed = 'user/requireAuthorizationFailed',
-  RequireLogoutRequest = 'user/requireLogout',
-  RequireLogoutSuccess = 'user/requireLogout',
-  RequireLogoutFailed = 'user/requireLogout',
+  RequireLogoutRequest = 'user/requireLogoutRequest',
+  RequireLogoutSuccess = 'user/requireLogoutSuccess',
+  RequireLogoutFailed = 'user/requireLogoutFailed',
 }
 
 export type Actions =
