@@ -1,4 +1,6 @@
+import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import cn from 'classnames';
 import Header from '../../components/header/header';
 import CardList from '../../components/card-list/card-list';
@@ -6,32 +8,51 @@ import NotFound from '../not-found/not-found';
 import HostUser from '../../components/host-user/host-user';
 import PropertyReviews from '../../components/property-reviews/property-reviews';
 import PremiumLabel from '../../components/premium-label/premium-label';
-import {Offer} from '../../types/data';
-import {Review} from '../../types/data';
-import {calculateRatingStars} from '../../utils';
-import styles from './room.module.scss';
+import Loader from '../../components/loader/loader';
 import Map from '../../components/map/map';
-
-type RoomProps = {
-  offers: Offer[];
-  reviews: Review[];
-}
+import {calculateRatingStars} from '../../utils';
+import {fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction} from '../../store/api-actions';
+import {dropRoomData} from '../../store/action';
+import {State} from '../../types/state';
+import {FetchStatus} from '../../const';
+import styles from './room.module.scss';
 
 type PageParams = {
   id: string;
 }
 
-const NEAR_PLACES_COUNT = 3;
-
-function Room({offers, reviews}: RoomProps): JSX.Element {
+function Room(): JSX.Element {
   const {id: pageId} = useParams<PageParams>();
-  const currentOffer = offers.find((offer) => offer.id === parseInt(pageId, 10));
-  if (!currentOffer) {
+
+  const loadPageOffer = useDispatch();
+  const loadNearbyOffers = useDispatch();
+  const loadComments = useDispatch();
+  const clearRoomData = useDispatch();
+
+  useEffect(() => {
+    loadPageOffer(fetchOfferAction(pageId));
+    loadNearbyOffers(fetchNearbyOffersAction(pageId));
+    loadComments(fetchReviewsAction(pageId));
+    return () => {
+      clearRoomData(dropRoomData());
+    };
+  }, [pageId]);
+
+
+  const offer = useSelector((state: State) => state.offer);
+  const nearbyOffers = useSelector((state: State) => state.nearbyOffers);
+  const reviews = useSelector((state: State) => state.reviews);
+  const offerStatus = useSelector((state: State) => state.offerStatus);
+
+  if (offerStatus === FetchStatus.Idle || offerStatus === FetchStatus.Loading){
+    return <Loader size={15} isFullScreen />;
+  }
+
+  if (!offer) {
     return <NotFound />;
   }
 
-  const {id, bedrooms, description, goods, host, images, isFavorite, isPremium, maxAdults, price, rating, title, type, city} = currentOffer;
-  const nearPlaces = offers.slice(0, NEAR_PLACES_COUNT);
+  const {bedrooms, description, goods, host, images, isFavorite, isPremium, maxAdults, price, rating, title, type, city} = offer;
 
   return (
     <div className='page'>
@@ -103,16 +124,16 @@ function Room({offers, reviews}: RoomProps): JSX.Element {
                   </p>
                 </div>
               </div>
-              <PropertyReviews offerId={id} reviews={reviews} />
+              <PropertyReviews pageId={pageId} reviews={reviews} />
             </div>
           </div>
-          <Map className={'property__map'} offers={nearPlaces} city={city} />
+          <Map className={'property__map'} offers={nearbyOffers} city={city} />
         </section>
         <div className='container'>
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
             <div className='near-places__list places__list'>
-              <CardList offers={nearPlaces} cardType={'near-places'} />
+              <CardList offers={nearbyOffers} cardType={'near-places'} />
             </div>
           </section>
         </div>

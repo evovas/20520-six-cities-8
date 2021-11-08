@@ -1,6 +1,5 @@
 import LocationTab from '../location-tab/location-tab';
-
-const CITIES_LIST = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+import {CITIES_LIST} from '../../const';
 
 function LocationTabs(): JSX.Element {
   return (

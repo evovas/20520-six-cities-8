@@ -1,4 +1,4 @@
-import {connect, ConnectedProps} from 'react-redux';
+import {useSelector} from 'react-redux';
 import cn from 'classnames';
 import Header from '../../components/header/header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
@@ -11,16 +11,8 @@ type MainPageProps = {
   offers: Offer[];
 }
 
-const mapStateToProps = ({currentCityName}: State) => ({
-  currentCityName,
-});
-
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>
-type ConnectedComponentProps = PropsFromRedux & MainPageProps;
-
-function Main({offers, currentCityName}: ConnectedComponentProps): JSX.Element {
+function Main({offers}: MainPageProps): JSX.Element {
+  const currentCityName = useSelector((state: State) => state.currentCityName);
   const currentCityOffers = offers.filter((offer: Offer) => offer.city.name === currentCityName);
 
   return (
@@ -41,4 +33,4 @@ function Main({offers, currentCityName}: ConnectedComponentProps): JSX.Element {
   );
 }
 
-export default connector(Main);
+export default Main;

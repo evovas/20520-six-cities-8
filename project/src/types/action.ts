@@ -6,7 +6,31 @@ import {
   loadOffersRequest,
   loadOffersSuccess,
   loadOffersFailed,
-  requireAuthorization
+  loadOfferRequest,
+  loadOfferSuccess,
+  loadOfferFailed,
+  loadNearbyOffersRequest,
+  loadNearbyOffersSuccess,
+  loadNearbyOffersFailed,
+  loadReviewsRequest,
+  loadReviewsSuccess,
+  loadReviewsFailed,
+  dropRoomData,
+  postReviewRequest,
+  postReviewSuccess,
+  postReviewFailed,
+  resetPostReview,
+  saveCurrentUser,
+  dropCurrentUser,
+  requireAuthorizationSuccess,
+  requireAuthorizationRequest,
+  requireAuthorizationFailed,
+  checkAuthRequest,
+  checkAuthSuccess,
+  checkAuthFailed,
+  requireLogoutRequest,
+  requireLogoutSuccess,
+  requireLogoutFailed
 } from '../store/action';
 import {State} from './state';
 
@@ -16,7 +40,31 @@ export enum ActionType {
   LoadOffersRequest = 'data/loadOffersRequest',
   LoadOffersSuccess = 'data/loadOffersSuccess',
   LoadOffersFailed = 'data/loadOffersFailed',
-  RequireAuthorization = 'user/requireAuthorization',
+  LoadOfferRequest = 'data/loadOfferRequest',
+  LoadOfferSuccess = 'data/loadOfferSuccess',
+  LoadOfferFailed = 'data/loadOfferFailed',
+  LoadNearbyOffersRequest = 'data/loadNearbyOffersRequest',
+  LoadNearbyOffersSuccess = 'data/loadNearbyOffersSuccess',
+  LoadNearbyOffersFailed = 'data/loadNearbyOffersFailed',
+  LoadReviewsRequest = 'data/loadReviewsRequest',
+  LoadReviewsSuccess = 'data/loadReviewsSuccess',
+  LoadReviewsFailed = 'data/loadReviewsFailed',
+  DropRoomData = 'data/dropRoomData',
+  PostReviewRequest = 'data/postReviewRequest',
+  PostReviewSuccess = 'data/postReviewSuccess',
+  PostReviewFailed = 'data/postReviewFailed',
+  ResetPostReview = 'data/resetPostReview',
+  SaveCurrentUser = 'data/saveCurrentUser',
+  DropCurrentUser = 'data/dropCurrentUser',
+  CheckAuthRequest = 'user/checkAuthRequest',
+  CheckAuthSuccess = 'user/checkAuthSuccess',
+  CheckAuthFailed = 'user/checkAuthFailed',
+  RequireAuthorizationRequest = 'user/requireAuthorizationRequest',
+  RequireAuthorizationSuccess = 'user/requireAuthorizationSuccess',
+  RequireAuthorizationFailed = 'user/requireAuthorizationFailed',
+  RequireLogoutRequest = 'user/requireLogoutRequest',
+  RequireLogoutSuccess = 'user/requireLogoutSuccess',
+  RequireLogoutFailed = 'user/requireLogoutFailed',
 }
 
 export type Actions =
@@ -25,7 +73,31 @@ export type Actions =
   | ReturnType<typeof loadOffersRequest>
   | ReturnType<typeof loadOffersSuccess>
   | ReturnType<typeof loadOffersFailed>
-  | ReturnType<typeof requireAuthorization>;
+  | ReturnType<typeof loadOfferRequest>
+  | ReturnType<typeof loadOfferSuccess>
+  | ReturnType<typeof loadOfferFailed>
+  | ReturnType<typeof loadNearbyOffersRequest>
+  | ReturnType<typeof loadNearbyOffersSuccess>
+  | ReturnType<typeof loadNearbyOffersFailed>
+  | ReturnType<typeof loadReviewsRequest>
+  | ReturnType<typeof loadReviewsSuccess>
+  | ReturnType<typeof loadReviewsFailed>
+  | ReturnType<typeof dropRoomData>
+  | ReturnType<typeof postReviewRequest>
+  | ReturnType<typeof postReviewSuccess>
+  | ReturnType<typeof postReviewFailed>
+  | ReturnType<typeof resetPostReview>
+  | ReturnType<typeof saveCurrentUser>
+  | ReturnType<typeof dropCurrentUser>
+  | ReturnType<typeof checkAuthRequest>
+  | ReturnType<typeof checkAuthSuccess>
+  | ReturnType<typeof checkAuthFailed>
+  | ReturnType<typeof requireAuthorizationRequest>
+  | ReturnType<typeof requireAuthorizationSuccess>
+  | ReturnType<typeof requireAuthorizationFailed>
+  | ReturnType<typeof requireLogoutRequest>
+  | ReturnType<typeof requireLogoutSuccess>
+  | ReturnType<typeof requireLogoutFailed>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;

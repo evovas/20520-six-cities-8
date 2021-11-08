@@ -1,3 +1,5 @@
+export const CITIES_LIST = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
 export enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',
@@ -18,7 +20,7 @@ export enum SortingOption {
   TopRatedFirst = 'Top rated first',
 }
 
-export enum FetchState {
+export enum FetchStatus {
   Idle = 'IDLE',
   Loading = 'LOADING',
   Success = 'SUCCESS',
@@ -27,4 +29,8 @@ export enum FetchState {
 
 export enum APIRoute {
   Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+  Nearby = '/nearby',
+  Comments = '/comments',
 }

@@ -6,14 +6,13 @@ import Map from '../map/map';
 import {City, Offer} from '../../types/data';
 import {State} from '../../types/state';
 import {sortOffers} from '../../offers-sorting';
-import {SortingOption} from '../../const';
 
 type CardListAndMapProps = {
   currentCityOffers: Offer[];
 }
 
 function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
-  const currentSorting = useSelector<State, SortingOption>((state) => state.currentSorting);
+  const currentSorting = useSelector((state: State) => state.currentSorting);
 
   const currentCity: City = currentCityOffers[0].city;
 

@@ -1,6 +1,22 @@
-.loaderWrapper {
+.loaderWrapperFullScreen {
   height: 100vh;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loaderWrapperLogin {
+  padding: 3px 20px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loaderWrapperReview {
+  padding: 4px 0 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;

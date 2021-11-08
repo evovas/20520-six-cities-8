@@ -7,24 +7,20 @@ import NotFound from '../../pages/not-found/not-found';
 import Favorites from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
-import {Review} from '../../types/data';
-import {State} from '../../types/state';
-import {AppRoute, AuthorizationStatus, FetchState} from '../../const';
 import LoadError from '../../pages/load-error/load-error';
+import {State} from '../../types/state';
+import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
 
-type AppProps = {
-  reviews: Review[];
-}
-
-function App({reviews}: AppProps): JSX.Element {
+function App(): JSX.Element {
   const offersLoading = useSelector((state: State) => state.offersStatus);
   const offers = useSelector((state: State) => state.offers);
+  const authorizationStatus = useSelector((state: State) => state.authorizationStatus);
 
-  if (offersLoading === FetchState.Loading) {
-    return <Loader size={15}/>;
+  if (offersLoading === FetchStatus.Loading) {
+    return <Loader size={15} isFullScreen/>;
   }
 
-  if (offersLoading === FetchState.Failed) {
+  if (offersLoading === FetchStatus.Failed) {
     return <LoadError />;
   }
 
@@ -37,14 +33,21 @@ function App({reviews}: AppProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
-          render={() => <Favorites offers={offers} />}
-          authorizationStatus={AuthorizationStatus.Auth}
+          render={() => <Favorites offers={offers.filter((offer) => offer.isFavorite)} />}
+          authorizationStatus={authorizationStatus}
+          verifiableStatus={AuthorizationStatus.Auth}
+          redirectTo={AppRoute.Login}
         />
-        <Route exact path={AppRoute.Login}>
-          <Login />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.Login}
+          render={() => <Login />}
+          authorizationStatus={authorizationStatus}
+          verifiableStatus={AuthorizationStatus.NoAuth}
+          redirectTo={AppRoute.Root}
+        />
         <Route exact path={AppRoute.Room}>
-          <Room offers={offers} reviews={reviews} />
+          <Room />
         </Route>
         <Route>
           <NotFound />
