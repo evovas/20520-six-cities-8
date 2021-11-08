@@ -1,4 +1,4 @@
-import {Offer, Review} from './data';
+import {CurrentUser, Offer, Review} from './data';
 import {AuthorizationStatus, FetchStatus, SortingOption} from '../const';
 
 export type State = {
@@ -13,6 +13,7 @@ export type State = {
   reviews: Review[] | [];
   reviewsStatus: FetchStatus;
   reviewPostStatus: FetchStatus;
+  currentUser: CurrentUser | null;
   checkAuthStatus: FetchStatus;
   authorizationStatus: AuthorizationStatus;
   authorizationRequestStatus: FetchStatus;

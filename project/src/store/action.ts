@@ -1,5 +1,5 @@
 import {ActionType} from '../types/action';
-import {Offer, Review} from '../types/data';
+import {CurrentUser, Offer, Review} from '../types/data';
 import {AuthorizationStatus, SortingOption} from '../const';
 
 export const selectCity = (currentCityName: string) => ({
@@ -83,6 +83,15 @@ export const postReviewFailed = () => ({
 
 export const resetPostReview = () => ({
   type: ActionType.ResetPostReview,
+} as const);
+
+export const saveCurrentUser = (user: CurrentUser) => ({
+  type: ActionType.SaveCurrentUser,
+  payload: user,
+} as const);
+
+export const dropCurrentUser = () => ({
+  type: ActionType.DropCurrentUser,
 } as const);
 
 export const checkAuthRequest = () => ({

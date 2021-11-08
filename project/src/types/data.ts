@@ -5,6 +5,24 @@ export type User = {
   isPro: boolean;
 }
 
+export type CurrentUser = {
+  avatarUrl: string;
+  email: string;
+  id: number;
+  isPro: boolean;
+  name: string;
+  token: string;
+}
+
+export type CurrentUserServer = {
+  'avatar_url': string;
+  email: string;
+  id: number;
+  'is_pro': boolean;
+  name: string;
+  token: string;
+}
+
 export type ServerUser = {
   id: number;
   name: string;

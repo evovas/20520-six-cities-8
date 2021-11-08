@@ -16,6 +16,7 @@ const initialState: State = {
   reviews: [],
   reviewsStatus: FetchStatus.Idle,
   reviewPostStatus: FetchStatus.Idle,
+  currentUser: null,
   checkAuthStatus: FetchStatus.Idle,
   authorizationStatus: AuthorizationStatus.Unknown,
   authorizationRequestStatus: FetchStatus.Idle,
@@ -113,6 +114,12 @@ const reducer = (state = initialState, action: Actions): State => {
     }
     case ActionType.ResetPostReview: {
       return {...state, reviewPostStatus: FetchStatus.Idle};
+    }
+    case ActionType.SaveCurrentUser: {
+      return {...state, currentUser: action.payload};
+    }
+    case ActionType.DropCurrentUser: {
+      return {...state, currentUser: null};
     }
     case ActionType.CheckAuthRequest: {
       return {...state, checkAuthStatus: FetchStatus.Loading};

@@ -1,10 +1,13 @@
 import {Link} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {AppRoute} from '../../const';
 import {logoutAction} from '../../store/api-actions';
+import {State} from '../../types/state';
 
 function AuthUserMenu(): JSX.Element {
   const onLogoutClick = useDispatch();
+
+  const currentUser = useSelector((state: State) => state.currentUser);
 
   const handleClick = () => {
     onLogoutClick(logoutAction());
@@ -15,7 +18,7 @@ function AuthUserMenu(): JSX.Element {
       <li className='header__nav-item user'>
         <Link className='header__nav-link header__nav-link--profile' to={AppRoute.Favorites}>
           <div className='header__avatar-wrapper user__avatar-wrapper'/>
-          <span className='header__user-name user__name'>Oliver.conner@gmail.com</span>
+          <span className='header__user-name user__name'>{currentUser && currentUser.email}</span>
         </Link>
       </li>
       <li className='header__nav-item'>

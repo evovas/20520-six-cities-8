@@ -20,6 +20,8 @@ import {
   postReviewSuccess,
   postReviewFailed,
   resetPostReview,
+  saveCurrentUser,
+  dropCurrentUser,
   requireAuthorizationSuccess,
   requireAuthorizationRequest,
   requireAuthorizationFailed,
@@ -52,6 +54,8 @@ export enum ActionType {
   PostReviewSuccess = 'data/postReviewSuccess',
   PostReviewFailed = 'data/postReviewFailed',
   ResetPostReview = 'data/resetPostReview',
+  SaveCurrentUser = 'data/saveCurrentUser',
+  DropCurrentUser = 'data/dropCurrentUser',
   CheckAuthRequest = 'user/checkAuthRequest',
   CheckAuthSuccess = 'user/checkAuthSuccess',
   CheckAuthFailed = 'user/checkAuthFailed',
@@ -83,6 +87,8 @@ export type Actions =
   | ReturnType<typeof postReviewSuccess>
   | ReturnType<typeof postReviewFailed>
   | ReturnType<typeof resetPostReview>
+  | ReturnType<typeof saveCurrentUser>
+  | ReturnType<typeof dropCurrentUser>
   | ReturnType<typeof checkAuthRequest>
   | ReturnType<typeof checkAuthSuccess>
   | ReturnType<typeof checkAuthFailed>

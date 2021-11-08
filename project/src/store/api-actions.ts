@@ -1,6 +1,6 @@
 import {toast} from 'react-toastify';
 import {ThunkActionResult} from '../types/action';
-import {ReviewPost, ServerOffer, ServerReview} from '../types/data';
+import {CurrentUserServer, ReviewPost, ServerOffer, ServerReview} from '../types/data';
 import {APIRoute, AuthorizationStatus} from '../const';
 import {
   checkAuthFailed,
@@ -26,9 +26,9 @@ import {
   requireAuthorizationSuccess,
   requireLogoutFailed,
   requireLogoutRequest,
-  requireLogoutSuccess
+  requireLogoutSuccess, saveCurrentUser, dropCurrentUser
 } from './action';
-import {adaptOfferToClient, adaptReviewToClient} from '../services/adapter';
+import {adaptCurrentUserToClient, adaptOfferToClient, adaptReviewToClient} from '../services/adapter';
 import {AuthData} from '../types/auth-data';
 import {dropToken, saveToken, Token} from '../services/token';
 
@@ -99,8 +99,9 @@ export const checkAuthAction = (): ThunkActionResult => (
   async (dispatch, _, api): Promise<void> => {
     dispatch(checkAuthRequest());
     try {
-      await api.get(APIRoute.Login);
+      const {data} = await api.get(APIRoute.Login);
       dispatch(checkAuthSuccess(AuthorizationStatus.Auth));
+      dispatch(saveCurrentUser(adaptCurrentUserToClient(data)));
     } catch (e) {
       dispatch(checkAuthFailed());
     }
@@ -111,9 +112,11 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
   async (dispatch, _, api) => {
     dispatch(requireAuthorizationRequest());
     try {
-      const {data: {token}} = await api.post<{ token: Token }>(APIRoute.Login, {email, password});
+      const {data} = await api.post<CurrentUserServer>(APIRoute.Login, {email, password});
+      const {token} = data;
       saveToken(token);
       dispatch(requireAuthorizationSuccess(AuthorizationStatus.Auth));
+      dispatch(saveCurrentUser(adaptCurrentUserToClient(data)));
     } catch (e) {
       dispatch(requireAuthorizationFailed());
       toast.info(FAIL_MESSAGE);
@@ -128,6 +131,7 @@ export const logoutAction = (): ThunkActionResult => (
       await api.delete(APIRoute.Logout);
       dropToken();
       dispatch(requireLogoutSuccess(AuthorizationStatus.NoAuth));
+      dispatch(dropCurrentUser());
     } catch (e) {
       dispatch(requireLogoutFailed());
     }

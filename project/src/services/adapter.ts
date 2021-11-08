@@ -1,4 +1,4 @@
-import {Offer, Review, ServerOffer, ServerReview} from '../types/data';
+import {CurrentUser, CurrentUserServer, Offer, Review, ServerOffer, ServerReview} from '../types/data';
 
 export const adaptOfferToClient = (offer: ServerOffer): Offer => (
   Object.assign(
@@ -35,6 +35,17 @@ export const adaptReviewToClient = (review: ServerReview): Review => (
           isPro: review.user['is_pro'],
         },
       ),
+    },
+  )
+);
+
+export const adaptCurrentUserToClient = (user: CurrentUserServer): CurrentUser => (
+  Object.assign(
+    {},
+    user,
+    {
+      avatarUrl: user['avatar_url'],
+      isPro: user['is_pro'],
     },
   )
 );
