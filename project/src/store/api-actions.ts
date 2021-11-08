@@ -30,7 +30,7 @@ import {
 } from './action';
 import {adaptCurrentUserToClient, adaptOfferToClient, adaptReviewToClient} from '../services/adapter';
 import {AuthData} from '../types/auth-data';
-import {dropToken, saveToken, Token} from '../services/token';
+import {dropToken, saveToken} from '../services/token';
 
 const FAIL_MESSAGE = 'An error occurred, please try later';
 
