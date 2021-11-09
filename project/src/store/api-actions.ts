@@ -32,7 +32,10 @@ import {adaptCurrentUserToClient, adaptOfferToClient, adaptReviewToClient} from 
 import {AuthData} from '../types/auth-data';
 import {dropToken, saveToken} from '../services/token';
 
+const NOT_FOUND_CODE = 404;
 const FAIL_MESSAGE = 'An error occurred, please try later';
+const REVIEWS_FAIL_MESSAGE = 'An error occurred while loading comments, please try again later.';
+const NEARBY_PLACES_FAIL_MESSAGE = 'There was an error loading places nearby, please try again later.';
 
 export const fetchOffersAction = (): ThunkActionResult => (
   async (dispatch, _, api): Promise<void> => {
@@ -53,7 +56,9 @@ export const fetchOfferAction = (pageId: string): ThunkActionResult => (
       const {data} = await api.get<ServerOffer>(`${APIRoute.Offers}/${pageId}`);
       dispatch(loadOfferSuccess(adaptOfferToClient(data)));
     } catch (e) {
-      dispatch(loadOfferFailed());
+      (e === NOT_FOUND_CODE)
+        ? dispatch(loadOfferSuccess(null))
+        : dispatch(loadOfferFailed());
     }
   }
 );
@@ -66,6 +71,7 @@ export const fetchNearbyOffersAction = (pageId: string): ThunkActionResult => (
       dispatch(loadNearbyOffersSuccess(data.map((offer) => adaptOfferToClient(offer))));
     } catch (e) {
       dispatch(loadNearbyOffersFailed());
+      toast.info(NEARBY_PLACES_FAIL_MESSAGE);
     }
   }
 );
@@ -78,6 +84,7 @@ export const fetchReviewsAction = (pageId: string): ThunkActionResult => (
       dispatch(loadReviewsSuccess(data.map((review) => adaptReviewToClient(review))));
     } catch (e) {
       dispatch(loadReviewsFailed());
+      toast.info(REVIEWS_FAIL_MESSAGE);
     }
   }
 );
@@ -134,6 +141,7 @@ export const logoutAction = (): ThunkActionResult => (
       dispatch(dropCurrentUser());
     } catch (e) {
       dispatch(requireLogoutFailed());
+      toast.info(FAIL_MESSAGE);
     }
   }
 );

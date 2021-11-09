@@ -16,6 +16,7 @@ import {dropRoomData} from '../../store/action';
 import {State} from '../../types/state';
 import {FetchStatus} from '../../const';
 import styles from './room.module.scss';
+import LoadError from '../load-error/load-error';
 
 type PageParams = {
   id: string;
@@ -40,12 +41,16 @@ function Room(): JSX.Element {
 
 
   const offer = useSelector((state: State) => state.offer);
-  const nearbyOffers = useSelector((state: State) => state.nearbyOffers);
+  const nearbyOffers = useSelector((state: State) => state.nearbyOffers).slice(0, 3);
   const reviews = useSelector((state: State) => state.reviews);
   const offerStatus = useSelector((state: State) => state.offerStatus);
 
   if (offerStatus === FetchStatus.Idle || offerStatus === FetchStatus.Loading){
     return <Loader size={15} isFullScreen />;
+  }
+
+  if (offerStatus === FetchStatus.Failed) {
+    return <LoadError />;
   }
 
   if (!offer) {
@@ -127,7 +132,7 @@ function Room(): JSX.Element {
               <PropertyReviews pageId={pageId} reviews={reviews} />
             </div>
           </div>
-          <Map className={'property__map'} offers={nearbyOffers} city={city} />
+          <Map className={'property__map'} offers={[...nearbyOffers, offer]} city={city} activeCardId={parseInt(pageId, 10)} />
         </section>
         <div className='container'>
           <section className='near-places places'>

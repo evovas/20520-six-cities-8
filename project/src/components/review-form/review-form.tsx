@@ -58,7 +58,15 @@ function ReviewForm({pageId}: ReviewFormProps): JSX.Element {
 
       <label className='reviews__label form__label' htmlFor='review'>Your review</label>
       <div className='reviews__rating-form form__rating'>
-        {STARS_IDENTIFIERS.map((id) => <ReviewStar key={id} value={id.split('-')[0]} currentValue={review.rating} id={id} onReviewChange={handleReviewChange} isLoading={isLoading}/>)}
+        {STARS_IDENTIFIERS.map((id) => (
+          <ReviewStar
+            key={id}
+            value={id.split('-')[0]}
+            currentValue={review.rating}
+            id={id}
+            onReviewChange={handleReviewChange}
+            disabled={isLoading}
+          />))}
       </div>
       <textarea
         className='reviews__textarea form__textarea'
