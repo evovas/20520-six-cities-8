@@ -5,10 +5,10 @@ type ReviewStarProps = {
   currentValue: string;
   id: string;
   onReviewChange: (evt: ChangeEvent<HTMLInputElement>) => void;
-  isLoading: boolean;
+  disabled: boolean;
 }
 
-function ReviewStar({value, currentValue, id, onReviewChange, isLoading}: ReviewStarProps): JSX.Element {
+function ReviewStar({value, currentValue, id, onReviewChange, disabled}: ReviewStarProps): JSX.Element {
   return (
     <>
       <input
@@ -18,7 +18,7 @@ function ReviewStar({value, currentValue, id, onReviewChange, isLoading}: Review
         id={id}
         type='radio'
         onChange={onReviewChange}
-        disabled={isLoading}
+        disabled={disabled}
         checked={value === currentValue}
       />
       <label htmlFor={id} className='reviews__rating-label form__rating-label' title='perfect'>

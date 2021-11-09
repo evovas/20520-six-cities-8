@@ -29,7 +29,7 @@ export const loadOfferRequest = () => ({
   type: ActionType.LoadOfferRequest,
 } as const);
 
-export const loadOfferSuccess = (offer: Offer) => ({
+export const loadOfferSuccess = (offer: Offer | null) => ({
   type: ActionType.LoadOfferSuccess,
   payload: offer,
 } as const);
