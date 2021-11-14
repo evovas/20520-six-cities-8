@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
 import PremiumLabel from '../premium-label/premium-label';
@@ -70,4 +71,4 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
   );
 }
 
-export default PlaceCard;
+export default memo(PlaceCard);

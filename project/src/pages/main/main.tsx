@@ -13,6 +13,7 @@ type MainPageProps = {
 
 function Main({offers}: MainPageProps): JSX.Element {
   const currentCityName = useSelector((state: State) => state.currentCityName);
+
   const currentCityOffers = offers.filter((offer: Offer) => offer.city.name === currentCityName);
 
   return (

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {useSelector} from 'react-redux';
 import Sorting from '../sorting/sorting';
 import CardList from '../card-list/card-list';
@@ -18,12 +18,12 @@ function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
 
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
 
-  const onMouseEnterCard = (id: number) => {
+  const onMouseEnterCard = useCallback((id: number) => {
     setActiveCardId(id);
-  };
-  const onMouseLeaveCard = () => {
+  }, []);
+  const onMouseLeaveCard = useCallback(() => {
     setActiveCardId(null);
-  };
+  }, []);
 
   return (
     <div className='cities__places-container container'>
@@ -35,7 +35,7 @@ function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
         />
         <div className='cities__places-list places__list tabs__content'>
           <CardList
-            offers={sortOffers(currentCityOffers, currentSorting)}
+            offers={useMemo(() => sortOffers(currentCityOffers, currentSorting), [currentCityOffers, currentSorting])}
             cardType={'cities'}
             onMouseEnterCard={onMouseEnterCard}
             onMouseLeaveCard={onMouseLeaveCard}

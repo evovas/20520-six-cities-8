@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {memo, useState} from 'react';
 import cn from 'classnames';
 import {SortingOption} from '../../const';
 import SortingItem from '../sorting-item/sorting-item';
@@ -37,4 +37,5 @@ function Sorting({currentSorting}: SortingProps): JSX.Element {
   );
 }
 
-export default Sorting;
+export default memo(Sorting)
+;

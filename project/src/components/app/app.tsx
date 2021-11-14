@@ -12,15 +12,15 @@ import {State} from '../../types/state';
 import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
 
 function App(): JSX.Element {
-  const offersLoading = useSelector((state: State) => state.offersStatus);
+  const offersStatus = useSelector((state: State) => state.offersStatus);
   const offers = useSelector((state: State) => state.offers);
   const authorizationStatus = useSelector((state: State) => state.authorizationStatus);
 
-  if (offersLoading === FetchStatus.Loading) {
+  if (offersStatus === FetchStatus.Loading) {
     return <Loader size={15} isFullScreen/>;
   }
 
-  if (offersLoading === FetchStatus.Failed) {
+  if (offersStatus === FetchStatus.Failed) {
     return <LoadError />;
   }
 

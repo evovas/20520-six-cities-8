@@ -32,6 +32,7 @@ import {adaptCurrentUserToClient, adaptOfferToClient, adaptReviewToClient} from 
 import {AuthData} from '../types/auth-data';
 import {dropToken, saveToken} from '../services/token';
 
+const BAD_REQUEST_CODE = 400;
 const NOT_FOUND_CODE = 404;
 const FAIL_MESSAGE = 'An error occurred, please try later';
 const REVIEWS_FAIL_MESSAGE = 'An error occurred while loading comments, please try again later.';
@@ -71,7 +72,9 @@ export const fetchNearbyOffersAction = (pageId: string): ThunkActionResult => (
       dispatch(loadNearbyOffersSuccess(data.map((offer) => adaptOfferToClient(offer))));
     } catch (e) {
       dispatch(loadNearbyOffersFailed());
-      toast.info(NEARBY_PLACES_FAIL_MESSAGE);
+      if (e !== NOT_FOUND_CODE) {
+        toast.info(NEARBY_PLACES_FAIL_MESSAGE);
+      }
     }
   }
 );
@@ -84,7 +87,9 @@ export const fetchReviewsAction = (pageId: string): ThunkActionResult => (
       dispatch(loadReviewsSuccess(data.map((review) => adaptReviewToClient(review))));
     } catch (e) {
       dispatch(loadReviewsFailed());
-      toast.info(REVIEWS_FAIL_MESSAGE);
+      if (e !== BAD_REQUEST_CODE) {
+        toast.info(REVIEWS_FAIL_MESSAGE);
+      }
     }
   }
 );

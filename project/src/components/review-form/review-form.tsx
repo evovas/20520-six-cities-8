@@ -1,4 +1,4 @@
-import {ChangeEvent, FormEvent, useState} from 'react';
+import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import ReviewStar from '../review-star/review-star';
 import {useDispatch, useSelector} from 'react-redux';
 import {postReviewAction} from '../../store/api-actions';
@@ -7,24 +7,31 @@ import {FetchStatus} from '../../const';
 import Loader from '../loader/loader';
 import {resetPostReview} from '../../store/action';
 
+const MIN_REVIEW_LENGTH = 50;
+const MAX_REVIEW_LENGTH = 300;
 const STARS_IDENTIFIERS = ['5-stars', '4-stars', '3-stars', '2-stars', '1-star'];
 
 type ReviewFormProps = {
   pageId: string;
 };
 
-const DEFAULT_REVIEW_VALUE = {
+const initialState = {
   rating: '0',
   review: '',
 };
 
 function ReviewForm({pageId}: ReviewFormProps): JSX.Element {
-  const [review, setReview] = useState(DEFAULT_REVIEW_VALUE);
-
-  const onSubmitForm = useDispatch();
-  const resetPostStatus = useDispatch();
-
+  const dispatch = useDispatch();
   const reviewPostStatus = useSelector((state: State) => state.reviewPostStatus);
+
+  const [review, setReview] = useState(initialState);
+
+  useEffect(() => {
+    if (reviewPostStatus === FetchStatus.Success) {
+      setReview(initialState);
+    }
+    dispatch(resetPostReview());
+  }, [reviewPostStatus]);
 
   const handleReviewChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const target = evt.target;
@@ -36,22 +43,14 @@ function ReviewForm({pageId}: ReviewFormProps): JSX.Element {
   const handleSubmitForm = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    onSubmitForm(postReviewAction(pageId, {
+    dispatch(postReviewAction(pageId, {
       comment: review.review,
       rating: review.rating,
     }));
   };
 
-  const isValidReview = (review.rating !== '0') && (review.review.length >= 50) && (review.review.length <= 300);
+  const isValidReview = (review.rating !== '0') && (review.review.length >= MIN_REVIEW_LENGTH) && (review.review.length <= MAX_REVIEW_LENGTH);
   const isLoading = reviewPostStatus === FetchStatus.Loading;
-
-  if (reviewPostStatus === FetchStatus.Success) {
-    setReview({
-      rating: '0',
-      review: '',
-    });
-    resetPostStatus(resetPostReview());
-  }
 
   return (
     <form className='reviews__form form' action='#' method='post' onSubmit={handleSubmitForm}>

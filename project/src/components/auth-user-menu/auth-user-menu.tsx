@@ -5,12 +5,11 @@ import {logoutAction} from '../../store/api-actions';
 import {State} from '../../types/state';
 
 function AuthUserMenu(): JSX.Element {
-  const onLogoutClick = useDispatch();
-
+  const dispatch = useDispatch();
   const currentUser = useSelector((state: State) => state.currentUser);
 
   const handleClick = () => {
-    onLogoutClick(logoutAction());
+    dispatch(logoutAction());
   };
 
   return (

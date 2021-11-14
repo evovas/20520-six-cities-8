@@ -3,6 +3,7 @@ import cn from 'classnames';
 import {State} from '../../types/state';
 import {SortingOption} from '../../const';
 import {selectSortingOption} from '../../store/action';
+import {memo} from 'react';
 
 type SortingItemProps = {
   sortingOption: SortingOption;
@@ -10,11 +11,11 @@ type SortingItemProps = {
 }
 
 function SortingItem ({sortingOption, onChangeOpenSelectState}: SortingItemProps): JSX.Element {
-  const onChangeSortingOption = useDispatch();
+  const dispatch = useDispatch();
   const currentSorting = useSelector(((state: State) => state.currentSorting));
 
   const onClick = () => {
-    onChangeSortingOption(selectSortingOption(sortingOption));
+    dispatch(selectSortingOption(sortingOption));
     onChangeOpenSelectState();
   };
 
@@ -29,4 +30,4 @@ function SortingItem ({sortingOption, onChangeOpenSelectState}: SortingItemProps
   );
 }
 
-export default SortingItem;
+export default memo(SortingItem);

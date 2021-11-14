@@ -25,6 +25,7 @@ type FormValues = {
 }
 
 function LoginForm (): JSX.Element {
+  const dispatch = useDispatch();
   const authorizationRequestStatus = useSelector((state: State) => state.authorizationRequestStatus);
 
   const [formState, setFormState] = useState<FormValues>({
@@ -43,8 +44,6 @@ function LoginForm (): JSX.Element {
       regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{3,}$/,
     },
   });
-
-  const onSubmitForm = useDispatch();
 
   const handleFormChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = target;
@@ -65,7 +64,7 @@ function LoginForm (): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    onSubmitForm(loginAction({
+    dispatch(loginAction({
       login: formState.email.value,
       password: formState.password.value,
     }));

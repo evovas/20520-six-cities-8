@@ -23,27 +23,21 @@ type PageParams = {
 }
 
 function Room(): JSX.Element {
-  const {id: pageId} = useParams<PageParams>();
-
-  const loadPageOffer = useDispatch();
-  const loadNearbyOffers = useDispatch();
-  const loadComments = useDispatch();
-  const clearRoomData = useDispatch();
-
-  useEffect(() => {
-    loadPageOffer(fetchOfferAction(pageId));
-    loadNearbyOffers(fetchNearbyOffersAction(pageId));
-    loadComments(fetchReviewsAction(pageId));
-    return () => {
-      clearRoomData(dropRoomData());
-    };
-  }, [pageId]);
-
-
+  const dispatch = useDispatch();
   const offer = useSelector((state: State) => state.offer);
   const nearbyOffers = useSelector((state: State) => state.nearbyOffers).slice(0, 3);
-  const reviews = useSelector((state: State) => state.reviews);
   const offerStatus = useSelector((state: State) => state.offerStatus);
+
+  const {id: pageId} = useParams<PageParams>();
+
+  useEffect(() => {
+    dispatch(fetchOfferAction(pageId));
+    dispatch(fetchNearbyOffersAction(pageId));
+    dispatch(fetchReviewsAction(pageId));
+    return () => {
+      dispatch(dropRoomData());
+    };
+  }, [pageId]);
 
   if (offerStatus === FetchStatus.Idle || offerStatus === FetchStatus.Loading){
     return <Loader size={15} isFullScreen />;
@@ -129,7 +123,7 @@ function Room(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <PropertyReviews pageId={pageId} reviews={reviews} />
+              <PropertyReviews pageId={pageId} />
             </div>
           </div>
           <Map className={'property__map'} offers={[...nearbyOffers, offer]} city={city} activeCardId={parseInt(pageId, 10)} />
