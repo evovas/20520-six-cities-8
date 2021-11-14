@@ -1,6 +1,19 @@
+import {createReducer} from '@reduxjs/toolkit';
 import {UserProcess} from '../../types/state';
 import {AuthorizationStatus, FetchStatus} from '../../const';
-import {Actions, ActionType} from '../../types/action';
+import {
+  checkAuthFailed,
+  checkAuthRequest,
+  checkAuthSuccess,
+  dropCurrentUser,
+  requireAuthorizationFailed,
+  requireAuthorizationRequest,
+  requireAuthorizationSuccess,
+  requireLogoutFailed,
+  requireLogoutRequest,
+  requireLogoutSuccess,
+  saveCurrentUser
+} from '../action';
 
 const initialState: UserProcess = {
   currentUser: null,
@@ -10,55 +23,44 @@ const initialState: UserProcess = {
   logoutStatus: FetchStatus.Idle,
 };
 
-const userProcess = (state = initialState, action: Actions): UserProcess => {
-  switch (action.type) {
-    case ActionType.SaveCurrentUser: {
-      return {...state, currentUser: action.payload};
-    }
-    case ActionType.DropCurrentUser: {
-      return {...state, currentUser: null};
-    }
-    case ActionType.CheckAuthRequest: {
-      return {...state, checkAuthStatus: FetchStatus.Loading};
-    }
-    case ActionType.CheckAuthSuccess: {
-      return {
-        ...state,
-        checkAuthStatus: FetchStatus.Success,
-        authorizationStatus: AuthorizationStatus.Auth,
-      };
-    }
-    case ActionType.CheckAuthFailed: {
-      return {...state, checkAuthStatus: FetchStatus.Failed};
-    }
-    case ActionType.RequireAuthorizationRequest: {
-      return {...state, authorizationRequestStatus: FetchStatus.Loading};
-    }
-    case ActionType.RequireAuthorizationSuccess: {
-      return {
-        ...state,
-        authorizationRequestStatus: FetchStatus.Success,
-        authorizationStatus: AuthorizationStatus.Auth,
-      };
-    }
-    case ActionType.RequireAuthorizationFailed: {
-      return {...state, authorizationRequestStatus: FetchStatus.Failed};
-    }
-    case ActionType.RequireLogoutRequest: {
-      return {...state, logoutStatus: FetchStatus.Loading};
-    }
-    case ActionType.RequireLogoutSuccess: {
-      return {...state,
-        logoutStatus: FetchStatus.Success,
-        authorizationStatus: AuthorizationStatus.NoAuth,
-      };
-    }
-    case ActionType.RequireLogoutFailed: {
-      return {...state, logoutStatus: FetchStatus.Failed};
-    }
-    default:
-      return state;
-  }
-};
+const userProcess = createReducer(initialState, (builder) => {
+  builder
+    .addCase(saveCurrentUser, (state, action) => {
+      state.currentUser = action.payload;
+    })
+    .addCase(dropCurrentUser, (state) => {
+      state.currentUser = null;
+    })
+    .addCase(checkAuthRequest, (state) => {
+      state.checkAuthStatus = FetchStatus.Loading;
+    })
+    .addCase(checkAuthSuccess, (state, action) => {
+      state.checkAuthStatus = FetchStatus.Success;
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(checkAuthFailed, (state) => {
+      state.checkAuthStatus = FetchStatus.Failed;
+    })
+    .addCase(requireAuthorizationRequest, (state) => {
+      state.authorizationRequestStatus = FetchStatus.Loading;
+    })
+    .addCase(requireAuthorizationSuccess, (state) => {
+      state.authorizationRequestStatus = FetchStatus.Success;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(requireAuthorizationFailed, (state) => {
+      state.authorizationRequestStatus = FetchStatus.Failed;
+    })
+    .addCase(requireLogoutRequest, (state) => {
+      state.logoutStatus = FetchStatus.Loading;
+    })
+    .addCase(requireLogoutSuccess, (state) => {
+      state.logoutStatus = FetchStatus.Success;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(requireLogoutFailed, (state) => {
+      state.logoutStatus = FetchStatus.Failed;
+    });
+});
 
 export {userProcess};

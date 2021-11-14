@@ -1,37 +1,5 @@
 import {AxiosInstance} from 'axios';
-import {ThunkAction, ThunkDispatch} from '@reduxjs/toolkit';
-import {
-  selectCity,
-  selectSortingOption,
-  loadOffersRequest,
-  loadOffersSuccess,
-  loadOffersFailed,
-  loadOfferRequest,
-  loadOfferSuccess,
-  loadOfferFailed,
-  loadNearbyOffersRequest,
-  loadNearbyOffersSuccess,
-  loadNearbyOffersFailed,
-  loadReviewsRequest,
-  loadReviewsSuccess,
-  loadReviewsFailed,
-  dropRoomData,
-  postReviewRequest,
-  postReviewSuccess,
-  postReviewFailed,
-  resetPostReview,
-  saveCurrentUser,
-  dropCurrentUser,
-  requireAuthorizationSuccess,
-  requireAuthorizationRequest,
-  requireAuthorizationFailed,
-  checkAuthRequest,
-  checkAuthSuccess,
-  checkAuthFailed,
-  requireLogoutRequest,
-  requireLogoutSuccess,
-  requireLogoutFailed
-} from '../store/action';
+import {Action, ThunkAction, ThunkDispatch} from '@reduxjs/toolkit';
 import {State} from './state';
 
 export enum ActionType {
@@ -67,37 +35,5 @@ export enum ActionType {
   RequireLogoutFailed = 'user/requireLogoutFailed',
 }
 
-export type Actions =
-  | ReturnType<typeof selectCity>
-  | ReturnType<typeof selectSortingOption>
-  | ReturnType<typeof loadOffersRequest>
-  | ReturnType<typeof loadOffersSuccess>
-  | ReturnType<typeof loadOffersFailed>
-  | ReturnType<typeof loadOfferRequest>
-  | ReturnType<typeof loadOfferSuccess>
-  | ReturnType<typeof loadOfferFailed>
-  | ReturnType<typeof loadNearbyOffersRequest>
-  | ReturnType<typeof loadNearbyOffersSuccess>
-  | ReturnType<typeof loadNearbyOffersFailed>
-  | ReturnType<typeof loadReviewsRequest>
-  | ReturnType<typeof loadReviewsSuccess>
-  | ReturnType<typeof loadReviewsFailed>
-  | ReturnType<typeof dropRoomData>
-  | ReturnType<typeof postReviewRequest>
-  | ReturnType<typeof postReviewSuccess>
-  | ReturnType<typeof postReviewFailed>
-  | ReturnType<typeof resetPostReview>
-  | ReturnType<typeof saveCurrentUser>
-  | ReturnType<typeof dropCurrentUser>
-  | ReturnType<typeof checkAuthRequest>
-  | ReturnType<typeof checkAuthSuccess>
-  | ReturnType<typeof checkAuthFailed>
-  | ReturnType<typeof requireAuthorizationRequest>
-  | ReturnType<typeof requireAuthorizationSuccess>
-  | ReturnType<typeof requireAuthorizationFailed>
-  | ReturnType<typeof requireLogoutRequest>
-  | ReturnType<typeof requireLogoutSuccess>
-  | ReturnType<typeof requireLogoutFailed>;
-
-export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
-export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
+export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Action>;

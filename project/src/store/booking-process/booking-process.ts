@@ -1,6 +1,7 @@
+import {createReducer} from '@reduxjs/toolkit';
 import {BookingProcess} from '../../types/state';
 import {SortingOption} from '../../const';
-import {Actions, ActionType} from '../../types/action';
+import {selectCity, selectSortingOption} from '../action';
 
 const DEFAULT_CITY = 'Paris';
 
@@ -9,17 +10,14 @@ const initialState: BookingProcess = {
   currentSorting: SortingOption.Popular,
 };
 
-const bookingProcess = (state = initialState, action: Actions): BookingProcess => {
-  switch (action.type) {
-    case ActionType.SelectCity: {
-      return {...state, currentCityName: action.payload};
-    }
-    case ActionType.SelectSortingOption: {
-      return {...state, currentSorting: action.payload};
-    }
-    default:
-      return state;
-  }
-};
+const bookingProcess = createReducer(initialState, (builder) => {
+  builder
+    .addCase(selectCity, (state, action) => {
+      state.currentCityName = action.payload;
+    })
+    .addCase(selectSortingOption, (state, action) => {
+      state.currentSorting = action.payload;
+    });
+});
 
 export {bookingProcess};

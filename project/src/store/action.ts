@@ -1,23 +1,19 @@
+import {createAction} from '@reduxjs/toolkit';
 import {ActionType} from '../types/action';
 import {CurrentUser, Offer, Review} from '../types/data';
-import {SortingOption} from '../const';
-import {createAction} from '@reduxjs/toolkit';
+import {AuthorizationStatus, SortingOption} from '../const';
 
 export const selectCity = createAction(
   ActionType.SelectCity,
   (currentCityName: string) => ({
-    payload: {
-      currentCityName,
-    },
+    payload: currentCityName,
   }),
 );
 
 export const selectSortingOption = createAction(
   ActionType.SelectSortingOption,
   (currentSorting: SortingOption) => ({
-    payload: {
-      currentSorting,
-    },
+    payload: currentSorting,
   }),
 );
 
@@ -26,9 +22,7 @@ export const loadOffersRequest = createAction(ActionType.LoadOffersRequest);
 export const loadOffersSuccess = createAction(
   ActionType.LoadOffersSuccess,
   (offers: Offer[]) => ({
-    payload: {
-      offers,
-    },
+    payload: offers,
   }),
 );
 
@@ -39,9 +33,7 @@ export const loadOfferRequest = createAction(ActionType.LoadOfferRequest);
 export const loadOfferSuccess = createAction(
   ActionType.LoadOfferSuccess,
   (offer: Offer | null) => ({
-    payload: {
-      offer,
-    },
+    payload: offer,
   }),
 );
 
@@ -52,9 +44,7 @@ export const loadNearbyOffersRequest = createAction(ActionType.LoadNearbyOffersR
 export const loadNearbyOffersSuccess = createAction(
   ActionType.LoadNearbyOffersSuccess,
   (offers: Offer[]) => ({
-    payload: {
-      offers,
-    },
+    payload: offers,
   }),
 );
 
@@ -65,9 +55,7 @@ export const loadReviewsRequest = createAction(ActionType.LoadReviewsRequest);
 export const loadReviewsSuccess = createAction(
   ActionType.LoadReviewsSuccess,
   (reviews: Review[]) => ({
-    payload: {
-      reviews,
-    },
+    payload: reviews,
   }),
 );
 
@@ -80,9 +68,7 @@ export const postReviewRequest = createAction(ActionType.PostReviewRequest);
 export const postReviewSuccess = createAction(
   ActionType.PostReviewSuccess,
   (reviews: Review[]) => ({
-    payload: {
-      reviews,
-    },
+    payload: reviews,
   }),
 );
 
@@ -93,9 +79,7 @@ export const resetPostReview = createAction(ActionType.ResetPostReview);
 export const saveCurrentUser = createAction(
   ActionType.SaveCurrentUser,
   (user: CurrentUser) => ({
-    payload: {
-      user,
-    },
+    payload: user,
   }),
 );
 
@@ -103,7 +87,12 @@ export const dropCurrentUser = createAction(ActionType.DropCurrentUser);
 
 export const checkAuthRequest = createAction(ActionType.CheckAuthRequest);
 
-export const checkAuthSuccess = createAction(ActionType.CheckAuthSuccess);
+export const checkAuthSuccess = createAction(
+  ActionType.CheckAuthSuccess,
+  (authorizationStatus: AuthorizationStatus) => ({
+    payload: authorizationStatus,
+  }),
+);
 
 export const checkAuthFailed = createAction(ActionType.CheckAuthFailed);
 
