@@ -1,12 +1,8 @@
-import {State} from '../types/state';
-import {Actions, ActionType} from '../types/action';
-import {AuthorizationStatus, FetchStatus, SortingOption} from '../const';
+import {AppData} from '../../types/state';
+import {FetchStatus} from '../../const';
+import {Actions, ActionType} from '../../types/action';
 
-const DEFAULT_CITY = 'Paris';
-
-const initialState: State = {
-  currentCityName: DEFAULT_CITY,
-  currentSorting: SortingOption.Popular,
+const initialState: AppData = {
   offers: [],
   offersStatus: FetchStatus.Idle,
   offer: null,
@@ -16,21 +12,10 @@ const initialState: State = {
   reviews: [],
   reviewsStatus: FetchStatus.Idle,
   reviewPostStatus: FetchStatus.Idle,
-  currentUser: null,
-  checkAuthStatus: FetchStatus.Idle,
-  authorizationStatus: AuthorizationStatus.Unknown,
-  authorizationRequestStatus: FetchStatus.Idle,
-  logoutStatus: FetchStatus.Idle,
 };
 
-const reducer = (state = initialState, action: Actions): State => {
+const appData = (state = initialState, action: Actions): AppData => {
   switch (action.type) {
-    case ActionType.SelectCity: {
-      return {...state, currentCityName: action.payload};
-    }
-    case ActionType.SelectSortingOption: {
-      return {...state, currentSorting: action.payload};
-    }
     case ActionType.LoadOffersRequest: {
       return {...state, offersStatus: FetchStatus.Loading};
     }
@@ -115,53 +100,9 @@ const reducer = (state = initialState, action: Actions): State => {
     case ActionType.ResetPostReview: {
       return {...state, reviewPostStatus: FetchStatus.Idle};
     }
-    case ActionType.SaveCurrentUser: {
-      return {...state, currentUser: action.payload};
-    }
-    case ActionType.DropCurrentUser: {
-      return {...state, currentUser: null};
-    }
-    case ActionType.CheckAuthRequest: {
-      return {...state, checkAuthStatus: FetchStatus.Loading};
-    }
-    case ActionType.CheckAuthSuccess: {
-      return {
-        ...state,
-        checkAuthStatus: FetchStatus.Success,
-        authorizationStatus: action.payload,
-      };
-    }
-    case ActionType.CheckAuthFailed: {
-      return {...state, checkAuthStatus: FetchStatus.Failed};
-    }
-    case ActionType.RequireAuthorizationRequest: {
-      return {...state, authorizationRequestStatus: FetchStatus.Loading};
-    }
-    case ActionType.RequireAuthorizationSuccess: {
-      return {
-        ...state, authorizationRequestStatus:
-        FetchStatus.Success,
-        authorizationStatus: action.payload,
-      };
-    }
-    case ActionType.RequireAuthorizationFailed: {
-      return {...state, authorizationRequestStatus: FetchStatus.Failed};
-    }
-    case ActionType.RequireLogoutRequest: {
-      return {...state, logoutStatus: FetchStatus.Loading};
-    }
-    case ActionType.RequireLogoutSuccess: {
-      return {...state,
-        logoutStatus: FetchStatus.Success,
-        authorizationStatus: action.payload,
-      };
-    }
-    case ActionType.RequireLogoutFailed: {
-      return {...state, logoutStatus: FetchStatus.Failed};
-    }
     default:
       return state;
   }
 };
 
-export {reducer};
+export {appData};
