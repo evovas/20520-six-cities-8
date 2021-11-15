@@ -17,6 +17,7 @@ import {FetchStatus} from '../../const';
 import styles from './room.module.scss';
 import LoadError from '../load-error/load-error';
 import {getNearbyOffers, getOffer, getOfferStatus} from '../../store/app-data/selectors';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 
 type PageParams = {
   id: string;
@@ -51,7 +52,7 @@ function Room(): JSX.Element {
     return <NotFound />;
   }
 
-  const {bedrooms, description, goods, host, images, isFavorite, isPremium, maxAdults, price, rating, title, type, city} = offer;
+  const {id, bedrooms, description, goods, host, images, isFavorite, isPremium, maxAdults, price, rating, title, type, city} = offer;
 
   return (
     <div className='page'>
@@ -75,12 +76,7 @@ function Room(): JSX.Element {
                 <h1 className='property__name'>
                   {title}
                 </h1>
-                <button className={cn('property__bookmark-button', 'button', {'property__bookmark-button--active':isFavorite})} type='button'>
-                  <svg className='property__bookmark-icon' width='31' height='33'>
-                    <use xlinkHref={'#icon-bookmark'}/>
-                  </svg>
-                  <span className='visually-hidden'>{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
-                </button>
+                <BookmarkButton buttonType={'property'} isFavoriteInitial={isFavorite} id={id} key={id} />
               </div>
               <div className='property__rating rating'>
                 <div className='property__stars rating__stars'>

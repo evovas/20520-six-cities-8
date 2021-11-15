@@ -82,7 +82,7 @@ export type ServerOffer = {
 export type Review = {
   id: number;
   comment: string;
-  date: Date;
+  date: string;
   rating: number;
   user: User;
 }
@@ -90,7 +90,7 @@ export type Review = {
 export type ServerReview = {
   id: number;
   comment: string;
-  date: Date;
+  date: string;
   rating: number;
   user: ServerUser;
 }
@@ -99,3 +99,5 @@ export type ReviewPost = {
   comment: string;
   rating: string;
 }
+
+export type ServerFavoriteStatus = 0 | 1;

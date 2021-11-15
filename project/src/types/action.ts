@@ -5,6 +5,10 @@ import {State} from './state';
 export enum ActionType {
   SelectCity = 'booking/selectCity',
   SelectSortingOption = 'booking/selectSortingOption',
+  SetFavoriteOptionRequest = 'booking/setFavoriteOptionRequest',
+  SetFavoriteOptionSuccess= 'booking/setFavoriteOptionSuccess',
+  SetFavoriteOptionFailed = 'booking/setFavoriteOptionFailed',
+  ResetFavoriteOption = 'booking/resetFavoriteOption',
   LoadOffersRequest = 'data/loadOffersRequest',
   LoadOffersSuccess = 'data/loadOffersSuccess',
   LoadOffersFailed = 'data/loadOffersFailed',

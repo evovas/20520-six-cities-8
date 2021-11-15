@@ -12,7 +12,7 @@ type PropertyReviewsProps = {
 
 const MAXIMUM_COMMENTS_COUNT = 10;
 
-const compareReviewDate = (reviewA: Review, reviewB: Review) => reviewB.date.getTime() - reviewA.date.getTime();
+const compareReviewDate = (reviewA: Review, reviewB: Review) => new Date(reviewB.date).getTime() -  new Date(reviewA.date).getTime();
 
 function PropertyReviews({pageId}: PropertyReviewsProps): JSX.Element {
   const reviews = useSelector(getReviews);

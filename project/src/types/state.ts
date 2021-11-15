@@ -17,6 +17,8 @@ export type AppData = {
 export type BookingProcess = {
   currentCityName: string;
   currentSorting: SortingOption;
+  favoriteOptionStatus: FetchStatus;
+  favoriteOptionOffer: Offer | null;
 }
 
 export type UserProcess = {
