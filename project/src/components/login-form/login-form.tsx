@@ -2,9 +2,9 @@ import {ChangeEvent, FormEvent, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import cn from 'classnames';
 import Loader from '../loader/loader';
-import {State} from '../../types/state';
 import {FetchStatus} from '../../const';
 import {loginAction} from '../../store/api-actions';
+import {getAuthorizationRequestStatus} from '../../store/user-process/selectors';
 import styles from './login-form.module.scss';
 
 const fields = {
@@ -26,7 +26,7 @@ type FormValues = {
 
 function LoginForm (): JSX.Element {
   const dispatch = useDispatch();
-  const authorizationRequestStatus = useSelector((state: State) => state.authorizationRequestStatus);
+  const authorizationRequestStatus = useSelector(getAuthorizationRequestStatus);
 
   const [formState, setFormState] = useState<FormValues>({
     email: {

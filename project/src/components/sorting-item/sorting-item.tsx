@@ -1,9 +1,9 @@
 import {useDispatch, useSelector} from 'react-redux';
 import cn from 'classnames';
-import {State} from '../../types/state';
 import {SortingOption} from '../../const';
 import {selectSortingOption} from '../../store/action';
 import {memo} from 'react';
+import {getCurrentSorting} from '../../store/booking-process/selectors';
 
 type SortingItemProps = {
   sortingOption: SortingOption;
@@ -12,7 +12,7 @@ type SortingItemProps = {
 
 function SortingItem ({sortingOption, onChangeOpenSelectState}: SortingItemProps): JSX.Element {
   const dispatch = useDispatch();
-  const currentSorting = useSelector(((state: State) => state.currentSorting));
+  const currentSorting = useSelector(getCurrentSorting);
 
   const onClick = () => {
     dispatch(selectSortingOption(sortingOption));

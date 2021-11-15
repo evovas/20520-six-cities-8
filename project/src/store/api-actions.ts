@@ -127,7 +127,7 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
       const {data} = await api.post<CurrentUserServer>(APIRoute.Login, {email, password});
       const {token} = data;
       saveToken(token);
-      dispatch(requireAuthorizationSuccess(AuthorizationStatus.Auth));
+      dispatch(requireAuthorizationSuccess());
       dispatch(saveCurrentUser(adaptCurrentUserToClient(data)));
     } catch (e) {
       dispatch(requireAuthorizationFailed());
@@ -142,7 +142,7 @@ export const logoutAction = (): ThunkActionResult => (
     try {
       await api.delete(APIRoute.Logout);
       dropToken();
-      dispatch(requireLogoutSuccess(AuthorizationStatus.NoAuth));
+      dispatch(requireLogoutSuccess());
       dispatch(dropCurrentUser());
     } catch (e) {
       dispatch(requireLogoutFailed());

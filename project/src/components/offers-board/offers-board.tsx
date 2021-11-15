@@ -4,15 +4,15 @@ import Sorting from '../sorting/sorting';
 import CardList from '../card-list/card-list';
 import Map from '../map/map';
 import {City, Offer} from '../../types/data';
-import {State} from '../../types/state';
 import {sortOffers} from '../../offers-sorting';
+import {getCurrentSorting} from '../../store/booking-process/selectors';
 
 type CardListAndMapProps = {
   currentCityOffers: Offer[];
 }
 
 function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
-  const currentSorting = useSelector((state: State) => state.currentSorting);
+  const currentSorting = useSelector(getCurrentSorting);
 
   const currentCity: City = currentCityOffers[0].city;
 

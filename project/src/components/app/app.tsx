@@ -8,13 +8,14 @@ import Favorites from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
 import LoadError from '../../pages/load-error/load-error';
-import {State} from '../../types/state';
 import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
+import {getOffers, getOffersStatus} from '../../store/app-data/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 function App(): JSX.Element {
-  const offersStatus = useSelector((state: State) => state.offersStatus);
-  const offers = useSelector((state: State) => state.offers);
-  const authorizationStatus = useSelector((state: State) => state.authorizationStatus);
+  const offers = useSelector(getOffers);
+  const offersStatus = useSelector(getOffersStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   if (offersStatus === FetchStatus.Loading) {
     return <Loader size={15} isFullScreen/>;

@@ -37,5 +37,4 @@ function Sorting({currentSorting}: SortingProps): JSX.Element {
   );
 }
 
-export default memo(Sorting)
-;
+export default memo(Sorting);

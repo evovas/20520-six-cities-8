@@ -13,10 +13,10 @@ import Map from '../../components/map/map';
 import {calculateRatingStars} from '../../utils';
 import {fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction} from '../../store/api-actions';
 import {dropRoomData} from '../../store/action';
-import {State} from '../../types/state';
 import {FetchStatus} from '../../const';
 import styles from './room.module.scss';
 import LoadError from '../load-error/load-error';
+import {getNearbyOffers, getOffer, getOfferStatus} from '../../store/app-data/selectors';
 
 type PageParams = {
   id: string;
@@ -24,9 +24,9 @@ type PageParams = {
 
 function Room(): JSX.Element {
   const dispatch = useDispatch();
-  const offer = useSelector((state: State) => state.offer);
-  const nearbyOffers = useSelector((state: State) => state.nearbyOffers).slice(0, 3);
-  const offerStatus = useSelector((state: State) => state.offerStatus);
+  const offer = useSelector(getOffer);
+  const nearbyOffers = useSelector(getNearbyOffers).slice(0, 3);
+  const offerStatus = useSelector(getOfferStatus);
 
   const {id: pageId} = useParams<PageParams>();
 

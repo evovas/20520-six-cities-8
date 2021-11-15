@@ -2,10 +2,10 @@ import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import ReviewStar from '../review-star/review-star';
 import {useDispatch, useSelector} from 'react-redux';
 import {postReviewAction} from '../../store/api-actions';
-import {State} from '../../types/state';
 import {FetchStatus} from '../../const';
 import Loader from '../loader/loader';
 import {resetPostReview} from '../../store/action';
+import {getReviewPostStatus} from '../../store/app-data/selectors';
 
 const MIN_REVIEW_LENGTH = 50;
 const MAX_REVIEW_LENGTH = 300;
@@ -22,7 +22,7 @@ const initialState = {
 
 function ReviewForm({pageId}: ReviewFormProps): JSX.Element {
   const dispatch = useDispatch();
-  const reviewPostStatus = useSelector((state: State) => state.reviewPostStatus);
+  const reviewPostStatus = useSelector(getReviewPostStatus);
 
   const [review, setReview] = useState(initialState);
 

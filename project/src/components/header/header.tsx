@@ -2,11 +2,11 @@ import {useSelector} from 'react-redux';
 import Logo from '../logo/logo';
 import AuthUserMenu from '../auth-user-menu/auth-user-menu';
 import NoAuthUserMenu from '../no-auth-user-menu/no-auth-user-menu';
-import {State} from '../../types/state';
 import {AuthorizationStatus} from '../../const';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 function Header(): JSX.Element {
-  const authorizationStatus = useSelector((state: State) => state.authorizationStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   return (
     <header className='header'>
