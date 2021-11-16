@@ -12,7 +12,7 @@ type PropertyReviewsProps = {
 
 const MAXIMUM_COMMENTS_COUNT = 10;
 
-const compareReviewDate = (reviewA: Review, reviewB: Review) => new Date(reviewB.date).getTime() -  new Date(reviewA.date).getTime();
+const compareReviewDate = (reviewA: Review, reviewB: Review) => new Date(reviewB.date).getTime() - new Date(reviewA.date).getTime();
 
 function PropertyReviews({pageId}: PropertyReviewsProps): JSX.Element {
   const reviews = useSelector(getReviews);
@@ -21,7 +21,7 @@ function PropertyReviews({pageId}: PropertyReviewsProps): JSX.Element {
   return (
     <section className='property__reviews reviews'>
       <h2 className='reviews__title'>Reviews &middot; <span className='reviews__amount'>{reviews.length}</span></h2>
-      <ReviewList reviews={reviews.sort(compareReviewDate).slice(0, MAXIMUM_COMMENTS_COUNT)} />
+      <ReviewList reviews={reviews.slice(0, MAXIMUM_COMMENTS_COUNT).sort(compareReviewDate)} />
       {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm pageId={pageId} />}
     </section>
   );

@@ -5,6 +5,13 @@ export type User = {
   isPro: boolean;
 }
 
+export type ServerUser = {
+  id: number;
+  name: string;
+  'avatar_url'?: string;
+  'is_pro'?: boolean;
+}
+
 export type CurrentUser = {
   avatarUrl: string;
   email: string;
@@ -15,19 +22,12 @@ export type CurrentUser = {
 }
 
 export type CurrentUserServer = {
-  'avatar_url': string;
+  'avatar_url'?: string;
   email: string;
   id: number;
-  'is_pro': boolean;
+  'is_pro'?: boolean;
   name: string;
   token: string;
-}
-
-export type ServerUser = {
-  id: number;
-  name: string;
-  'avatar_url': string;
-  'is_pro': boolean;
 }
 
 export type Location = {
@@ -68,11 +68,11 @@ export type ServerOffer = {
   goods: string[];
   host: ServerUser;
   images: string[];
-  'is_favorite': boolean;
-  'is_premium': boolean;
+  'is_favorite'?: boolean;
+  'is_premium'?: boolean;
   location: Location;
-  'max_adults': number;
-  'preview_image': string;
+  'max_adults'?: number;
+  'preview_image'?: string;
   price: number;
   rating: number;
   title: string;

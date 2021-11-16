@@ -69,6 +69,6 @@ function BookmarkButton ({buttonType, isFavoriteInitial, id}: BookmarkButtonProp
       <span className='visually-hidden'>{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
     </button>
   );
-};
+}
 
 export default BookmarkButton;
