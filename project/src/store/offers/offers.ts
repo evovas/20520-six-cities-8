@@ -2,6 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {Offers} from '../../types/state';
 import {FetchStatus} from '../../const';
 import {
+  changeRoomOffer,
   dropRoomOffersData,
   loadNearbyOffersFailed,
   loadNearbyOffersRequest,
@@ -11,7 +12,7 @@ import {
   loadOffersFailed,
   loadOffersRequest,
   loadOffersSuccess,
-  loadOfferSuccess
+  loadOfferSuccess, replaceOffer
 } from '../action';
 
 const initialState: Offers = {
@@ -60,6 +61,21 @@ const offers = createReducer(initialState, (builder) => {
       state.offerStatus = FetchStatus.Idle;
       state.nearbyOffers = [];
       state.nearbyOffersStatus = FetchStatus.Idle;
+    })
+    .addCase(changeRoomOffer, (state, action) => {
+      if (state.offer) {
+        state.offer = action.payload;
+      }
+    })
+    .addCase(replaceOffer, (state, action) => {
+      const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
+      if (index >= 0) {
+        state.offers = [
+          ...state.offers.slice(0, index),
+          action.payload,
+          ...state.offers.slice(index + 1),
+        ];
+      }
     });
 
 });

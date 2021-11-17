@@ -18,12 +18,7 @@ export const selectSortingOption = createAction(
 );
 
 export const setFavoriteOptionRequest = createAction(ActionType.SetFavoriteOptionRequest);
-export const setFavoriteOptionSuccess = createAction(
-  ActionType.SetFavoriteOptionSuccess,
-  (offer: Offer) => ({
-    payload: offer,
-  }),
-);
+export const setFavoriteOptionSuccess = createAction(ActionType.SetFavoriteOptionSuccess);
 export const setFavoriteOptionFailed = createAction(ActionType.SetFavoriteOptionFailed);
 export const resetFavoriteOption = createAction(ActionType.ResetFavoriteOption);
 
@@ -55,6 +50,19 @@ export const loadNearbyOffersSuccess = createAction(
 export const loadNearbyOffersFailed = createAction(ActionType.LoadNearbyOffersFailed);
 
 export const dropRoomOffersData = createAction(ActionType.DropRoomOffersData);
+
+export const changeRoomOffer = createAction(
+  ActionType.ChangeRoomOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
+export const replaceOffer = createAction(
+  ActionType.ReplaceOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
 
 export const loadReviewsRequest = createAction(ActionType.LoadReviewsRequest);
 export const loadReviewsSuccess = createAction(

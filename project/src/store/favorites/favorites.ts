@@ -18,9 +18,8 @@ const favorites = createReducer(initialState, (builder) => {
     .addCase(setFavoriteOptionRequest, (state) => {
       state.favoriteOptionStatus = FetchStatus.Loading;
     })
-    .addCase(setFavoriteOptionSuccess, (state, action) => {
+    .addCase(setFavoriteOptionSuccess, (state) => {
       state.favoriteOptionStatus = FetchStatus.Success;
-      state.favoriteOptionOffer = action.payload;
     })
     .addCase(setFavoriteOptionFailed, (state) => {
       state.favoriteOptionStatus = FetchStatus.Failed;

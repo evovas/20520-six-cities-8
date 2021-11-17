@@ -77,7 +77,7 @@ function Room(): JSX.Element {
                 <h1 className='property__name'>
                   {title}
                 </h1>
-                <BookmarkButton buttonType={'property'} isFavoriteInitial={isFavorite} id={id} key={id} />
+                <BookmarkButton buttonType={'property'} isFavorite={isFavorite} id={id} key={id} />
               </div>
               <div className='property__rating rating'>
                 <div className='property__stars rating__stars'>

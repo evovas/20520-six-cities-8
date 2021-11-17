@@ -31,7 +31,7 @@ import {
   dropCurrentUser,
   setFavoriteOptionRequest,
   setFavoriteOptionSuccess,
-  setFavoriteOptionFailed
+  setFavoriteOptionFailed, changeRoomOffer, replaceOffer
 } from './action';
 import {adaptCurrentUserToClient, adaptOfferToClient, adaptReviewToClient} from '../services/adapter';
 import {AuthData} from '../types/auth-data';
@@ -48,7 +48,10 @@ export const postFavoriteOption = (id: number, status: ServerFavoriteStatus): Th
     dispatch(setFavoriteOptionRequest());
     try {
       const {data} = await api.post<ServerOffer>(`${APIRoute.Favorite}/${id}/${status}`);
-      dispatch(setFavoriteOptionSuccess(adaptOfferToClient(data)));
+      const offer = adaptOfferToClient(data);
+      dispatch(setFavoriteOptionSuccess());
+      dispatch(changeRoomOffer(offer));
+      dispatch(replaceOffer(offer));
     } catch (e) {
       dispatch(setFavoriteOptionFailed());
       toast.info(FAIL_MESSAGE);

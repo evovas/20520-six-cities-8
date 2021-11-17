@@ -19,6 +19,8 @@ export enum ActionType {
   LoadNearbyOffersSuccess = 'offers/loadNearbyOffersSuccess',
   LoadNearbyOffersFailed = 'offers/loadNearbyOffersFailed',
   DropRoomOffersData = 'offers/dropRoomOffersData',
+  ChangeRoomOffer = 'offers/changeRoomOffer',
+  ReplaceOffer = 'offers/replaceOffer',
   LoadReviewsRequest = 'reviews/loadReviewsRequest',
   LoadReviewsSuccess = 'reviews/loadReviewsSuccess',
   LoadReviewsFailed = 'reviews/loadReviewsFailed',

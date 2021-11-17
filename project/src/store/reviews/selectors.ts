@@ -7,7 +7,6 @@ import {createSelector} from '@reduxjs/toolkit';
 const MAXIMUM_COMMENTS_COUNT = 10;
 
 export const getReviews = (state: State): Review[] => state[NameSpace.Reviews].reviews;
-export const getReviewsStatus = (state: State): FetchStatus => state[NameSpace.Reviews].reviewsStatus;
 export const getReviewPostStatus = (state: State): FetchStatus => state[NameSpace.Reviews].reviewPostStatus;
 
 export const selectReviews = createSelector([getReviews], (reviews) => {
