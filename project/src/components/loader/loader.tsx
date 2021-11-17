@@ -1,4 +1,4 @@
-import PropagateLoader from 'react-spinners/PropagateLoader';
+import BeatLoader from 'react-spinners/BeatLoader';
 import cn from 'classnames';
 import styles from './loader.module.scss';
 
@@ -19,7 +19,7 @@ function Loader({size, isFullScreen, isLoginScreen, isReviewForm, isFavoritesScr
       {[styles.loaderWrapperReview]: isReviewForm},
     )}
     >
-      <PropagateLoader color={'#66a5e8'} size={size} />
+      <BeatLoader color={'#66a5e8'} size={size} />
     </div>
   );
 }

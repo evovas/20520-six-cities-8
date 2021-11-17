@@ -29,8 +29,8 @@ function ReviewForm({pageId}: ReviewFormProps): JSX.Element {
   useEffect(() => {
     if (reviewPostStatus === FetchStatus.Success) {
       setReview(initialState);
+      dispatch(resetPostReview());
     }
-    dispatch(resetPostReview());
   }, [reviewPostStatus]);
 
   const handleReviewChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -80,8 +80,8 @@ function ReviewForm({pageId}: ReviewFormProps): JSX.Element {
           To submit review please make sure to set <span className='reviews__star'>rating</span> and
           describe your stay with at least <b className='reviews__text-amount'>50 characters</b>.
         </p>
-        <button className='reviews__submit form__submit button' type='submit' disabled={!isValidReview}>
-          {isLoading ? <Loader size={12} isReviewForm /> : 'Submit'}
+        <button className='reviews__submit form__submit button' type='submit' disabled={!isValidReview || isLoading}>
+          {isLoading ? <Loader size={8} isReviewForm /> : 'Submit'}
         </button>
       </div>
     </form>

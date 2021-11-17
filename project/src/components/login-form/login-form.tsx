@@ -34,7 +34,7 @@ function LoginForm (): JSX.Element {
       error: false,
       touched: false,
       errorText: 'Please, enter a valid E-mail address',
-      regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      regex: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
     },
     password: {
       value: '',

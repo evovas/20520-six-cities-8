@@ -19,6 +19,19 @@ import {dropRoomOffersData, dropRoomReviewsData} from '../../store/action';
 import {FetchStatus} from '../../const';
 import styles from './room.module.scss';
 
+const MAX_PHOTOS_COUNT = 6;
+
+type TypeName = {
+  [type: string]: string,
+}
+
+const FullTypeName: TypeName = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+};
+
 type PageParams = {
   id: string;
 }
@@ -63,7 +76,7 @@ function Room(): JSX.Element {
         <section className='property'>
           <div className='property__gallery-container container'>
             <div className='property__gallery'>
-              {images.map((image) => (
+              {images.slice(0, MAX_PHOTOS_COUNT).map((image) => (
                 <div key={image} className='property__image-wrapper'>
                   <img className='property__image' src={image} alt={title}/>
                 </div>
@@ -88,13 +101,13 @@ function Room(): JSX.Element {
               </div>
               <ul className='property__features'>
                 <li className={cn('property__feature', styles.propertyFeatureEntire)}>
-                  {type}
+                  {FullTypeName[type]}
                 </li>
                 <li className='property__feature property__feature--bedrooms'>
-                  {bedrooms} Bedrooms
+                  {bedrooms} {bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                 </li>
                 <li className='property__feature property__feature--adults'>
-                  Max {maxAdults} adults
+                  Max {maxAdults} {maxAdults > 1 ? 'adults' : 'adult'}
                 </li>
               </ul>
               <div className='property__price'>

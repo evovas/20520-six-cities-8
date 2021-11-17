@@ -1,10 +1,8 @@
 import {State} from '../../types/state';
 import {Review} from '../../types/data';
 import {NameSpace} from '../root-reducer';
-import {FetchStatus} from '../../const';
+import {FetchStatus, MAXIMUM_COMMENTS_COUNT} from '../../const';
 import {createSelector} from '@reduxjs/toolkit';
-
-const MAXIMUM_COMMENTS_COUNT = 10;
 
 export const getReviews = (state: State): Review[] => state[NameSpace.Reviews].reviews;
 export const getReviewPostStatus = (state: State): FetchStatus => state[NameSpace.Reviews].reviewPostStatus;
