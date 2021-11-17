@@ -10,14 +10,14 @@ import PropertyReviews from '../../components/property-reviews/property-reviews'
 import PremiumLabel from '../../components/premium-label/premium-label';
 import Loader from '../../components/loader/loader';
 import Map from '../../components/map/map';
+import LoadError from '../load-error/load-error';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import {calculateRatingStars} from '../../utils';
 import {fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction} from '../../store/api-actions';
-import {dropRoomData} from '../../store/action';
+import {getNearbyOffers, getOffer, getOfferStatus} from '../../store/offers/selectors';
+import {dropRoomOffersData, dropRoomReviewsData} from '../../store/action';
 import {FetchStatus} from '../../const';
 import styles from './room.module.scss';
-import LoadError from '../load-error/load-error';
-import {getNearbyOffers, getOffer, getOfferStatus} from '../../store/app-data/selectors';
-import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 
 type PageParams = {
   id: string;
@@ -36,7 +36,8 @@ function Room(): JSX.Element {
     dispatch(fetchNearbyOffersAction(pageId));
     dispatch(fetchReviewsAction(pageId));
     return () => {
-      dispatch(dropRoomData());
+      dispatch(dropRoomOffersData());
+      dispatch(dropRoomReviewsData());
     };
   }, [pageId]);
 

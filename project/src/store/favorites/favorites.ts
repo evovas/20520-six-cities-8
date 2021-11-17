@@ -1,32 +1,20 @@
+import {Favorites} from '../../types/state';
+import {FetchStatus} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
-import {BookingProcess} from '../../types/state';
-import {FetchStatus, SortingOption} from '../../const';
 import {
   resetFavoriteOption,
-  selectCity,
-  selectSortingOption,
   setFavoriteOptionFailed,
   setFavoriteOptionRequest,
   setFavoriteOptionSuccess
 } from '../action';
 
-const DEFAULT_CITY = 'Paris';
-
-const initialState: BookingProcess = {
-  currentCityName: DEFAULT_CITY,
-  currentSorting: SortingOption.Popular,
+const initialState: Favorites = {
   favoriteOptionStatus: FetchStatus.Idle,
   favoriteOptionOffer: null,
 };
 
-const bookingProcess = createReducer(initialState, (builder) => {
+const favorites = createReducer(initialState, (builder) => {
   builder
-    .addCase(selectCity, (state, action) => {
-      state.currentCityName = action.payload;
-    })
-    .addCase(selectSortingOption, (state, action) => {
-      state.currentSorting = action.payload;
-    })
     .addCase(setFavoriteOptionRequest, (state) => {
       state.favoriteOptionStatus = FetchStatus.Loading;
     })
@@ -43,4 +31,4 @@ const bookingProcess = createReducer(initialState, (builder) => {
     });
 });
 
-export {bookingProcess};
+export {favorites};

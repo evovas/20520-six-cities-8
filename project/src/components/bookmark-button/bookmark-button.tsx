@@ -1,11 +1,11 @@
 import cn from 'classnames';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 import {useHistory} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
 import {postFavoriteOption} from '../../store/api-actions';
 import {ServerFavoriteStatus} from '../../types/data';
-import {getFavoriteOptionOffer, getFavoriteOptionStatus} from '../../store/booking-process/selectors';
+import {getFavoriteOptionOffer, getFavoriteOptionStatus} from '../../store/favorites/selectors';
 import {useEffect, useState} from 'react';
 import {resetFavoriteOption} from '../../store/action';
 

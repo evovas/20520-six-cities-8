@@ -9,8 +9,8 @@ import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
 import LoadError from '../../pages/load-error/load-error';
 import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
-import {getOffers, getOffersStatus} from '../../store/app-data/selectors';
-import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getOffers, getOffersStatus} from '../../store/offers/selectors';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
 function App(): JSX.Element {
   const offers = useSelector(getOffers);
@@ -29,7 +29,7 @@ function App(): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <Main offers={offers} />
+          <Main />
         </Route>
         <PrivateRoute
           exact

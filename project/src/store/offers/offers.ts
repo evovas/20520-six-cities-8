@@ -1,8 +1,8 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {AppData} from '../../types/state';
+import {Offers} from '../../types/state';
 import {FetchStatus} from '../../const';
 import {
-  dropRoomData,
+  dropRoomOffersData,
   loadNearbyOffersFailed,
   loadNearbyOffersRequest,
   loadNearbyOffersSuccess,
@@ -11,29 +11,19 @@ import {
   loadOffersFailed,
   loadOffersRequest,
   loadOffersSuccess,
-  loadOfferSuccess,
-  loadReviewsFailed,
-  loadReviewsRequest,
-  loadReviewsSuccess,
-  postReviewFailed,
-  postReviewRequest,
-  postReviewSuccess,
-  resetPostReview
+  loadOfferSuccess
 } from '../action';
 
-const initialState: AppData = {
+const initialState: Offers = {
   offers: [],
   offersStatus: FetchStatus.Idle,
   offer: null,
   offerStatus: FetchStatus.Idle,
   nearbyOffers: [],
   nearbyOffersStatus: FetchStatus.Idle,
-  reviews: [],
-  reviewsStatus: FetchStatus.Idle,
-  reviewPostStatus: FetchStatus.Idle,
 };
 
-const appData = createReducer(initialState, (builder) => {
+const offers = createReducer(initialState, (builder) => {
   builder
     .addCase(loadOffersRequest, (state) => {
       state.offersStatus = FetchStatus.Loading;
@@ -65,37 +55,13 @@ const appData = createReducer(initialState, (builder) => {
     .addCase(loadNearbyOffersFailed, (state) => {
       state.nearbyOffersStatus = FetchStatus.Failed;
     })
-    .addCase(loadReviewsRequest, (state) => {
-      state.reviewsStatus = FetchStatus.Loading;
-    })
-    .addCase(loadReviewsSuccess, (state, action) => {
-      state.reviewsStatus = FetchStatus.Success;
-      state.reviews = action.payload;
-    })
-    .addCase(loadReviewsFailed, (state) => {
-      state.reviewsStatus = FetchStatus.Failed;
-    })
-    .addCase(dropRoomData, (state) => {
+    .addCase(dropRoomOffersData, (state) => {
       state.offer = null;
       state.offerStatus = FetchStatus.Idle;
       state.nearbyOffers = [];
       state.nearbyOffersStatus = FetchStatus.Idle;
-      state.reviews = [];
-      state.reviewsStatus = FetchStatus.Idle;
-    })
-    .addCase(postReviewRequest, (state) => {
-      state.reviewPostStatus = FetchStatus.Loading;
-    })
-    .addCase(postReviewSuccess, (state, action) => {
-      state.reviewPostStatus = FetchStatus.Success;
-      state.reviews = action.payload;
-    })
-    .addCase(postReviewFailed, (state) => {
-      state.reviewPostStatus = FetchStatus.Failed;
-    })
-    .addCase(resetPostReview, (state) => {
-      state.reviewPostStatus = FetchStatus.Idle;
     });
+
 });
 
-export {appData};
+export {offers};

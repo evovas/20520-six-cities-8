@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
 import {selectCity} from '../../store/action';
-import {getCurrentCityName} from '../../store/booking-process/selectors';
+import {getCurrentCityName} from '../../store/ui/selectors';
 
 type LocationTabProps = {
   cityName: string;

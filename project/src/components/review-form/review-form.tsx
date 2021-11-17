@@ -5,7 +5,7 @@ import {postReviewAction} from '../../store/api-actions';
 import {FetchStatus} from '../../const';
 import Loader from '../loader/loader';
 import {resetPostReview} from '../../store/action';
-import {getReviewPostStatus} from '../../store/app-data/selectors';
+import {getReviewPostStatus} from '../../store/reviews/selectors';
 
 const MIN_REVIEW_LENGTH = 50;
 const MAX_REVIEW_LENGTH = 300;

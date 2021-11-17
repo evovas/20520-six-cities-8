@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRoute} from '../../const';
 import {logoutAction} from '../../store/api-actions';
-import {getCurrentUser} from '../../store/user-process/selectors';
+import {getCurrentUser} from '../../store/user/selectors';
 
 function AuthUserMenu(): JSX.Element {
   const dispatch = useDispatch();

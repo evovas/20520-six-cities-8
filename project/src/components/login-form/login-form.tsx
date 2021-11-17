@@ -4,7 +4,7 @@ import cn from 'classnames';
 import Loader from '../loader/loader';
 import {FetchStatus} from '../../const';
 import {loginAction} from '../../store/api-actions';
-import {getAuthorizationRequestStatus} from '../../store/user-process/selectors';
+import {getAuthorizationRequestStatus} from '../../store/user/selectors';
 import styles from './login-form.module.scss';
 
 const fields = {

@@ -3,7 +3,7 @@ import cn from 'classnames';
 import {SortingOption} from '../../const';
 import {selectSortingOption} from '../../store/action';
 import {memo} from 'react';
-import {getCurrentSorting} from '../../store/booking-process/selectors';
+import {getCurrentSorting} from '../../store/ui/selectors';
 
 type SortingItemProps = {
   sortingOption: SortingOption;

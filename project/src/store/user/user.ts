@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {UserProcess} from '../../types/state';
+import {User} from '../../types/state';
 import {AuthorizationStatus, FetchStatus} from '../../const';
 import {
   checkAuthFailed,
@@ -15,7 +15,7 @@ import {
   saveCurrentUser
 } from '../action';
 
-const initialState: UserProcess = {
+const initialState: User = {
   currentUser: null,
   checkAuthStatus: FetchStatus.Idle,
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -23,7 +23,7 @@ const initialState: UserProcess = {
   logoutStatus: FetchStatus.Idle,
 };
 
-const userProcess = createReducer(initialState, (builder) => {
+const user = createReducer(initialState, (builder) => {
   builder
     .addCase(saveCurrentUser, (state, action) => {
       state.currentUser = action.payload;
@@ -63,4 +63,4 @@ const userProcess = createReducer(initialState, (builder) => {
     });
 });
 
-export {userProcess};
+export {user};

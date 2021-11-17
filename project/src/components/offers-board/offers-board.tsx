@@ -1,11 +1,10 @@
-import {useCallback, useMemo, useState} from 'react';
+import {useCallback, useState} from 'react';
 import {useSelector} from 'react-redux';
 import Sorting from '../sorting/sorting';
 import CardList from '../card-list/card-list';
 import Map from '../map/map';
 import {City, Offer} from '../../types/data';
-import {sortOffers} from '../../offers-sorting';
-import {getCurrentSorting} from '../../store/booking-process/selectors';
+import {getCurrentSorting} from '../../store/ui/selectors';
 
 type CardListAndMapProps = {
   currentCityOffers: Offer[];
@@ -35,7 +34,7 @@ function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
         />
         <div className='cities__places-list places__list tabs__content'>
           <CardList
-            offers={useMemo(() => sortOffers(currentCityOffers, currentSorting), [currentCityOffers, currentSorting])}
+            offers={currentCityOffers}
             cardType={'cities'}
             onMouseEnterCard={onMouseEnterCard}
             onMouseLeaveCard={onMouseLeaveCard}

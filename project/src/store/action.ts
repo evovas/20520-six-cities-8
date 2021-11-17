@@ -54,6 +54,8 @@ export const loadNearbyOffersSuccess = createAction(
 );
 export const loadNearbyOffersFailed = createAction(ActionType.LoadNearbyOffersFailed);
 
+export const dropRoomOffersData = createAction(ActionType.DropRoomOffersData);
+
 export const loadReviewsRequest = createAction(ActionType.LoadReviewsRequest);
 export const loadReviewsSuccess = createAction(
   ActionType.LoadReviewsSuccess,
@@ -63,7 +65,7 @@ export const loadReviewsSuccess = createAction(
 );
 export const loadReviewsFailed = createAction(ActionType.LoadReviewsFailed);
 
-export const dropRoomData = createAction(ActionType.DropRoomData);
+export const dropRoomReviewsData = createAction(ActionType.DropRoomReviewsData);
 
 export const postReviewRequest = createAction(ActionType.PostReviewRequest);
 export const postReviewSuccess = createAction(
