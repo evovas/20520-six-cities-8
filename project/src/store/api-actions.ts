@@ -31,7 +31,12 @@ import {
   dropCurrentUser,
   setFavoriteOptionRequest,
   setFavoriteOptionSuccess,
-  setFavoriteOptionFailed, changeRoomOffer, replaceOffer
+  setFavoriteOptionFailed,
+  changeRoomOffer,
+  replaceOffer,
+  loadFavoriteOffersRequest,
+  loadFavoriteOffersSuccess,
+  loadFavoriteOffersFailed, deleteFavoriteOffer
 } from './action';
 import {adaptCurrentUserToClient, adaptOfferToClient, adaptReviewToClient} from '../services/adapter';
 import {AuthData} from '../types/auth-data';
@@ -43,18 +48,31 @@ const FAIL_MESSAGE = 'An error occurred, please try later';
 const REVIEWS_FAIL_MESSAGE = 'An error occurred while loading comments, please try again later.';
 const NEARBY_PLACES_FAIL_MESSAGE = 'There was an error loading places nearby, please try again later.';
 
-export const postFavoriteOption = (id: number, status: ServerFavoriteStatus): ThunkActionResult => (
+export const postFavoriteOptionAction = (id: number, status: ServerFavoriteStatus): ThunkActionResult => (
   async (dispatch, _, api): Promise<void> => {
     dispatch(setFavoriteOptionRequest());
     try {
       const {data} = await api.post<ServerOffer>(`${APIRoute.Favorite}/${id}/${status}`);
       const offer = adaptOfferToClient(data);
       dispatch(setFavoriteOptionSuccess());
-      dispatch(changeRoomOffer(offer));
       dispatch(replaceOffer(offer));
+      dispatch(changeRoomOffer(offer));
+      dispatch(deleteFavoriteOffer(offer));
     } catch (e) {
       dispatch(setFavoriteOptionFailed());
       toast.info(FAIL_MESSAGE);
+    }
+  }
+);
+
+export const fetchFavoriteOffersAction = (): ThunkActionResult => (
+  async (dispatch, _, api): Promise<void> => {
+    dispatch(loadFavoriteOffersRequest());
+    try {
+      const {data} = await api.get<ServerOffer[]>(APIRoute.Favorite);
+      dispatch(loadFavoriteOffersSuccess(data.map((offer) => adaptOfferToClient(offer))));
+    } catch (e) {
+      dispatch(loadFavoriteOffersFailed());
     }
   }
 );

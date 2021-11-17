@@ -1,5 +1,5 @@
-import {CurrentUser, Offer, Review} from './data';
 import {AuthorizationStatus, FetchStatus, SortingOption} from '../const';
+import {CurrentUser, Offer, Review} from './data';
 import {RootState} from '../store/root-reducer';
 
 export type Offers = {
@@ -19,7 +19,8 @@ export type Reviews = {
 
 export type Favorites = {
   favoriteOptionStatus: FetchStatus;
-  favoriteOptionOffer: Offer | null;
+  favoriteOffersStatus: FetchStatus;
+  favoriteOffers: Offer[] | [];
 }
 
 export type UI = {

@@ -12,7 +12,8 @@ import {
   loadOffersFailed,
   loadOffersRequest,
   loadOffersSuccess,
-  loadOfferSuccess, replaceOffer
+  loadOfferSuccess,
+  replaceOffer
 } from '../action';
 
 const initialState: Offers = {

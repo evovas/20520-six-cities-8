@@ -6,13 +6,15 @@ type LoaderProps = {
   size: number;
   isFullScreen?: boolean;
   isLoginScreen?: boolean;
+  isFavoritesScreen?: boolean;
   isReviewForm?: boolean;
 };
 
-function Loader({size, isFullScreen, isLoginScreen, isReviewForm}: LoaderProps): JSX.Element {
+function Loader({size, isFullScreen, isLoginScreen, isReviewForm, isFavoritesScreen}: LoaderProps): JSX.Element {
   return (
     <div className={cn(
       {[styles.loaderWrapperFullScreen]: isFullScreen},
+      {[styles.loaderWrapperFavoritesScreen]: isFavoritesScreen},
       {[styles.loaderWrapperLogin]: isLoginScreen},
       {[styles.loaderWrapperReview]: isReviewForm},
     )}

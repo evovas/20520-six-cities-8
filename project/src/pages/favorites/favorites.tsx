@@ -1,29 +1,48 @@
+import {Link} from 'react-router-dom';
+import cn from 'classnames';
 import Header from '../../components/header/header';
 import FavoritesList from '../../components/favorites-list/favorites-list';
-import {Offer} from '../../types/data';
+import LoadError from '../load-error/load-error';
+import Loader from '../../components/loader/loader';
+import {useDispatch, useSelector} from 'react-redux';
+import {getFavoriteOffersStatus, getFavoritesOffers} from '../../store/favorites/selectors';
+import {useEffect} from 'react';
+import {fetchFavoriteOffersAction} from '../../store/api-actions';
+import {dropFavoriteOffers} from '../../store/action';
+import {FetchStatus} from '../../const';
 
-type OffersProps = {
-  offers: Offer[];
-}
+function Favorites(): JSX.Element {
+  const dispatch = useDispatch();
+  const favoriteOffersStatus = useSelector(getFavoriteOffersStatus);
+  const favoritesOffers = useSelector(getFavoritesOffers);
 
-function Favorites({offers}: OffersProps): JSX.Element {
+  useEffect(() => {
+    dispatch(fetchFavoriteOffersAction());
+    return () => {
+      dispatch(dropFavoriteOffers());
+    };
+  }, []);
+
+  if (favoriteOffersStatus === FetchStatus.Failed) {
+    return <LoadError />;
+  }
+
   return (
-    <div className='page'>
+    <div className={cn('page', {'page--favorites-empty': favoritesOffers.length === 0})}>
       <Header />
-      <main className='page__main page__main--favorites'>
+      <main className={cn('page__main', 'page__main--favorites', {'page__main--favorites-empty': favoritesOffers.length === 0})}>
         <div className='page__favorites-container container'>
-          <section className='favorites'>
-            <h1 className='favorites__title'>Saved listing</h1>
-            <ul className='favorites__list'>
-              <FavoritesList offers={offers} />
-            </ul>
-          </section>
+          {
+            (favoriteOffersStatus === FetchStatus.Idle || favoriteOffersStatus === FetchStatus.Loading)
+              ? <Loader size={15} isFavoritesScreen />
+              : <FavoritesList />
+          }
         </div>
       </main>
       <footer className='footer container'>
-        <a className='footer__logo-link' href={'main.html'}>
+        <Link className='footer__logo-link' to={'/'}>
           <img className='footer__logo' src={'img/logo.svg'} alt='6 cities logo' width='64' height='33'/>
-        </a>
+        </Link>
       </footer>
     </div>
   );

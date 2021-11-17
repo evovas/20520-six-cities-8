@@ -1,7 +1,7 @@
 import {createAction} from '@reduxjs/toolkit';
 import {ActionType} from '../types/action';
-import {CurrentUser, Offer, Review} from '../types/data';
 import {AuthorizationStatus, SortingOption} from '../const';
+import {CurrentUser, Offer, Review} from '../types/data';
 
 export const selectCity = createAction(
   ActionType.SelectCity,
@@ -20,7 +20,23 @@ export const selectSortingOption = createAction(
 export const setFavoriteOptionRequest = createAction(ActionType.SetFavoriteOptionRequest);
 export const setFavoriteOptionSuccess = createAction(ActionType.SetFavoriteOptionSuccess);
 export const setFavoriteOptionFailed = createAction(ActionType.SetFavoriteOptionFailed);
-export const resetFavoriteOption = createAction(ActionType.ResetFavoriteOption);
+
+export const loadFavoriteOffersRequest = createAction(ActionType.LoadFavoriteOffersRequest);
+export const loadFavoriteOffersSuccess = createAction(
+  ActionType.LoadFavoriteOffersSuccess,
+  (offers: Offer[] | []) => ({
+    payload: offers,
+  }),
+);
+export const loadFavoriteOffersFailed = createAction(ActionType.LoadFavoriteOffersFailed);
+export const dropFavoriteOffers = createAction(ActionType.DropFavoriteOffers);
+
+export const deleteFavoriteOffer = createAction(
+  ActionType.DeleteFavoriteOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
 
 export const loadOffersRequest = createAction(ActionType.LoadOffersRequest);
 export const loadOffersSuccess = createAction(

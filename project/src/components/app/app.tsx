@@ -9,11 +9,10 @@ import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
 import LoadError from '../../pages/load-error/load-error';
 import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
-import {getOffers, getOffersStatus} from '../../store/offers/selectors';
+import {getOffersStatus} from '../../store/offers/selectors';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 
 function App(): JSX.Element {
-  const offers = useSelector(getOffers);
   const offersStatus = useSelector(getOffersStatus);
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
@@ -34,7 +33,7 @@ function App(): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
-          render={() => <Favorites offers={offers.filter((offer) => offer.isFavorite)} />}
+          render={() => <Favorites />}
           authorizationStatus={authorizationStatus}
           verifiableStatus={AuthorizationStatus.Auth}
           redirectTo={AppRoute.Login}

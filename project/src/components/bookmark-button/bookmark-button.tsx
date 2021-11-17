@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 import {useHistory} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {postFavoriteOption} from '../../store/api-actions';
+import {postFavoriteOptionAction} from '../../store/api-actions';
 import {ServerFavoriteStatus} from '../../types/data';
 
 const FAVORITE_STATUS_FALSE: ServerFavoriteStatus = 0;
@@ -41,7 +41,7 @@ function BookmarkButton ({buttonType, isFavorite, id}: BookmarkButtonProps): JSX
 
   const handleClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(postFavoriteOption(id, isFavorite ? FAVORITE_STATUS_FALSE : FAVORITE_STATUS_TRUE));
+      dispatch(postFavoriteOptionAction(id, isFavorite ? FAVORITE_STATUS_FALSE : FAVORITE_STATUS_TRUE));
     } else {
       history.push(AppRoute.Login);
     }
