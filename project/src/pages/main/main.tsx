@@ -4,27 +4,24 @@ import Header from '../../components/header/header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
 import OffersBoard from '../../components/offers-board/offers-board';
 import OffersBoardEmpty from '../../components/offers-board-empty/offers-board-empty';
-import {Offer} from '../../types/data';
-import {State} from '../../types/state';
+import {getCurrentCityName} from '../../store/ui/selectors';
+import {selectOffers} from '../../store/offers/selectors';
 
-type MainPageProps = {
-  offers: Offer[];
-}
+function Main(): JSX.Element {
+  const currentCityName = useSelector(getCurrentCityName);
 
-function Main({offers}: MainPageProps): JSX.Element {
-  const currentCityName = useSelector((state: State) => state.currentCityName);
-  const currentCityOffers = offers.filter((offer: Offer) => offer.city.name === currentCityName);
+  const offers = useSelector(selectOffers);
 
   return (
     <div className='page page--gray page--main'>
       <Header />
-      <main className={cn('page__main', 'page__main--index', {'page__main--index-empty': currentCityOffers.length === 0})}>
+      <main className={cn('page__main', 'page__main--index', {'page__main--index-empty': offers.length === 0})}>
         <h1 className='visually-hidden'>Cities</h1>
         <LocationTabs />
         <div className='cities'>
           {
-            currentCityOffers.length > 0
-              ? <OffersBoard currentCityOffers={currentCityOffers} />
+            offers.length > 0
+              ? <OffersBoard currentCityOffers={offers} />
               : <OffersBoardEmpty currentCityName={currentCityName} />
           }
         </div>

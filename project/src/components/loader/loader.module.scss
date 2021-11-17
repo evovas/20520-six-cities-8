@@ -7,8 +7,18 @@
   align-items: center;
 }
 
+.loaderWrapperFavoritesScreen {
+  height: 20vh;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .loaderWrapperLogin {
-  padding: 3px 20px 15px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,7 +26,7 @@
 }
 
 .loaderWrapperReview {
-  padding: 4px 0 15px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,4 +1,5 @@
 export const CITIES_LIST = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export const MAXIMUM_COMMENTS_COUNT = 10;
 
 export enum AppRoute {
   Favorites = '/favorites',
@@ -33,4 +34,5 @@ export enum APIRoute {
   Logout = '/logout',
   Nearby = '/nearby',
   Comments = '/comments',
+  Favorite = '/favorite',
 }

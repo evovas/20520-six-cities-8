@@ -5,11 +5,12 @@ import {useDispatch} from 'react-redux';
 import {selectCity} from '../../store/action';
 
 function RandomLocation(): JSX.Element {
-  const onChangeCity = useDispatch();
+  const dispatch = useDispatch();
+
   const randomCity = CITIES_LIST[getRandomPositiveInteger(0, CITIES_LIST.length-1)];
 
   const onClickCityTab = () => {
-    onChangeCity(selectCity(randomCity));
+    dispatch(selectCity(randomCity));
   };
 
   return (

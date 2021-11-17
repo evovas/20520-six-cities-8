@@ -1,6 +1,6 @@
 import {toast} from 'react-toastify';
 import {ThunkActionResult} from '../types/action';
-import {CurrentUserServer, ReviewPost, ServerOffer, ServerReview} from '../types/data';
+import {CurrentUserServer, ReviewPost, ServerFavoriteStatus, ServerOffer, ServerReview} from '../types/data';
 import {APIRoute, AuthorizationStatus} from '../const';
 import {
   checkAuthFailed,
@@ -26,16 +26,56 @@ import {
   requireAuthorizationSuccess,
   requireLogoutFailed,
   requireLogoutRequest,
-  requireLogoutSuccess, saveCurrentUser, dropCurrentUser
+  requireLogoutSuccess,
+  saveCurrentUser,
+  dropCurrentUser,
+  setFavoriteOptionRequest,
+  setFavoriteOptionSuccess,
+  setFavoriteOptionFailed,
+  changeRoomOffer,
+  replaceOffer,
+  loadFavoriteOffersRequest,
+  loadFavoriteOffersSuccess,
+  loadFavoriteOffersFailed, deleteFavoriteOffer
 } from './action';
 import {adaptCurrentUserToClient, adaptOfferToClient, adaptReviewToClient} from '../services/adapter';
 import {AuthData} from '../types/auth-data';
 import {dropToken, saveToken} from '../services/token';
 
+const BAD_REQUEST_CODE = 400;
 const NOT_FOUND_CODE = 404;
 const FAIL_MESSAGE = 'An error occurred, please try later';
 const REVIEWS_FAIL_MESSAGE = 'An error occurred while loading comments, please try again later.';
 const NEARBY_PLACES_FAIL_MESSAGE = 'There was an error loading places nearby, please try again later.';
+
+export const postFavoriteOptionAction = (id: number, status: ServerFavoriteStatus): ThunkActionResult => (
+  async (dispatch, _, api): Promise<void> => {
+    dispatch(setFavoriteOptionRequest());
+    try {
+      const {data} = await api.post<ServerOffer>(`${APIRoute.Favorite}/${id}/${status}`);
+      const offer = adaptOfferToClient(data);
+      dispatch(setFavoriteOptionSuccess());
+      dispatch(replaceOffer(offer));
+      dispatch(changeRoomOffer(offer));
+      dispatch(deleteFavoriteOffer(offer));
+    } catch (e) {
+      dispatch(setFavoriteOptionFailed());
+      toast.info(FAIL_MESSAGE);
+    }
+  }
+);
+
+export const fetchFavoriteOffersAction = (): ThunkActionResult => (
+  async (dispatch, _, api): Promise<void> => {
+    dispatch(loadFavoriteOffersRequest());
+    try {
+      const {data} = await api.get<ServerOffer[]>(APIRoute.Favorite);
+      dispatch(loadFavoriteOffersSuccess(data.map((offer) => adaptOfferToClient(offer))));
+    } catch (e) {
+      dispatch(loadFavoriteOffersFailed());
+    }
+  }
+);
 
 export const fetchOffersAction = (): ThunkActionResult => (
   async (dispatch, _, api): Promise<void> => {
@@ -71,7 +111,9 @@ export const fetchNearbyOffersAction = (pageId: string): ThunkActionResult => (
       dispatch(loadNearbyOffersSuccess(data.map((offer) => adaptOfferToClient(offer))));
     } catch (e) {
       dispatch(loadNearbyOffersFailed());
-      toast.info(NEARBY_PLACES_FAIL_MESSAGE);
+      if (e !== NOT_FOUND_CODE) {
+        toast.info(NEARBY_PLACES_FAIL_MESSAGE);
+      }
     }
   }
 );
@@ -84,13 +126,15 @@ export const fetchReviewsAction = (pageId: string): ThunkActionResult => (
       dispatch(loadReviewsSuccess(data.map((review) => adaptReviewToClient(review))));
     } catch (e) {
       dispatch(loadReviewsFailed());
-      toast.info(REVIEWS_FAIL_MESSAGE);
+      if (e !== BAD_REQUEST_CODE) {
+        toast.info(REVIEWS_FAIL_MESSAGE);
+      }
     }
   }
 );
 
 export const postReviewAction = (pageId: string, {comment, rating}: ReviewPost): ThunkActionResult => (
-  async (dispatch, _, api) => {
+  async (dispatch, _, api): Promise<void> => {
     dispatch(postReviewRequest());
     try {
       const {data} = await api.post<ServerReview[]>(`${APIRoute.Comments}/${pageId}`, {comment, rating});
@@ -116,13 +160,13 @@ export const checkAuthAction = (): ThunkActionResult => (
 );
 
 export const loginAction = ({login: email, password}: AuthData): ThunkActionResult => (
-  async (dispatch, _, api) => {
+  async (dispatch, _, api): Promise<void> => {
     dispatch(requireAuthorizationRequest());
     try {
       const {data} = await api.post<CurrentUserServer>(APIRoute.Login, {email, password});
       const {token} = data;
       saveToken(token);
-      dispatch(requireAuthorizationSuccess(AuthorizationStatus.Auth));
+      dispatch(requireAuthorizationSuccess());
       dispatch(saveCurrentUser(adaptCurrentUserToClient(data)));
     } catch (e) {
       dispatch(requireAuthorizationFailed());
@@ -132,12 +176,12 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
 );
 
 export const logoutAction = (): ThunkActionResult => (
-  async (dispatch, _, api) => {
+  async (dispatch, _, api): Promise<void> => {
     dispatch(requireLogoutRequest());
     try {
       await api.delete(APIRoute.Logout);
       dropToken();
-      dispatch(requireLogoutSuccess(AuthorizationStatus.NoAuth));
+      dispatch(requireLogoutSuccess());
       dispatch(dropCurrentUser());
     } catch (e) {
       dispatch(requireLogoutFailed());

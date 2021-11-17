@@ -2,9 +2,9 @@ import {ChangeEvent, FormEvent, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import cn from 'classnames';
 import Loader from '../loader/loader';
-import {State} from '../../types/state';
 import {FetchStatus} from '../../const';
 import {loginAction} from '../../store/api-actions';
+import {getAuthorizationRequestStatus} from '../../store/user/selectors';
 import styles from './login-form.module.scss';
 
 const fields = {
@@ -25,7 +25,8 @@ type FormValues = {
 }
 
 function LoginForm (): JSX.Element {
-  const authorizationRequestStatus = useSelector((state: State) => state.authorizationRequestStatus);
+  const dispatch = useDispatch();
+  const authorizationRequestStatus = useSelector(getAuthorizationRequestStatus);
 
   const [formState, setFormState] = useState<FormValues>({
     email: {
@@ -33,7 +34,7 @@ function LoginForm (): JSX.Element {
       error: false,
       touched: false,
       errorText: 'Please, enter a valid E-mail address',
-      regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      regex: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
     },
     password: {
       value: '',
@@ -43,8 +44,6 @@ function LoginForm (): JSX.Element {
       regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{3,}$/,
     },
   });
-
-  const onSubmitForm = useDispatch();
 
   const handleFormChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = target;
@@ -65,7 +64,7 @@ function LoginForm (): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    onSubmitForm(loginAction({
+    dispatch(loginAction({
       login: formState.email.value,
       password: formState.password.value,
     }));

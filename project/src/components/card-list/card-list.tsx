@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import PlaceCard from '../place-card/place-card';
 import {Offer} from '../../types/data';
 
@@ -24,4 +25,4 @@ function CardList({offers, cardType, onMouseEnterCard, onMouseLeaveCard}: CardLi
   );
 }
 
-export default CardList;
+export default memo(CardList);

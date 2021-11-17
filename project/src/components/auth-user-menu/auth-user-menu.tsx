@@ -2,15 +2,14 @@ import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRoute} from '../../const';
 import {logoutAction} from '../../store/api-actions';
-import {State} from '../../types/state';
+import {getCurrentUser} from '../../store/user/selectors';
 
 function AuthUserMenu(): JSX.Element {
-  const onLogoutClick = useDispatch();
-
-  const currentUser = useSelector((state: State) => state.currentUser);
+  const dispatch = useDispatch();
+  const currentUser = useSelector(getCurrentUser);
 
   const handleClick = () => {
-    onLogoutClick(logoutAction());
+    dispatch(logoutAction());
   };
 
   return (

@@ -1,61 +1,40 @@
 import {AxiosInstance} from 'axios';
-import {ThunkAction, ThunkDispatch} from '@reduxjs/toolkit';
-import {
-  selectCity,
-  selectSortingOption,
-  loadOffersRequest,
-  loadOffersSuccess,
-  loadOffersFailed,
-  loadOfferRequest,
-  loadOfferSuccess,
-  loadOfferFailed,
-  loadNearbyOffersRequest,
-  loadNearbyOffersSuccess,
-  loadNearbyOffersFailed,
-  loadReviewsRequest,
-  loadReviewsSuccess,
-  loadReviewsFailed,
-  dropRoomData,
-  postReviewRequest,
-  postReviewSuccess,
-  postReviewFailed,
-  resetPostReview,
-  saveCurrentUser,
-  dropCurrentUser,
-  requireAuthorizationSuccess,
-  requireAuthorizationRequest,
-  requireAuthorizationFailed,
-  checkAuthRequest,
-  checkAuthSuccess,
-  checkAuthFailed,
-  requireLogoutRequest,
-  requireLogoutSuccess,
-  requireLogoutFailed
-} from '../store/action';
+import {Action, ThunkAction, ThunkDispatch} from '@reduxjs/toolkit';
 import {State} from './state';
 
 export enum ActionType {
-  SelectCity = 'booking/selectCity',
-  SelectSortingOption = 'booking/selectSortingOption',
-  LoadOffersRequest = 'data/loadOffersRequest',
-  LoadOffersSuccess = 'data/loadOffersSuccess',
-  LoadOffersFailed = 'data/loadOffersFailed',
-  LoadOfferRequest = 'data/loadOfferRequest',
-  LoadOfferSuccess = 'data/loadOfferSuccess',
-  LoadOfferFailed = 'data/loadOfferFailed',
-  LoadNearbyOffersRequest = 'data/loadNearbyOffersRequest',
-  LoadNearbyOffersSuccess = 'data/loadNearbyOffersSuccess',
-  LoadNearbyOffersFailed = 'data/loadNearbyOffersFailed',
-  LoadReviewsRequest = 'data/loadReviewsRequest',
-  LoadReviewsSuccess = 'data/loadReviewsSuccess',
-  LoadReviewsFailed = 'data/loadReviewsFailed',
-  DropRoomData = 'data/dropRoomData',
-  PostReviewRequest = 'data/postReviewRequest',
-  PostReviewSuccess = 'data/postReviewSuccess',
-  PostReviewFailed = 'data/postReviewFailed',
-  ResetPostReview = 'data/resetPostReview',
-  SaveCurrentUser = 'data/saveCurrentUser',
-  DropCurrentUser = 'data/dropCurrentUser',
+  SelectCity = 'ui/selectCity',
+  SelectSortingOption = 'ui/selectSortingOption',
+  SetFavoriteOptionRequest = 'favorites/setFavoriteOptionRequest',
+  SetFavoriteOptionSuccess= 'favorites/setFavoriteOptionSuccess',
+  SetFavoriteOptionFailed = 'favorites/setFavoriteOptionFailed',
+  LoadFavoriteOffersRequest = 'favorites/loadFavoriteOffersRequest',
+  LoadFavoriteOffersSuccess = 'favorites/loadFavoriteOffersSuccess',
+  LoadFavoriteOffersFailed = 'favorites/loadFavoriteOffersFailed',
+  DropFavoriteOffers = 'favorites/dropFavoriteOffers',
+  DeleteFavoriteOffer = 'favorites/deleteFavoriteOffer',
+  LoadOffersRequest = 'offers/loadOffersRequest',
+  LoadOffersSuccess = 'offers/loadOffersSuccess',
+  LoadOffersFailed = 'offers/loadOffersFailed',
+  LoadOfferRequest = 'offers/loadOfferRequest',
+  LoadOfferSuccess = 'offers/loadOfferSuccess',
+  LoadOfferFailed = 'offers/loadOfferFailed',
+  LoadNearbyOffersRequest = 'offers/loadNearbyOffersRequest',
+  LoadNearbyOffersSuccess = 'offers/loadNearbyOffersSuccess',
+  LoadNearbyOffersFailed = 'offers/loadNearbyOffersFailed',
+  DropRoomOffersData = 'offers/dropRoomOffersData',
+  ChangeRoomOffer = 'offers/changeRoomOffer',
+  ReplaceOffer = 'offers/replaceOffer',
+  LoadReviewsRequest = 'reviews/loadReviewsRequest',
+  LoadReviewsSuccess = 'reviews/loadReviewsSuccess',
+  LoadReviewsFailed = 'reviews/loadReviewsFailed',
+  DropRoomReviewsData = 'reviews/dropRoomReviewsData',
+  PostReviewRequest = 'reviews/postReviewRequest',
+  PostReviewSuccess = 'dareviewsta/postReviewSuccess',
+  PostReviewFailed = 'reviews/postReviewFailed',
+  ResetPostReview = 'reviews/resetPostReview',
+  SaveCurrentUser = 'user/saveCurrentUser',
+  DropCurrentUser = 'user/dropCurrentUser',
   CheckAuthRequest = 'user/checkAuthRequest',
   CheckAuthSuccess = 'user/checkAuthSuccess',
   CheckAuthFailed = 'user/checkAuthFailed',
@@ -67,37 +46,5 @@ export enum ActionType {
   RequireLogoutFailed = 'user/requireLogoutFailed',
 }
 
-export type Actions =
-  | ReturnType<typeof selectCity>
-  | ReturnType<typeof selectSortingOption>
-  | ReturnType<typeof loadOffersRequest>
-  | ReturnType<typeof loadOffersSuccess>
-  | ReturnType<typeof loadOffersFailed>
-  | ReturnType<typeof loadOfferRequest>
-  | ReturnType<typeof loadOfferSuccess>
-  | ReturnType<typeof loadOfferFailed>
-  | ReturnType<typeof loadNearbyOffersRequest>
-  | ReturnType<typeof loadNearbyOffersSuccess>
-  | ReturnType<typeof loadNearbyOffersFailed>
-  | ReturnType<typeof loadReviewsRequest>
-  | ReturnType<typeof loadReviewsSuccess>
-  | ReturnType<typeof loadReviewsFailed>
-  | ReturnType<typeof dropRoomData>
-  | ReturnType<typeof postReviewRequest>
-  | ReturnType<typeof postReviewSuccess>
-  | ReturnType<typeof postReviewFailed>
-  | ReturnType<typeof resetPostReview>
-  | ReturnType<typeof saveCurrentUser>
-  | ReturnType<typeof dropCurrentUser>
-  | ReturnType<typeof checkAuthRequest>
-  | ReturnType<typeof checkAuthSuccess>
-  | ReturnType<typeof checkAuthFailed>
-  | ReturnType<typeof requireAuthorizationRequest>
-  | ReturnType<typeof requireAuthorizationSuccess>
-  | ReturnType<typeof requireAuthorizationFailed>
-  | ReturnType<typeof requireLogoutRequest>
-  | ReturnType<typeof requireLogoutSuccess>
-  | ReturnType<typeof requireLogoutFailed>;
-
-export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
-export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
+export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Action>;

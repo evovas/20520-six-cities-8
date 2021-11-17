@@ -1,134 +1,129 @@
+import {createAction} from '@reduxjs/toolkit';
 import {ActionType} from '../types/action';
-import {CurrentUser, Offer, Review} from '../types/data';
 import {AuthorizationStatus, SortingOption} from '../const';
+import {CurrentUser, Offer, Review} from '../types/data';
 
-export const selectCity = (currentCityName: string) => ({
-  type: ActionType.SelectCity,
-  payload: currentCityName,
-} as const);
+export const selectCity = createAction(
+  ActionType.SelectCity,
+  (currentCityName: string) => ({
+    payload: currentCityName,
+  }),
+);
 
-export const selectSortingOption = (currentSorting: SortingOption) => ({
-  type: ActionType.SelectSortingOption,
-  payload: currentSorting,
-} as const);
+export const selectSortingOption = createAction(
+  ActionType.SelectSortingOption,
+  (currentSorting: SortingOption) => ({
+    payload: currentSorting,
+  }),
+);
 
-export const loadOffersRequest = () => ({
-  type: ActionType.LoadOffersRequest,
-} as const);
+export const setFavoriteOptionRequest = createAction(ActionType.SetFavoriteOptionRequest);
+export const setFavoriteOptionSuccess = createAction(ActionType.SetFavoriteOptionSuccess);
+export const setFavoriteOptionFailed = createAction(ActionType.SetFavoriteOptionFailed);
 
-export const loadOffersSuccess = (offers: Offer[]) => ({
-  type: ActionType.LoadOffersSuccess,
-  payload: offers,
-} as const);
+export const loadFavoriteOffersRequest = createAction(ActionType.LoadFavoriteOffersRequest);
+export const loadFavoriteOffersSuccess = createAction(
+  ActionType.LoadFavoriteOffersSuccess,
+  (offers: Offer[] | []) => ({
+    payload: offers,
+  }),
+);
+export const loadFavoriteOffersFailed = createAction(ActionType.LoadFavoriteOffersFailed);
+export const dropFavoriteOffers = createAction(ActionType.DropFavoriteOffers);
 
-export const loadOffersFailed = () => ({
-  type: ActionType.LoadOffersFailed,
-} as const);
+export const deleteFavoriteOffer = createAction(
+  ActionType.DeleteFavoriteOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
 
-export const loadOfferRequest = () => ({
-  type: ActionType.LoadOfferRequest,
-} as const);
+export const loadOffersRequest = createAction(ActionType.LoadOffersRequest);
+export const loadOffersSuccess = createAction(
+  ActionType.LoadOffersSuccess,
+  (offers: Offer[] | []) => ({
+    payload: offers,
+  }),
+);
+export const loadOffersFailed = createAction(ActionType.LoadOffersFailed);
 
-export const loadOfferSuccess = (offer: Offer | null) => ({
-  type: ActionType.LoadOfferSuccess,
-  payload: offer,
-} as const);
+export const loadOfferRequest = createAction(ActionType.LoadOfferRequest);
+export const loadOfferSuccess = createAction(
+  ActionType.LoadOfferSuccess,
+  (offer: Offer | null) => ({
+    payload: offer,
+  }),
+);
+export const loadOfferFailed = createAction(ActionType.LoadOfferFailed);
 
-export const loadOfferFailed = () => ({
-  type: ActionType.LoadOfferFailed,
-} as const);
+export const loadNearbyOffersRequest = createAction(ActionType.LoadNearbyOffersRequest);
+export const loadNearbyOffersSuccess = createAction(
+  ActionType.LoadNearbyOffersSuccess,
+  (offers: Offer[] | []) => ({
+    payload: offers,
+  }),
+);
+export const loadNearbyOffersFailed = createAction(ActionType.LoadNearbyOffersFailed);
 
-export const loadNearbyOffersRequest = () => ({
-  type: ActionType.LoadNearbyOffersRequest,
-} as const);
+export const dropRoomOffersData = createAction(ActionType.DropRoomOffersData);
 
-export const loadNearbyOffersSuccess = (offers: Offer[]) => ({
-  type: ActionType.LoadNearbyOffersSuccess,
-  payload: offers,
-} as const);
+export const changeRoomOffer = createAction(
+  ActionType.ChangeRoomOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
+export const replaceOffer = createAction(
+  ActionType.ReplaceOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
 
-export const loadNearbyOffersFailed = () => ({
-  type: ActionType.LoadNearbyOffersFailed,
-} as const);
+export const loadReviewsRequest = createAction(ActionType.LoadReviewsRequest);
+export const loadReviewsSuccess = createAction(
+  ActionType.LoadReviewsSuccess,
+  (reviews: Review[] | []) => ({
+    payload: reviews,
+  }),
+);
+export const loadReviewsFailed = createAction(ActionType.LoadReviewsFailed);
 
-export const loadReviewsRequest = () => ({
-  type: ActionType.LoadReviewsRequest,
-} as const);
+export const dropRoomReviewsData = createAction(ActionType.DropRoomReviewsData);
 
-export const loadReviewsSuccess = (reviews: Review[]) => ({
-  type: ActionType.LoadReviewsSuccess,
-  payload: reviews,
-} as const);
+export const postReviewRequest = createAction(ActionType.PostReviewRequest);
+export const postReviewSuccess = createAction(
+  ActionType.PostReviewSuccess,
+  (reviews: Review[]) => ({
+    payload: reviews,
+  }),
+);
+export const postReviewFailed = createAction(ActionType.PostReviewFailed);
 
-export const loadReviewsFailed = () => ({
-  type: ActionType.LoadReviewsFailed,
-} as const);
+export const resetPostReview = createAction(ActionType.ResetPostReview);
 
-export const dropRoomData = () => ({
-  type: ActionType.DropRoomData,
-} as const);
+export const saveCurrentUser = createAction(
+  ActionType.SaveCurrentUser,
+  (user: CurrentUser) => ({
+    payload: user,
+  }),
+);
 
-export const postReviewRequest = () => ({
-  type: ActionType.PostReviewRequest,
-} as const);
+export const dropCurrentUser = createAction(ActionType.DropCurrentUser);
 
-export const postReviewSuccess = (reviews: Review[]) => ({
-  type: ActionType.PostReviewSuccess,
-  payload: reviews,
-} as const);
+export const checkAuthRequest = createAction(ActionType.CheckAuthRequest);
+export const checkAuthSuccess = createAction(
+  ActionType.CheckAuthSuccess,
+  (authorizationStatus: AuthorizationStatus) => ({
+    payload: authorizationStatus,
+  }),
+);
+export const checkAuthFailed = createAction(ActionType.CheckAuthFailed);
 
-export const postReviewFailed = () => ({
-  type: ActionType.PostReviewFailed,
-} as const);
+export const requireAuthorizationRequest = createAction(ActionType.RequireAuthorizationRequest);
+export const requireAuthorizationSuccess = createAction(ActionType.RequireAuthorizationSuccess);
+export const requireAuthorizationFailed = createAction(ActionType.RequireAuthorizationFailed);
 
-export const resetPostReview = () => ({
-  type: ActionType.ResetPostReview,
-} as const);
-
-export const saveCurrentUser = (user: CurrentUser) => ({
-  type: ActionType.SaveCurrentUser,
-  payload: user,
-} as const);
-
-export const dropCurrentUser = () => ({
-  type: ActionType.DropCurrentUser,
-} as const);
-
-export const checkAuthRequest = () => ({
-  type: ActionType.CheckAuthRequest,
-} as const);
-
-export const checkAuthSuccess = (authStatus: AuthorizationStatus) => ({
-  type: ActionType.CheckAuthSuccess,
-  payload: authStatus,
-} as const);
-
-export const checkAuthFailed = () => ({
-  type: ActionType.CheckAuthFailed,
-} as const);
-
-export const requireAuthorizationRequest = () => ({
-  type: ActionType.RequireAuthorizationRequest,
-} as const);
-
-export const requireAuthorizationSuccess = (authStatus: AuthorizationStatus) => ({
-  type: ActionType.RequireAuthorizationSuccess,
-  payload: authStatus,
-} as const);
-
-export const requireAuthorizationFailed = () => ({
-  type: ActionType.RequireAuthorizationFailed,
-} as const);
-
-export const requireLogoutRequest = () => ({
-  type: ActionType.RequireLogoutRequest,
-} as const);
-
-export const requireLogoutSuccess = (authStatus: AuthorizationStatus) => ({
-  type: ActionType.RequireLogoutSuccess,
-  payload: authStatus,
-} as const);
-
-export const requireLogoutFailed = () => ({
-  type: ActionType.RequireLogoutFailed,
-} as const);
+export const requireLogoutRequest = createAction(ActionType.RequireLogoutRequest);
+export const requireLogoutSuccess = createAction(ActionType.RequireLogoutSuccess);
+export const requireLogoutFailed = createAction(ActionType.RequireLogoutFailed);

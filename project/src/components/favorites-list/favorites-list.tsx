@@ -1,9 +1,8 @@
+import {useSelector} from 'react-redux';
 import FavoritesLocationsByCity from '../favorites-locations-by-city/favorites-locations-by-city';
+import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import {Offer} from '../../types/data';
-
-type FavoritesListProps = {
-  offers: Offer[];
-}
+import {getFavoritesOffers} from '../../store/favorites/selectors';
 
 const spliceOffersByCity = (offers: Offer[]): {[key: string]: Offer[]} => (
   offers.reduce<{[city: string]: Offer[]}>((acc, offer)=> {
@@ -16,14 +15,26 @@ const spliceOffersByCity = (offers: Offer[]): {[key: string]: Offer[]} => (
   }, {})
 );
 
-function FavoritesList({offers}: FavoritesListProps): JSX.Element {
+
+function FavoritesList(): JSX.Element {
+  const favoritesOffers = useSelector(getFavoritesOffers);
+
+  if (favoritesOffers.length === 0) {
+    return <FavoritesEmpty />;
+  }
+
   return (
-    <div>
-      {
-        Object.entries(spliceOffersByCity(offers)).map(([city, cityOffers]) =>
-          <FavoritesLocationsByCity key={city} city={city} cityOffers={cityOffers} />)
-      }
-    </div>
+    <section className='favorites'>
+      <h1 className='favorites__title'>Saved listing</h1>
+      <ul className='favorites__list'>
+        <div>
+          {
+            Object.entries(spliceOffersByCity(favoritesOffers)).map(([city, cityOffers]) =>
+              <FavoritesLocationsByCity key={city} city={city} cityOffers={cityOffers} />)
+          }
+        </div>
+      </ul>
+    </section>
   );
 }
 

@@ -1,9 +1,11 @@
+import {memo} from 'react';
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
 import PremiumLabel from '../premium-label/premium-label';
 import {Offer} from '../../types/data';
 import {calculateRatingStars} from '../../utils';
 import styles from './place-card.module.scss';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type CardProps = {
   offer: Offer;
@@ -48,12 +50,7 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
             <b className='place-card__price-value'>&euro;{offer.price}</b>
             <span className='place-card__price-text'>&#47;&nbsp;night</span>
           </div>
-          <button className={cn('place-card__bookmark-button', 'button', {'place-card__bookmark-button--active':offer.isFavorite})} type='button'>
-            <svg className='place-card__bookmark-icon' width='18' height='19'>
-              <use xlinkHref='#icon-bookmark'/>
-            </svg>
-            <span className='visually-hidden'>{offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
-          </button>
+          <BookmarkButton buttonType={'place-card'} isFavorite={offer.isFavorite} id={offer.id} key={offer.id} />
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
@@ -70,4 +67,4 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
   );
 }
 
-export default PlaceCard;
+export default memo(PlaceCard);

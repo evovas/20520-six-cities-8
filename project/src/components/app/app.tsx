@@ -8,19 +8,19 @@ import Favorites from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
 import LoadError from '../../pages/load-error/load-error';
-import {State} from '../../types/state';
 import {AppRoute, AuthorizationStatus, FetchStatus} from '../../const';
+import {getOffersStatus} from '../../store/offers/selectors';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
 function App(): JSX.Element {
-  const offersLoading = useSelector((state: State) => state.offersStatus);
-  const offers = useSelector((state: State) => state.offers);
-  const authorizationStatus = useSelector((state: State) => state.authorizationStatus);
+  const offersStatus = useSelector(getOffersStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
-  if (offersLoading === FetchStatus.Loading) {
+  if (offersStatus === FetchStatus.Loading) {
     return <Loader size={15} isFullScreen/>;
   }
 
-  if (offersLoading === FetchStatus.Failed) {
+  if (offersStatus === FetchStatus.Failed) {
     return <LoadError />;
   }
 
@@ -28,12 +28,12 @@ function App(): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <Main offers={offers} />
+          <Main />
         </Route>
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
-          render={() => <Favorites offers={offers.filter((offer) => offer.isFavorite)} />}
+          render={() => <Favorites />}
           authorizationStatus={authorizationStatus}
           verifiableStatus={AuthorizationStatus.Auth}
           redirectTo={AppRoute.Login}

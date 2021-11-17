@@ -10,40 +10,49 @@ import PropertyReviews from '../../components/property-reviews/property-reviews'
 import PremiumLabel from '../../components/premium-label/premium-label';
 import Loader from '../../components/loader/loader';
 import Map from '../../components/map/map';
+import LoadError from '../load-error/load-error';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import {calculateRatingStars} from '../../utils';
 import {fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction} from '../../store/api-actions';
-import {dropRoomData} from '../../store/action';
-import {State} from '../../types/state';
+import {getNearbyOffers, getOffer, getOfferStatus} from '../../store/offers/selectors';
+import {dropRoomOffersData, dropRoomReviewsData} from '../../store/action';
 import {FetchStatus} from '../../const';
 import styles from './room.module.scss';
-import LoadError from '../load-error/load-error';
+
+const MAX_PHOTOS_COUNT = 6;
+
+type TypeName = {
+  [type: string]: string,
+}
+
+const FullTypeName: TypeName = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+};
 
 type PageParams = {
   id: string;
 }
 
 function Room(): JSX.Element {
+  const dispatch = useDispatch();
+  const offer = useSelector(getOffer);
+  const nearbyOffers = useSelector(getNearbyOffers).slice(0, 3);
+  const offerStatus = useSelector(getOfferStatus);
+
   const {id: pageId} = useParams<PageParams>();
 
-  const loadPageOffer = useDispatch();
-  const loadNearbyOffers = useDispatch();
-  const loadComments = useDispatch();
-  const clearRoomData = useDispatch();
-
   useEffect(() => {
-    loadPageOffer(fetchOfferAction(pageId));
-    loadNearbyOffers(fetchNearbyOffersAction(pageId));
-    loadComments(fetchReviewsAction(pageId));
+    dispatch(fetchOfferAction(pageId));
+    dispatch(fetchNearbyOffersAction(pageId));
+    dispatch(fetchReviewsAction(pageId));
     return () => {
-      clearRoomData(dropRoomData());
+      dispatch(dropRoomOffersData());
+      dispatch(dropRoomReviewsData());
     };
   }, [pageId]);
-
-
-  const offer = useSelector((state: State) => state.offer);
-  const nearbyOffers = useSelector((state: State) => state.nearbyOffers).slice(0, 3);
-  const reviews = useSelector((state: State) => state.reviews);
-  const offerStatus = useSelector((state: State) => state.offerStatus);
 
   if (offerStatus === FetchStatus.Idle || offerStatus === FetchStatus.Loading){
     return <Loader size={15} isFullScreen />;
@@ -57,7 +66,7 @@ function Room(): JSX.Element {
     return <NotFound />;
   }
 
-  const {bedrooms, description, goods, host, images, isFavorite, isPremium, maxAdults, price, rating, title, type, city} = offer;
+  const {id, bedrooms, description, goods, host, images, isFavorite, isPremium, maxAdults, price, rating, title, type, city} = offer;
 
   return (
     <div className='page'>
@@ -67,7 +76,7 @@ function Room(): JSX.Element {
         <section className='property'>
           <div className='property__gallery-container container'>
             <div className='property__gallery'>
-              {images.map((image) => (
+              {images.slice(0, MAX_PHOTOS_COUNT).map((image) => (
                 <div key={image} className='property__image-wrapper'>
                   <img className='property__image' src={image} alt={title}/>
                 </div>
@@ -81,12 +90,7 @@ function Room(): JSX.Element {
                 <h1 className='property__name'>
                   {title}
                 </h1>
-                <button className={cn('property__bookmark-button', 'button', {'property__bookmark-button--active':isFavorite})} type='button'>
-                  <svg className='property__bookmark-icon' width='31' height='33'>
-                    <use xlinkHref={'#icon-bookmark'}/>
-                  </svg>
-                  <span className='visually-hidden'>{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
-                </button>
+                <BookmarkButton buttonType={'property'} isFavorite={isFavorite} id={id} key={id} />
               </div>
               <div className='property__rating rating'>
                 <div className='property__stars rating__stars'>
@@ -97,13 +101,13 @@ function Room(): JSX.Element {
               </div>
               <ul className='property__features'>
                 <li className={cn('property__feature', styles.propertyFeatureEntire)}>
-                  {type}
+                  {FullTypeName[type]}
                 </li>
                 <li className='property__feature property__feature--bedrooms'>
-                  {bedrooms} Bedrooms
+                  {bedrooms} {bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                 </li>
                 <li className='property__feature property__feature--adults'>
-                  Max {maxAdults} adults
+                  Max {maxAdults} {maxAdults > 1 ? 'adults' : 'adult'}
                 </li>
               </ul>
               <div className='property__price'>
@@ -129,7 +133,7 @@ function Room(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <PropertyReviews pageId={pageId} reviews={reviews} />
+              <PropertyReviews pageId={pageId} />
             </div>
           </div>
           <Map className={'property__map'} offers={[...nearbyOffers, offer]} city={city} activeCardId={parseInt(pageId, 10)} />
