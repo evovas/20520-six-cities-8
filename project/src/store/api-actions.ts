@@ -32,7 +32,6 @@ import {
   setFavoriteOptionRequest,
   setFavoriteOptionSuccess,
   setFavoriteOptionFailed,
-  changeRoomOffer,
   replaceOffer,
   loadFavoriteOffersRequest,
   loadFavoriteOffersSuccess,
@@ -56,7 +55,6 @@ export const postFavoriteOptionAction = (id: number, status: ServerFavoriteStatu
       const offer = adaptOfferToClient(data);
       dispatch(setFavoriteOptionSuccess());
       dispatch(replaceOffer(offer));
-      dispatch(changeRoomOffer(offer));
       dispatch(deleteFavoriteOffer(offer));
     } catch (e) {
       dispatch(setFavoriteOptionFailed());
@@ -155,6 +153,8 @@ export const checkAuthAction = (): ThunkActionResult => (
       dispatch(saveCurrentUser(adaptCurrentUserToClient(data)));
     } catch (e) {
       dispatch(checkAuthFailed());
+      dispatch(dropCurrentUser());
+      dropToken();
     }
   }
 );

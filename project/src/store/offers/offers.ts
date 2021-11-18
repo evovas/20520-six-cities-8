@@ -2,7 +2,6 @@ import {createReducer} from '@reduxjs/toolkit';
 import {Offers} from '../../types/state';
 import {FetchStatus} from '../../const';
 import {
-  changeRoomOffer,
   dropRoomOffersData,
   loadNearbyOffersFailed,
   loadNearbyOffersRequest,
@@ -63,19 +62,13 @@ const offers = createReducer(initialState, (builder) => {
       state.nearbyOffers = [];
       state.nearbyOffersStatus = FetchStatus.Idle;
     })
-    .addCase(changeRoomOffer, (state, action) => {
-      if (state.offer) {
-        state.offer = action.payload;
-      }
-    })
     .addCase(replaceOffer, (state, action) => {
       const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
-      if (index >= 0) {
-        state.offers = [
-          ...state.offers.slice(0, index),
-          action.payload,
-          ...state.offers.slice(index + 1),
-        ];
+      if (index !== 1) {
+        state.offers[index].isFavorite = action.payload.isFavorite;
+      }
+      if (state.offer) {
+        state.offer = action.payload;
       }
     });
 

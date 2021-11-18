@@ -44,13 +44,7 @@ const favorites = createReducer(initialState, (builder) => {
       state.favoriteOffers = [];
     })
     .addCase(deleteFavoriteOffer, (state, action) => {
-      const index = state.favoriteOffers.findIndex((offer) => offer.id === action.payload.id);
-      if (index >= 0) {
-        state.favoriteOffers = [
-          ...state.favoriteOffers.slice(0, index),
-          ...state.favoriteOffers.slice(index + 1),
-        ];
-      }
+      state.favoriteOffers = state.favoriteOffers.filter((offer) => offer.id !== action.payload.id);
     });
 });
 
