@@ -40,6 +40,7 @@ const user = createReducer(initialState, (builder) => {
     })
     .addCase(checkAuthFailed, (state) => {
       state.checkAuthStatus = FetchStatus.Failed;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
     .addCase(requireAuthorizationRequest, (state) => {
       state.authorizationRequestStatus = FetchStatus.Loading;

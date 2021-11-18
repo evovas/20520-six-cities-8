@@ -67,12 +67,6 @@ export const loadNearbyOffersFailed = createAction(ActionType.LoadNearbyOffersFa
 
 export const dropRoomOffersData = createAction(ActionType.DropRoomOffersData);
 
-export const changeRoomOffer = createAction(
-  ActionType.ChangeRoomOffer,
-  (offer: Offer) => ({
-    payload: offer,
-  }),
-);
 export const replaceOffer = createAction(
   ActionType.ReplaceOffer,
   (offer: Offer) => ({
