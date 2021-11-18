@@ -181,6 +181,7 @@ export const logoutAction = (): ThunkActionResult => (
     try {
       await api.delete(APIRoute.Logout);
       dropToken();
+      await dispatch(fetchOffersAction());
       dispatch(requireLogoutSuccess());
       dispatch(dropCurrentUser());
     } catch (e) {

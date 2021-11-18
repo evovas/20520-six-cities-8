@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchOffersAction, logoutAction} from '../../store/api-actions';
+import {logoutAction} from '../../store/api-actions';
 import {getCurrentUser} from '../../store/user/selectors';
 import {AppRoute} from '../../const';
 
@@ -10,7 +10,6 @@ function AuthUserMenu(): JSX.Element {
 
   const handleClick = () => {
     dispatch(logoutAction());
-    dispatch(fetchOffersAction());
   };
 
   return (
