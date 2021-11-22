@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
@@ -25,35 +25,33 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path={AppRoute.Root}>
-          <Main />
-        </Route>
-        <PrivateRoute
-          exact
-          path={AppRoute.Favorites}
-          render={() => <Favorites />}
-          authorizationStatus={authorizationStatus}
-          verifiableStatus={AuthorizationStatus.Auth}
-          redirectTo={AppRoute.Login}
-        />
-        <PrivateRoute
-          exact
-          path={AppRoute.Login}
-          render={() => <Login />}
-          authorizationStatus={authorizationStatus}
-          verifiableStatus={AuthorizationStatus.NoAuth}
-          redirectTo={AppRoute.Root}
-        />
-        <Route exact path={AppRoute.Room}>
-          <Room />
-        </Route>
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route exact path={AppRoute.Root}>
+        <Main />
+      </Route>
+      <PrivateRoute
+        exact
+        path={AppRoute.Favorites}
+        render={() => <Favorites />}
+        authorizationStatus={authorizationStatus}
+        verifiableStatus={AuthorizationStatus.Auth}
+        redirectTo={AppRoute.Login}
+      />
+      <PrivateRoute
+        exact
+        path={AppRoute.Login}
+        render={() => <Login />}
+        authorizationStatus={authorizationStatus}
+        verifiableStatus={AuthorizationStatus.NoAuth}
+        redirectTo={AppRoute.Root}
+      />
+      <Route exact path={AppRoute.Room}>
+        <Room />
+      </Route>
+      <Route>
+        <NotFound />
+      </Route>
+    </Switch>
   );
 }
 
