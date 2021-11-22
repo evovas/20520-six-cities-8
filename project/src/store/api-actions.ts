@@ -1,6 +1,6 @@
 import {toast} from 'react-toastify';
 import {ThunkActionResult} from '../types/action';
-import {CurrentUserServer, ReviewPost, ServerFavoriteStatus, ServerOffer, ServerReview} from '../types/data';
+import {ServerCurrentUser, ReviewPost, ServerOffer, ServerReview} from '../types/data';
 import {APIRoute, AuthorizationStatus} from '../const';
 import {
   checkAuthFailed,
@@ -47,7 +47,7 @@ const FAIL_MESSAGE = 'An error occurred, please try later';
 const REVIEWS_FAIL_MESSAGE = 'An error occurred while loading comments, please try again later.';
 const NEARBY_PLACES_FAIL_MESSAGE = 'There was an error loading places nearby, please try again later.';
 
-export const postFavoriteOptionAction = (id: number, status: ServerFavoriteStatus): ThunkActionResult => (
+export const postFavoriteOptionAction = (id: number, status: number): ThunkActionResult => (
   async (dispatch, _, api): Promise<void> => {
     dispatch(setFavoriteOptionRequest());
     try {
@@ -163,7 +163,7 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
   async (dispatch, _, api): Promise<void> => {
     dispatch(requireAuthorizationRequest());
     try {
-      const {data} = await api.post<CurrentUserServer>(APIRoute.Login, {email, password});
+      const {data} = await api.post<ServerCurrentUser>(APIRoute.Login, {email, password});
       const {token} = data;
       saveToken(token);
       dispatch(requireAuthorizationSuccess());

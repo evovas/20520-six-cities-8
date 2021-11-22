@@ -1,8 +1,8 @@
 import {makeFakeCurrentUser} from '../../utils/mocks';
 import {AuthorizationStatus, FetchStatus} from '../../const';
+import {ActionType} from '../../types/action';
 import {user} from './user';
 import {User} from '../../types/state';
-import {ActionType} from '../../types/action';
 
 const initialState: User = {
   currentUser: null,

@@ -1,4 +1,4 @@
-import {CurrentUser, CurrentUserServer, Offer, Review, ServerOffer, ServerReview} from '../types/data';
+import {CurrentUser, ServerCurrentUser, Offer, Review, ServerOffer, ServerReview} from '../types/data';
 
 export const adaptOfferToClient = (offer: ServerOffer): Offer => {
   const newOffer = {
@@ -40,7 +40,7 @@ export const adaptReviewToClient = (review: ServerReview): Review => {
   return newReview as Review;
 };
 
-export const adaptCurrentUserToClient = (user: CurrentUserServer): CurrentUser => {
+export const adaptCurrentUserToClient = (user: ServerCurrentUser): CurrentUser => {
   const newUser = {
     ...user,
     avatarUrl: user['avatar_url'],

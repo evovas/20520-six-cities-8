@@ -4,10 +4,9 @@ import {getAuthorizationStatus} from '../../store/user/selectors';
 import {useHistory} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {postFavoriteOptionAction} from '../../store/api-actions';
-import {ServerFavoriteStatus} from '../../types/data';
 
-const FAVORITE_STATUS_FALSE: ServerFavoriteStatus = 0;
-const FAVORITE_STATUS_TRUE: ServerFavoriteStatus = 1;
+const FAVORITE_STATUS_FALSE = 0;
+const FAVORITE_STATUS_TRUE = 1;
 
 type BookmarkButtonProps = {
   buttonType: string;
