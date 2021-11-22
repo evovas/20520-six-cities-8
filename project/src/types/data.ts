@@ -21,7 +21,7 @@ export type CurrentUser = {
   token: string;
 }
 
-export type CurrentUserServer = {
+export type ServerCurrentUser = {
   'avatar_url'?: string;
   email: string;
   id: number;
@@ -99,5 +99,3 @@ export type ReviewPost = {
   comment: string;
   rating: string;
 }
-
-export type ServerFavoriteStatus = 0 | 1;

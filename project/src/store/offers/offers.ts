@@ -64,7 +64,7 @@ const offers = createReducer(initialState, (builder) => {
     })
     .addCase(replaceOffer, (state, action) => {
       const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
-      if (index !== 1) {
+      if (index !== -1) {
         state.offers[index].isFavorite = action.payload.isFavorite;
       }
       if (state.offer) {
