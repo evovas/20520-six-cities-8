@@ -1,5 +1,5 @@
-import {commerce, image, datatype, helpers, name, address, date} from 'faker';
-import {City, Location, Offer, Review, User} from '../types/data';
+import {commerce, image, datatype, helpers, name, address, date, internet} from 'faker';
+import {City, CurrentUser, Location, Offer, Review, User} from '../types/data';
 import {getRandomPositiveInteger} from '../utils';
 import dayjs from 'dayjs';
 
@@ -8,6 +8,15 @@ export const makeFakeUser = (): User => ({
   name: name.firstName(),
   avatarUrl: image.imageUrl(),
   isPro: datatype.boolean(),
+});
+
+export const makeFakeCurrentUser = (): CurrentUser => ({
+  id: getRandomPositiveInteger(1, 100000),
+  avatarUrl: image.imageUrl(),
+  email: internet.email(),
+  isPro: datatype.boolean(),
+  name: name.firstName(),
+  token: datatype.string(25),
 });
 
 export const makeFakeLocation = (): Location => ({

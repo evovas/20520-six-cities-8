@@ -1,8 +1,8 @@
-import {Offers} from '../../types/state';
-import {FetchStatus} from '../../const';
-import {offers} from './offers';
 import {makeFakeOffer} from '../../utils/mocks';
+import {FetchStatus} from '../../const';
 import {ActionType} from '../../types/action';
+import {offers} from './offers';
+import {Offers} from '../../types/state';
 
 const initialState: Offers = {
   offers: [],
@@ -20,15 +20,14 @@ const offerBWithoutFavorite = {...offerB, isFavorite: false};
 const fakeOffers = [offerA, offerB];
 
 describe('Reducer: offers', () => {
-  it('без дополнительных параметров возвращает initial state', () => {
+  it('returns initial state without additional parameters', () => {
     expect(offers(void 0, {type: 'UNKNOWN_ACTION'}))
       .toEqual(initialState);
   });
 
-  it('статус загрузки предложений должен стать Loading', () => {
+  it('offersStatus should become Loading', () => {
     const state = {
       ...initialState,
-      offersStatus: FetchStatus.Idle,
     };
     const loadOffersRequestAction = {type: ActionType.LoadOffersRequest};
 
@@ -39,7 +38,7 @@ describe('Reducer: offers', () => {
       });
   });
 
-  it('статус загрузки предложений должен стать Success, а список предложений обновиться', () => {
+  it('offersStatus should become Success, and the list of offers to be updated', () => {
     const state = {
       ...initialState,
       offersStatus: FetchStatus.Loading,
@@ -57,7 +56,7 @@ describe('Reducer: offers', () => {
       });
   });
 
-  it('статус загрузки предложений должен стать Failed', () => {
+  it('offersStatus should become Failed', () => {
     const state = {
       ...initialState,
       offersStatus: FetchStatus.Loading,
@@ -73,10 +72,9 @@ describe('Reducer: offers', () => {
       });
   });
 
-  it('статус загрузки предложения должен стать Loading', () => {
+  it('offerStatus should become Loading', () => {
     const state = {
       ...initialState,
-      offerStatus: FetchStatus.Idle,
     };
     const loadOfferRequestAction = {
       type: ActionType.LoadOfferRequest,
@@ -89,7 +87,7 @@ describe('Reducer: offers', () => {
       });
   });
 
-  it('статус загрузки предложения должен стать Success, а предложение обновиться', () => {
+  it('offerStatus should become Success, and the offer to be updated', () => {
     const state = {
       ...initialState,
       offerStatus: FetchStatus.Loading,
@@ -107,7 +105,7 @@ describe('Reducer: offers', () => {
       });
   });
 
-  it('статус загрузки предложения должен стать Failed', () => {
+  it('offerStatus should become Failed', () => {
     const state = {
       ...initialState,
       offerStatus: FetchStatus.Loading,
@@ -123,10 +121,9 @@ describe('Reducer: offers', () => {
       });
   });
 
-  it('статус загрузки предложений поблизости должен стать Loading', () => {
+  it('nearbyOffersStatus should become Loading', () => {
     const state = {
       ...initialState,
-      nearbyOffersStatus: FetchStatus.Idle,
     };
     const loadNearbyOffersRequestAction = {
       type: ActionType.LoadNearbyOffersRequest,
@@ -139,7 +136,7 @@ describe('Reducer: offers', () => {
       });
   });
 
-  it('статус загрузки предложений поблизости должен стать Success, а список предложений обновиться', () => {
+  it('nearbyOffersStatus should become Success, and the list of offers to be updated', () => {
     const state = {
       ...initialState,
       nearbyOffersStatus: FetchStatus.Loading,
@@ -157,7 +154,7 @@ describe('Reducer: offers', () => {
       });
   });
 
-  it('статус загрузки предложений поблизости должен стать Failed', () => {
+  it('nearbyOffersStatus should become Failed', () => {
     const state = {
       ...initialState,
       nearbyOffersStatus: FetchStatus.Loading,
@@ -173,7 +170,7 @@ describe('Reducer: offers', () => {
       });
   });
 
-  it('предложения относящиеся к странице room сбрасываются вместе со статусами загрузки', () => {
+  it('offers related to the room page are reset along with the loading statuses', () => {
     const state = {
       ...initialState,
       offer: offerA,
@@ -195,7 +192,7 @@ describe('Reducer: offers', () => {
       });
   });
 
-  it('статус isFavorite изменяется у конкретного предложения в списке предложений, и у предложения на странице по необходимости', () => {
+  it('the isFavorite status changes for a specific offer in the offer list, and for an offer on the page as needed', () => {
     const state = {
       ...initialState,
       offers: [offerA, offerBWithFavorite],

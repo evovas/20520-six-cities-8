@@ -1,9 +1,8 @@
-import {Reviews} from '../../types/state';
-import {FetchStatus} from '../../const';
 import {makeFakeReview} from '../../utils/mocks';
+import {FetchStatus} from '../../const';
 import {ActionType} from '../../types/action';
 import {reviews} from './reviews';
-import {resetPostReview} from '../action';
+import {Reviews} from '../../types/state';
 
 const initialState: Reviews = {
   reviews: [],
@@ -14,15 +13,14 @@ const initialState: Reviews = {
 const fakeReviews = [makeFakeReview(), makeFakeReview()];
 
 describe('Reducer: reviews', () => {
-  it('без дополнительных параметров возвращает initial state', () => {
+  it('returns initial state without additional parameters', () => {
     expect(reviews(void 0, {type: 'UNKNOWN_ACTION'}))
       .toEqual(initialState);
   });
 
-  it('статус загрузки комментариев должен стать Loading', () => {
+  it('reviewsStatus should become Loading', () => {
     const state = {
       ...initialState,
-      reviewsStatus: FetchStatus.Idle,
     };
     const loadReviewsRequestAction = {
       type: ActionType.LoadReviewsRequest,
@@ -35,7 +33,7 @@ describe('Reducer: reviews', () => {
       });
   });
 
-  it('статус загрузки комментариев должен стать Success, а список комментариев обновиться', () => {
+  it('reviewsStatus should become Success, and the list of reviews will be updated', () => {
     const state = {
       ...initialState,
       reviewsStatus: FetchStatus.Loading,
@@ -53,7 +51,7 @@ describe('Reducer: reviews', () => {
       });
   });
 
-  it('статус загрузки комментариев должен стать Failed', () => {
+  it('reviewsStatus should become Failed', () => {
     const state = {
       ...initialState,
       reviewsStatus: FetchStatus.Loading,
@@ -69,7 +67,7 @@ describe('Reducer: reviews', () => {
       });
   });
 
-  it('статус загрузки комментариев и сами комментарии должны сброситься до initial state', () => {
+  it('reviewsStatus and the reviews should reset to the initial state', () => {
     const state = {
       ...initialState,
       reviewsStatus: FetchStatus.Success,
@@ -87,10 +85,9 @@ describe('Reducer: reviews', () => {
       });
   });
 
-  it('статус отправки комментария должен стать Loading', () => {
+  it('reviewPostStatus should become Loading', () => {
     const state = {
       ...initialState,
-      reviewPostStatus: FetchStatus.Idle,
     };
     const postReviewRequestAction = {
       type: ActionType.PostReviewRequest,
@@ -103,7 +100,7 @@ describe('Reducer: reviews', () => {
       });
   });
 
-  it('статус отправки комментария должен стать Success, а список комментариев обновиться', () => {
+  it('reviewPostStatus should become Success, and the list of reviews will be updated', () => {
     const state = {
       ...initialState,
       reviewPostStatus: FetchStatus.Loading,
@@ -121,7 +118,7 @@ describe('Reducer: reviews', () => {
       });
   });
 
-  it('статус отправки комментария должен стать Failed', () => {
+  it('reviewPostStatus should become Failed', () => {
     const state = {
       ...initialState,
       reviewPostStatus: FetchStatus.Loading,
@@ -137,7 +134,7 @@ describe('Reducer: reviews', () => {
       });
   });
 
-  it('статус отправки комментария должен сброситься до initial state', () => {
+  it('the reviewPostStatus should be reset to the initial state', () => {
     const state = {
       ...initialState,
       reviewPostStatus: FetchStatus.Success,
