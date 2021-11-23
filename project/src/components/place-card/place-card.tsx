@@ -34,7 +34,7 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
   };
 
   return (
-    <article className={`${ArticleClassName.get(cardType)} place-card`} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
+    <article className={`${ArticleClassName.get(cardType)} place-card`} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} data-testid="placecard">
       {offer.isPremium && <PremiumLabel className={'place-card__mark'} />}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>

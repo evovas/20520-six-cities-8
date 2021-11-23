@@ -12,6 +12,7 @@ import {
   User,
   ServerUser, ServerReview, ReviewPost
 } from '../types/data';
+import {CITIES_LIST} from '../const';
 
 export const makeFakeUser = (): User => ({
   id: getRandomPositiveInteger(1, 100000),
@@ -53,7 +54,7 @@ export const makeFakeLocation = (): Location => ({
 
 export const makeFakeCity = (): City => ({
   location: makeFakeLocation(),
-  name: address.city(),
+  name: helpers.randomize(CITIES_LIST),
 });
 
 export const makeFakeOffer = (): Offer => ({

@@ -47,7 +47,11 @@ function BookmarkButton ({buttonType, isFavorite, id}: BookmarkButtonProps): JSX
   };
 
   return (
-    <button className={cn(`${buttonType}__bookmark-button`, 'button', {'place-card__bookmark-button--active': isFavorite})} onClick={handleClick} type='button'>
+    <button
+      className={cn(`${buttonType}__bookmark-button`, 'button', {'place-card__bookmark-button--active': isFavorite})}
+      onClick={handleClick}
+      type='button'
+    >
       <svg className='place-card__bookmark-icon' width={ButtonProperty[buttonType].width} height={ButtonProperty[buttonType].height}>
         <use xlinkHref='#icon-bookmark'/>
       </svg>
