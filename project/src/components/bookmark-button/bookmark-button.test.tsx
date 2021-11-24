@@ -1,26 +1,27 @@
 import * as Redux from 'react-redux';
-import {configureMockStore} from '@jedmao/redux-mock-store';
+import * as ApiActions from '../../store/api-actions';
 import {createMemoryHistory} from 'history';
 import userEvent from '@testing-library/user-event';
-import {Provider} from 'react-redux';
-import {Route, Router, Switch} from 'react-router-dom';
-import {render, screen} from '@testing-library/react';
+import {Route,  Switch} from 'react-router-dom';
 import BookmarkButton from './bookmark-button';
 import {AppRoute, AuthorizationStatus} from '../../const';
+import {renderWithRedux, screen, cleanup} from '../../utils/test-utils';
+import {NameSpace} from '../../store/root-reducer';
+
 
 const BUTTON_TYPE = 'place-card';
 const ID = 1;
 
-const mockStore = configureMockStore();
+
 const history = createMemoryHistory();
 
-const storeAuth = mockStore({
-  USER: {authorizationStatus: AuthorizationStatus.Auth},
-});
+const storeAuth = {
+  [NameSpace.User]: {authorizationStatus: AuthorizationStatus.Auth},
+};
 
-const storeNoAuth = mockStore({
-  USER: {authorizationStatus: AuthorizationStatus.NoAuth},
-});
+const storeNoAuth = {
+  [NameSpace.User]: {authorizationStatus: AuthorizationStatus.NoAuth},
+};
 
 describe('Component: BookmarkButton', () => {
   beforeEach(() => {
@@ -28,28 +29,28 @@ describe('Component: BookmarkButton', () => {
   });
 
   it('should render correctly with both states isFavorite', () => {
-    const {rerender} = render(
-      <Provider store={storeAuth}>
-        <BookmarkButton
-          isFavorite
-          buttonType={BUTTON_TYPE}
-          id={ID}
-        />
-      </Provider>);
+    renderWithRedux(
+      <BookmarkButton
+        isFavorite
+        buttonType={BUTTON_TYPE}
+        id={ID}
+      />,
+      {preloadedState: storeAuth});
 
     expect(screen.getByText(/In bookmarks/i)).toBeInTheDocument();
     expect(screen.queryByText(/To bookmarks/i)).not.toBeInTheDocument();
     expect(screen.getByRole('button').classList.contains('place-card__bookmark-button--active')).toBeTruthy();
     expect(screen.queryByText(/Mock Login Page/i)).not.toBeInTheDocument();
 
-    rerender(
-      <Provider store={storeAuth}>
-        <BookmarkButton
-          isFavorite={false}
-          buttonType={BUTTON_TYPE}
-          id={ID}
-        />
-      </Provider>);
+    cleanup();
+
+    renderWithRedux(
+      <BookmarkButton
+        isFavorite={false}
+        buttonType={BUTTON_TYPE}
+        id={ID}
+      />,
+      {preloadedState: storeAuth});
 
     expect(screen.queryByText(/In bookmarks/i)).not.toBeInTheDocument();
     expect(screen.getByText(/To bookmarks/i)).toBeInTheDocument();
@@ -57,26 +58,27 @@ describe('Component: BookmarkButton', () => {
     expect(screen.queryByText(/Mock Login Page/i)).not.toBeInTheDocument();
   });
 
-  it('should dispatch without redirect when AuthorizationStatus.Auth', () => {
+  it('should dispatch postFavoriteOptionAction without redirect after click when AuthorizationStatus.Auth', () => {
+    const IS_FAVORITE = true;
+
     const dispatch = jest.fn();
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    const postFavoriteOptionAction = jest.spyOn(ApiActions, 'postFavoriteOptionAction');
     useDispatch.mockReturnValue(dispatch);
 
-    render(
-      <Provider store={storeAuth}>
-        <Router history={history}>
-          <Switch>
-            <Route exact path={AppRoute.Root}>
-              <BookmarkButton
-                isFavorite
-                buttonType={BUTTON_TYPE}
-                id={ID}
-              />
-            </Route>
-            <Route exact path={AppRoute.Login}><h1>Mock Login Page</h1></Route>
-          </Switch>
-        </Router>
-      </Provider>);
+    renderWithRedux(
+      <Switch>
+        <Route exact path={AppRoute.Root}>
+          <BookmarkButton
+            isFavorite={IS_FAVORITE}
+            buttonType={BUTTON_TYPE}
+            id={ID}
+          />
+        </Route>
+        <Route exact path={AppRoute.Login}><h1>Mock Login Page</h1></Route>
+      </Switch>,
+      {preloadedState: storeAuth},
+      {history});
 
     expect(screen.queryByText(/Mock Login Page/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByRole('button'));
@@ -84,28 +86,29 @@ describe('Component: BookmarkButton', () => {
 
     expect(useDispatch).toBeCalledTimes(1);
     expect(dispatch).toBeCalledTimes(1);
+    expect(postFavoriteOptionAction).toBeCalledWith(ID, Number(!IS_FAVORITE));
   });
 
-  it('should redirect without dispatch when AuthorizationStatus.NoAuth', () => {
+  it('should redirect without dispatch after click when AuthorizationStatus.NoAuth', () => {
+    const IS_FAVORITE = false;
+
     const dispatch = jest.fn();
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
     useDispatch.mockReturnValue(dispatch);
 
-    render(
-      <Provider store={storeNoAuth}>
-        <Router history={history}>
-          <Switch>
-            <Route exact path={AppRoute.Root}>
-              <BookmarkButton
-                isFavorite
-                buttonType={BUTTON_TYPE}
-                id={ID}
-              />
-            </Route>
-            <Route exact path={AppRoute.Login}><h1>Mock Login Page</h1></Route>
-          </Switch>
-        </Router>
-      </Provider>);
+    renderWithRedux(
+      <Switch>
+        <Route exact path={AppRoute.Root}>
+          <BookmarkButton
+            isFavorite={IS_FAVORITE}
+            buttonType={BUTTON_TYPE}
+            id={ID}
+          />
+        </Route>
+        <Route exact path={AppRoute.Login}><h1>Mock Login Page</h1></Route>
+      </Switch>,
+      {preloadedState: storeNoAuth},
+      {history});
 
     expect(screen.queryByText(/Mock Login Page/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByRole('button'));

@@ -1,13 +1,13 @@
 import {useSelector} from 'react-redux';
 import FavoritesLocationsByCity from '../favorites-locations-by-city/favorites-locations-by-city';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
-import {getFavoritesOffers} from '../../store/favorites/selectors';
+import {getFavoriteOffers} from '../../store/favorites/selectors';
 import {spliceOffersByCity} from '../../utils';
 
 function FavoritesList(): JSX.Element {
-  const favoritesOffers = useSelector(getFavoritesOffers);
+  const favoriteOffers = useSelector(getFavoriteOffers);
 
-  if (favoritesOffers.length === 0) {
+  if (favoriteOffers.length === 0) {
     return <FavoritesEmpty />;
   }
 
@@ -17,7 +17,7 @@ function FavoritesList(): JSX.Element {
       <ul className='favorites__list'>
         <div>
           {
-            Object.entries(spliceOffersByCity(favoritesOffers)).map(([city, cityOffers]) =>
+            Object.entries(spliceOffersByCity(favoriteOffers)).map(([city, cityOffers]) =>
               <FavoritesLocationsByCity key={city} city={city} cityOffers={cityOffers} />)
           }
         </div>
