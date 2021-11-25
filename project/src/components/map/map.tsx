@@ -62,7 +62,7 @@ function Map({className, offers, city, activeCardId}: MapProps): JSX.Element {
   }, [map, offers, activeCardId]);
 
   return (
-    <section className={cn('map', styles[className])} ref={mapRef} />
+    <section className={cn('map', styles[className])} ref={mapRef} data-testid='map'/>
   );
 }
 

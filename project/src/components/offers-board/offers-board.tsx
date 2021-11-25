@@ -11,8 +11,6 @@ type CardListAndMapProps = {
 }
 
 function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
-  const currentSorting = useSelector(getCurrentSorting);
-
   const currentCity: City = currentCityOffers[0].city;
 
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
@@ -29,9 +27,7 @@ function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
       <section className='cities__places places'>
         <h2 className='visually-hidden'>Places</h2>
         <b className='places__found'>{currentCityOffers.length} places to stay in {currentCity.name}</b>
-        <Sorting
-          currentSorting={currentSorting}
-        />
+        <Sorting />
         <div className='cities__places-list places__list tabs__content'>
           <CardList
             offers={currentCityOffers}

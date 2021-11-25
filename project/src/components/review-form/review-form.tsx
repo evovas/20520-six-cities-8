@@ -53,7 +53,7 @@ function ReviewForm({pageId}: ReviewFormProps): JSX.Element {
   const isLoading = reviewPostStatus === FetchStatus.Loading;
 
   return (
-    <form className='reviews__form form' action='#' method='post' onSubmit={handleSubmitForm}>
+    <form className='reviews__form form' action='#' method='post' onSubmit={handleSubmitForm} data-testid='review-form'>
 
       <label className='reviews__label form__label' htmlFor='review'>Your review</label>
       <div className='reviews__rating-form form__rating'>
