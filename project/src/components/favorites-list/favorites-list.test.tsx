@@ -25,6 +25,6 @@ describe('Component: FavoritesList', () => {
 
     expect(screen.queryByTestId('FavoritesEmpty')).not.toBeInTheDocument();
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
-    expect(screen.queryAllByTestId('favorites-locations-by-city').length).toEqual(fakeOffers.length);
+    expect(screen.queryAllByTestId('place-card').length).toEqual(fakeOffers.length);
   });
 });
