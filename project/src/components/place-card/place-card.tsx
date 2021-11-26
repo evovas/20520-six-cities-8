@@ -34,10 +34,15 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
   };
 
   return (
-    <article className={`${ArticleClassName.get(cardType)} place-card`} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
+    <article
+      className={`${ArticleClassName.get(cardType)} place-card`}
+      onMouseEnter={mouseEnterHandler}
+      onMouseLeave={mouseLeaveHandler}
+      data-testid="place-card"
+    >
       {offer.isPremium && <PremiumLabel className={'place-card__mark'} />}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offer/${offer.id}`}>
+        <Link to={`/offer/${offer.id}`} data-testid='place-card-image-link'>
           <img className='place-card__image' src={offer.previewImage}
             width={cardType === 'favorites' ? '150' : '260'}
             height={cardType === 'favorites' ? '110' : '200'} alt={offer.title}
@@ -59,7 +64,7 @@ function PlaceCard({offer, cardType, onMouseEnterCard, onMouseLeaveCard}: CardPr
           </div>
         </div>
         <h2 className='place-card__name'>
-          <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
+          <Link to={`/offer/${offer.id}`} data-testid='place-card-title-link'>{offer.title}</Link>
         </h2>
         <p className={cn(styles.placeCardType, 'place-card__type')}>{offer.type}</p>
       </div>

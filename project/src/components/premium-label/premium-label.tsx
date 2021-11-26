@@ -4,7 +4,7 @@ type PremiumLabelProps = {
 
 function PremiumLabel({className}: PremiumLabelProps): JSX.Element {
   return (
-    <div className={className}>
+    <div className={className} data-testid='premium-label'>
       <span>Premium</span>
     </div>
   );

@@ -17,7 +17,7 @@ function LocationTab({cityName}: LocationTabProps): JSX.Element {
   };
 
   return (
-    <li className='locations__item'>
+    <li className='locations__item' data-testid='location-tab'>
       <Link className={cn('locations__item-link', 'tabs__item', {'tabs__item--active':cityName === currentCityName})} onClick={onLocationTabClick} to='/'>
         <span>{cityName}</span>
       </Link>

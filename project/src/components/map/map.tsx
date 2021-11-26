@@ -1,7 +1,7 @@
 import {useEffect, useRef} from 'react';
 import leaflet, {Marker} from 'leaflet';
 import cn from 'classnames';
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import {City, Offer} from '../../types/data';
 import 'leaflet/dist/leaflet.css';
 import styles from './map.module.scss';
@@ -41,7 +41,6 @@ function Map({className, offers, city, activeCardId}: MapProps): JSX.Element {
 
   useEffect(() => {
     const points: Marker[] = [];
-
     if (map) {
       offers.forEach((offer) => {
         const {latitude, longitude} = offer.location;
@@ -62,7 +61,7 @@ function Map({className, offers, city, activeCardId}: MapProps): JSX.Element {
   }, [map, offers, activeCardId]);
 
   return (
-    <section className={cn('map', styles[className])} ref={mapRef} />
+    <section className={cn('map', styles[className])} ref={mapRef} data-testid='map'/>
   );
 }
 

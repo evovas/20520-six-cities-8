@@ -5,7 +5,7 @@ import FavoritesList from '../../components/favorites-list/favorites-list';
 import LoadError from '../load-error/load-error';
 import Loader from '../../components/loader/loader';
 import {useDispatch, useSelector} from 'react-redux';
-import {getFavoriteOffersStatus, getFavoritesOffers} from '../../store/favorites/selectors';
+import {getFavoriteOffersStatus, getFavoriteOffers} from '../../store/favorites/selectors';
 import {useEffect} from 'react';
 import {fetchFavoriteOffersAction} from '../../store/api-actions';
 import {dropFavoriteOffers} from '../../store/action';
@@ -14,7 +14,7 @@ import {FetchStatus} from '../../const';
 function Favorites(): JSX.Element {
   const dispatch = useDispatch();
   const favoriteOffersStatus = useSelector(getFavoriteOffersStatus);
-  const favoritesOffers = useSelector(getFavoritesOffers);
+  const favoritesOffers = useSelector(getFavoriteOffers);
 
   useEffect(() => {
     dispatch(fetchFavoriteOffersAction());

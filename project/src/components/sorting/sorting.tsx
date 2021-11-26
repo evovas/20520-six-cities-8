@@ -2,13 +2,12 @@ import {memo, useState} from 'react';
 import cn from 'classnames';
 import {SortingOption} from '../../const';
 import SortingItem from '../sorting-item/sorting-item';
+import {useSelector} from 'react-redux';
+import {getCurrentSorting} from '../../store/ui/selectors';
 
-type SortingProps = {
-  currentSorting: SortingOption;
-}
+function Sorting(): JSX.Element {
+  const currentSorting = useSelector(getCurrentSorting);
 
-
-function Sorting({currentSorting}: SortingProps): JSX.Element {
   const [isOpen, setOpen] = useState(false);
 
   const onChangeOpenSelectState = () => {
@@ -16,7 +15,7 @@ function Sorting({currentSorting}: SortingProps): JSX.Element {
   };
 
   return (
-    <form className='places__sorting' action='#' method='get'>
+    <form className='places__sorting' action='#' method='get' data-testid='sorting'>
       <span className='places__sorting-caption'>Sort by </span>
       <span onClick={onChangeOpenSelectState} className='places__sorting-type' tabIndex={0}>
         {currentSorting}

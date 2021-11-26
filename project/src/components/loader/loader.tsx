@@ -12,14 +12,17 @@ type LoaderProps = {
 
 function Loader({size, isFullScreen, isLoginScreen, isReviewForm, isFavoritesScreen}: LoaderProps): JSX.Element {
   return (
-    <div className={cn(
-      {[styles.loaderWrapperFullScreen]: isFullScreen},
-      {[styles.loaderWrapperFavoritesScreen]: isFavoritesScreen},
-      {[styles.loaderWrapperLogin]: isLoginScreen},
-      {[styles.loaderWrapperReview]: isReviewForm},
-    )}
+    <div
+      className={cn(
+        'loader-wrapper',
+        {[styles.loaderWrapperFullScreen]: isFullScreen},
+        {[styles.loaderWrapperFavoritesScreen]: isFavoritesScreen},
+        {[styles.loaderWrapperLogin]: isLoginScreen},
+        {[styles.loaderWrapperReview]: isReviewForm},
+      )}
+      data-testid='loader'
     >
-      <BeatLoader color={'#66a5e8'} size={size} />
+      <BeatLoader color={'#66a5e8'} size={size}/>
     </div>
   );
 }

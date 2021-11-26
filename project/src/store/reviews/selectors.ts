@@ -9,5 +9,5 @@ export const getReviewPostStatus = (state: State): FetchStatus => state[NameSpac
 
 export const selectReviews = createSelector([getReviews], (reviews) => {
   const compareReviewDate = (reviewA: Review, reviewB: Review) => new Date(reviewB.date).getTime() - new Date(reviewA.date).getTime();
-  return reviews.slice(0, MAXIMUM_COMMENTS_COUNT).sort(compareReviewDate);
+  return reviews.slice().sort(compareReviewDate).slice(0, MAXIMUM_COMMENTS_COUNT);
 });

@@ -12,6 +12,8 @@ import {
   User,
   ServerUser, ServerReview, ReviewPost
 } from '../types/data';
+import {CITIES_LIST} from '../const';
+import {AuthData} from '../types/auth-data';
 
 export const makeFakeUser = (): User => ({
   id: getRandomPositiveInteger(1, 100000),
@@ -53,7 +55,7 @@ export const makeFakeLocation = (): Location => ({
 
 export const makeFakeCity = (): City => ({
   location: makeFakeLocation(),
-  name: address.city(),
+  name: helpers.randomize(CITIES_LIST),
 });
 
 export const makeFakeOffer = (): Offer => ({
@@ -61,19 +63,9 @@ export const makeFakeOffer = (): Offer => ({
   bedrooms: getRandomPositiveInteger(1, 6),
   city: makeFakeCity(),
   description: commerce.productDescription(),
-  goods: [commerce.productMaterial(), commerce.productMaterial(), commerce.productMaterial()],
+  goods: new Array(9).fill(null).map(() => `${commerce.productMaterial()}${datatype.string(10)}`),
   host: makeFakeUser(),
-  images: [
-    image.imageUrl(),
-    image.imageUrl(),
-    image.imageUrl(),
-    image.imageUrl(),
-    image.imageUrl(),
-    image.imageUrl(),
-    image.imageUrl(),
-    image.imageUrl(),
-    image.imageUrl(),
-  ],
+  images: new Array(9).fill(null).map(() => `${image.imageUrl()}${datatype.string(10)}`),
   isFavorite: datatype.boolean(),
   isPremium: datatype.boolean(),
   location: makeFakeLocation(),
@@ -133,4 +125,9 @@ export const makeFakeServerReview = (): ServerReview => ({
 export const makeFakeReviewPost = (): ReviewPost => ({
   comment: datatype.string(getRandomPositiveInteger(50, 300)),
   rating: getRandomPositiveInteger(1, 5).toString(),
+});
+
+export const makeFakeAuthData = (): AuthData => ({
+  email: internet.email(),
+  password: datatype.string(5),
 });

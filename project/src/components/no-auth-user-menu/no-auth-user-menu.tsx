@@ -3,7 +3,7 @@ import {AppRoute} from '../../const';
 
 function NoAuthUserMenu(): JSX.Element {
   return (
-    <ul className="header__nav-list">
+    <ul className="header__nav-list" data-testid='no-auth-user-menu'>
       <li className="header__nav-item user">
         <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
           <div className="header__avatar-wrapper user__avatar-wrapper"/>

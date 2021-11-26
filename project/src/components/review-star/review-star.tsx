@@ -20,6 +20,7 @@ function ReviewStar({value, currentValue, id, onReviewChange, disabled}: ReviewS
         onChange={onReviewChange}
         disabled={disabled}
         checked={value === currentValue}
+        data-testid={`review-star-${id}`}
       />
       <label htmlFor={id} className='reviews__rating-label form__rating-label' title='perfect'>
         <svg className='form__star-image' width='37' height='33'>

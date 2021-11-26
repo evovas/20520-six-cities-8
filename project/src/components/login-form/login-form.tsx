@@ -65,13 +65,13 @@ function LoginForm (): JSX.Element {
     evt.preventDefault();
 
     dispatch(loginAction({
-      login: formState.email.value,
+      email: formState.email.value,
       password: formState.password.value,
     }));
   };
 
   return (
-    <section className='login'>
+    <section className='login' data-testid='login-form'>
       <h1 className='login__title'>Sign in</h1>
       <form className='login__form form' action='#' method='post' onSubmit={handleSubmit}>
         {Object.entries(fields).map(([name, label]) => {

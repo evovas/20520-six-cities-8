@@ -14,7 +14,7 @@ function PropertyReviews({pageId}: PropertyReviewsProps): JSX.Element {
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
   return (
-    <section className='property__reviews reviews'>
+    <section className='property__reviews reviews' data-testid='property-reviews'>
       <h2 className='reviews__title'>Reviews &middot; <span className='reviews__amount'>{reviews.length < 10 ? reviews.length : MAXIMUM_COMMENTS_COUNT}</span></h2>
       <ReviewList reviews={reviews} />
       {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm pageId={pageId} />}
