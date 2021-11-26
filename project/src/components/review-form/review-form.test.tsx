@@ -3,9 +3,9 @@ import {datatype} from 'faker';
 import userEvent from '@testing-library/user-event';
 import * as ApiActions from '../../store/api-actions';
 import ReviewForm from './review-form';
-import {FetchStatus} from '../../const';
 import {renderWithRedux, screen, cleanup} from '../../utils/test-utils';
 import {NameSpace} from '../../store/root-reducer';
+import {FetchStatus} from '../../const';
 
 const FAKE_PAGE_ID = '1';
 const MIN_REVIEW_LENGTH = 50;

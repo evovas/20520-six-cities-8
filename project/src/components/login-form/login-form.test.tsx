@@ -68,7 +68,7 @@ describe('Component: LoginForm', () => {
 
     expect(dispatch).toBeCalledTimes(1);
     expect(loginAction).toBeCalledWith({
-      login: CORRECT_LOGIN,
+      email: CORRECT_LOGIN,
       password: CORRECT_PASSWORD,
     });
   });

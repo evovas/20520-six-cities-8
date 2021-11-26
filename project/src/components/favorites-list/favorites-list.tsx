@@ -12,7 +12,7 @@ function FavoritesList(): JSX.Element {
   }
 
   return (
-    <section className='favorites'>
+    <section className='favorites' data-testid='favorites-list'>
       <h1 className='favorites__title'>Saved listing</h1>
       <ul className='favorites__list'>
         <div>

@@ -1,6 +1,6 @@
 function LoadError(): JSX.Element {
   return (
-    <div className='page page--gray page--login'>
+    <div className='page page--gray page--login' data-testid='load-error-page'>
       <header className='header'>
         <div className='container'>
           <div className='header__wrapper'>

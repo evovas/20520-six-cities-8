@@ -1,4 +1,4 @@
-import {renderWithRedux, screen} from '../../utils/test-utils';
+import {renderWithRedux} from '../../utils/test-utils';
 import Loader from './loader';
 
 const LOADER_SIZE = 15;

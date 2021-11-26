@@ -1,10 +1,8 @@
 import {useCallback, useState} from 'react';
-import {useSelector} from 'react-redux';
 import Sorting from '../sorting/sorting';
 import CardList from '../card-list/card-list';
 import Map from '../map/map';
 import {City, Offer} from '../../types/data';
-import {getCurrentSorting} from '../../store/ui/selectors';
 
 type CardListAndMapProps = {
   currentCityOffers: Offer[];
@@ -23,7 +21,7 @@ function OffersBoard({currentCityOffers}: CardListAndMapProps): JSX.Element {
   }, []);
 
   return (
-    <div className='cities__places-container container'>
+    <div className='cities__places-container container' data-testid='offers-board'>
       <section className='cities__places places'>
         <h2 className='visually-hidden'>Places</h2>
         <b className='places__found'>{currentCityOffers.length} places to stay in {currentCity.name}</b>

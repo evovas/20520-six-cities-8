@@ -3,7 +3,7 @@ import Header from '../../components/header/header';
 
 function NotFound(): JSX.Element {
   return (
-    <div className='page page--gray page--login'>
+    <div className='page page--gray page--login' data-testid='not-found-page'>
       <Header />
 
       <main className='page__main page__main--login'>

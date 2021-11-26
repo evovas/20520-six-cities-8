@@ -24,6 +24,7 @@ function SortingItem ({sortingOption, onChangeOpenSelectState}: SortingItemProps
       className={cn('places__option', {'places__option--active': sortingOption === currentSorting} )}
       tabIndex={0}
       onClick={onClick}
+      data-testid='sorting-item'
     >
       {sortingOption}
     </li>

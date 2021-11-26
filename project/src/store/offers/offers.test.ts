@@ -196,6 +196,7 @@ describe('Reducer: offers', () => {
     const state = {
       ...initialState,
       offers: [offerA, offerBWithFavorite],
+      nearbyOffers: [offerA, offerA],
       offer: offerBWithFavorite,
     };
     const replaceOfferAction = {
@@ -207,7 +208,29 @@ describe('Reducer: offers', () => {
       .toEqual({
         ...initialState,
         offers: [offerA, offerBWithoutFavorite],
+        nearbyOffers: [offerA, offerA],
         offer: offerBWithoutFavorite,
+      });
+  });
+
+  it('the isFavorite status changes for a specific offer in the offer list, and for an nearby offer on the page as needed', () => {
+    const state = {
+      ...initialState,
+      offers: [offerA, offerBWithFavorite],
+      nearbyOffers: [offerA, offerBWithFavorite],
+      offer: offerA,
+    };
+    const replaceOfferAction = {
+      type: ActionType.ReplaceOffer,
+      payload: offerBWithoutFavorite,
+    };
+
+    expect(offers(state, replaceOfferAction))
+      .toEqual({
+        ...initialState,
+        offers: [offerA, offerBWithoutFavorite],
+        nearbyOffers: [offerA, offerBWithoutFavorite],
+        offer: offerA,
       });
   });
 });

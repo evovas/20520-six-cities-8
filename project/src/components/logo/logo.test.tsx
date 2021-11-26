@@ -1,5 +1,5 @@
 import {createMemoryHistory} from 'history';
-import {Route, Router, Switch} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import {renderWithRedux, screen} from '../../utils/test-utils';
 import userEvent from '@testing-library/user-event';
 import Logo from './logo';

@@ -159,7 +159,7 @@ export const checkAuthAction = (): ThunkActionResult => (
   }
 );
 
-export const loginAction = ({login: email, password}: AuthData): ThunkActionResult => (
+export const loginAction = ({email, password}: AuthData): ThunkActionResult => (
   async (dispatch, _, api): Promise<void> => {
     dispatch(requireAuthorizationRequest());
     try {

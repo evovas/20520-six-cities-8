@@ -63,11 +63,15 @@ const offers = createReducer(initialState, (builder) => {
       state.nearbyOffersStatus = FetchStatus.Idle;
     })
     .addCase(replaceOffer, (state, action) => {
-      const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
-      if (index !== -1) {
-        state.offers[index].isFavorite = action.payload.isFavorite;
+      const indexOffers = state.offers.findIndex((offer) => offer.id === action.payload.id);
+      if (indexOffers !== -1) {
+        state.offers[indexOffers].isFavorite = action.payload.isFavorite;
       }
-      if (state.offer) {
+      const indexNearbyOffers = state.nearbyOffers.findIndex((offer) => offer.id === action.payload.id);
+      if (indexNearbyOffers !== -1) {
+        state.nearbyOffers[indexNearbyOffers].isFavorite = action.payload.isFavorite;
+      }
+      if (state.offer && indexNearbyOffers === -1) {
         state.offer = action.payload;
       }
     });

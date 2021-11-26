@@ -9,14 +9,14 @@ import {
   fetchNearbyOffersAction,
   fetchOfferAction,
   fetchOffersAction,
-  fetchReviewsAction,
+  fetchReviewsAction, loginAction, logoutAction,
   postFavoriteOptionAction,
   postReviewAction
 } from './api-actions';
 import {
   checkAuthRequest,
   checkAuthSuccess,
-  deleteFavoriteOffer,
+  deleteFavoriteOffer, dropCurrentUser,
   loadFavoriteOffersRequest,
   loadFavoriteOffersSuccess,
   loadNearbyOffersRequest,
@@ -30,6 +30,10 @@ import {
   postReviewRequest,
   postReviewSuccess,
   replaceOffer,
+  requireAuthorizationRequest,
+  requireAuthorizationSuccess,
+  requireLogoutRequest,
+  requireLogoutSuccess,
   saveCurrentUser,
   setFavoriteOptionRequest,
   setFavoriteOptionSuccess
@@ -40,6 +44,7 @@ import {
   adaptReviewToClient
 } from '../services/adapter';
 import {
+  makeFakeAuthData,
   makeFakeCurrentUserServer,
   makeFakeReviewPost,
   makeFakeServerOffer,
@@ -47,6 +52,8 @@ import {
 } from '../utils/mocks';
 import {APIRoute, AuthorizationStatus} from '../const';
 import {State} from '../types/state';
+
+const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 
 describe('Async actions', () => {
   const onFakeUnauthorized = jest.fn();
@@ -197,5 +204,52 @@ describe('Async actions', () => {
       checkAuthSuccess(AuthorizationStatus.Auth),
       saveCurrentUser(adaptCurrentUserToClient(fakeServerUser)),
     ]);
+  });
+
+  it('should authorization status is «auth» and save user and token when server return 200', async () => {
+    const fakeAuthData = makeFakeAuthData();
+    const fakeServerUser = makeFakeCurrentUserServer();
+    mockAPI
+      .onPost(APIRoute.Login, fakeAuthData)
+      .reply(200, fakeServerUser);
+
+    const store = mockStore();
+    Storage.prototype.setItem = jest.fn();
+
+    await store.dispatch(loginAction(fakeAuthData));
+
+    expect(store.getActions()).toEqual([
+      requireAuthorizationRequest(),
+      requireAuthorizationSuccess(),
+      saveCurrentUser(adaptCurrentUserToClient(fakeServerUser)),
+    ]);
+
+    expect(Storage.prototype.setItem).toBeCalledTimes(1);
+    expect(Storage.prototype.setItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME, fakeServerUser.token);
+  });
+
+  it('should authorization status is «no auth» and drop user and token when server return 200', async () => {
+    const fakeServerOffers = [makeFakeServerOffer(), makeFakeServerOffer()];
+    mockAPI
+      .onDelete(APIRoute.Logout)
+      .reply(204)
+      .onGet(APIRoute.Offers)
+      .reply(200, fakeServerOffers);
+
+    const store = mockStore();
+    Storage.prototype.removeItem = jest.fn();
+
+    await store.dispatch(logoutAction());
+
+    expect(store.getActions()).toEqual([
+      requireLogoutRequest(),
+      loadOffersRequest(),
+      loadOffersSuccess(fakeServerOffers.map((offer) => adaptOfferToClient(offer))),
+      requireLogoutSuccess(),
+      dropCurrentUser(),
+    ]);
+
+    expect(Storage.prototype.removeItem).toBeCalledTimes(1);
+    expect(Storage.prototype.removeItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME);
   });
 });
