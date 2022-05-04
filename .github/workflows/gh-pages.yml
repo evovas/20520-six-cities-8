@@ -22,12 +22,18 @@ jobs:
 
       - name: Installing Dependencies
         run: npm ci
+        with:
+          FOLDER: ./project/build
 
       - name: Linting
         run: npm test
+        with:
+          FOLDER: ./project/build
 
       - name: Building
         run: npm run build
+        with:
+          FOLDER: ./project/build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.1
