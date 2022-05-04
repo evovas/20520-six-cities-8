@@ -21,19 +21,16 @@ jobs:
           node-version: '14.x'
 
       - name: Installing Dependencies
-        run: npm ci
-        with:
-          FOLDER: ./project/build
+        run: |
+        if [ -d 'project' ]; then cd project && npm install; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Linting
-        run: npm test
-        with:
-          FOLDER: ./project/build
+        run: |
+        if [ -d 'project' ]; then cd project && npm test && npm run eslint; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Building
-        run: npm run build
-        with:
-          FOLDER: ./project/build
+        run: |
+        if [ -d 'project' ]; then cd project && npm run build; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.1
