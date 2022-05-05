@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy:
+    name: Check
     runs-on: ubuntu-latest
 
     steps:
@@ -21,24 +22,19 @@ jobs:
           node-version: '14.x'
 
       - name: Installing Dependencies
-        run: |
-        if [ -d 'project' ]; then cd project && npm install; else echo 'Skip. The project directory does not exist'; fi
+        run: if [ -d 'project' ]; then cd project && npm ci; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Linting
-        run: |
-        if [ -d 'project' ]; then cd project && npm test && npm run eslint; else echo 'Skip. The project directory does not exist'; fi
+        run: if [ -d 'project' ]; then cd project && npm test && npm run eslint; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Pre Deploy
-        run: |
-        if [ -d 'project' ]; then cd project && npm run predeploy; else echo 'Skip. The project directory does not exist'; fi
-
-        - name: Deploy
-            run: |
-            if [ -d 'project' ]; then cd project && npm run deploy; else echo 'Skip. The project directory does not exist'; fi
+        run: if [ -d 'project' ]; then cd project && npm run predeploy; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Deploy
-        run: |
-          if [ -d 'project' ]; then cd project
+        run: if [ -d 'project' ]; then cd project && npm run deploy; else echo 'Skip. The project directory does not exist'; fi
+
+      - name: Deploy
+        run: if [ -d 'project' ]; then cd project
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
