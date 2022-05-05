@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/20520-six-cities-8/static/css/main.9bd3334e.chunk.css",
-    "main.js": "/20520-six-cities-8/static/js/main.5497d0b4.chunk.js",
-    "main.js.map": "/20520-six-cities-8/static/js/main.5497d0b4.chunk.js.map",
+    "main.js": "/20520-six-cities-8/static/js/main.59cfdcef.chunk.js",
+    "main.js.map": "/20520-six-cities-8/static/js/main.59cfdcef.chunk.js.map",
     "runtime-main.js": "/20520-six-cities-8/static/js/runtime-main.b8bcde08.js",
     "runtime-main.js.map": "/20520-six-cities-8/static/js/runtime-main.b8bcde08.js.map",
     "static/css/2.1e1527ef.chunk.css": "/20520-six-cities-8/static/css/2.1e1527ef.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.1e1527ef.chunk.css",
     "static/js/2.b58117a6.chunk.js",
     "static/css/main.9bd3334e.chunk.css",
-    "static/js/main.5497d0b4.chunk.js"
+    "static/js/main.59cfdcef.chunk.js"
   ]
 }
