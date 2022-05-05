@@ -28,9 +28,13 @@ jobs:
         run: |
         if [ -d 'project' ]; then cd project && npm test && npm run eslint; else echo 'Skip. The project directory does not exist'; fi
 
-      - name: Building
+      - name: Pre Deploy
         run: |
-        if [ -d 'project' ]; then cd project && npm run build; else echo 'Skip. The project directory does not exist'; fi
+        if [ -d 'project' ]; then cd project && npm run predeploy; else echo 'Skip. The project directory does not exist'; fi
+
+        - name: Deploy
+            run: |
+            if [ -d 'project' ]; then cd project && npm run deploy; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.1

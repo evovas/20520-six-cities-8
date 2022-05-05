@@ -11,8 +11,7 @@ import {createAPI} from './services/api';
 import {AuthorizationStatus} from './const';
 import 'react-toastify/dist/ReactToastify.css';
 import {rootReducer} from './store/root-reducer';
-import {Router as BrowserRouter} from 'react-router-dom';
-import browserHistory from './browser-history';
+import {HashRouter} from 'react-router-dom';
 
 const api = createAPI(
   () => store.dispatch(checkAuthSuccess(AuthorizationStatus.NoAuth)),
@@ -34,10 +33,10 @@ const store = configureStore({
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter history={browserHistory}>
+      <HashRouter>
         <ToastContainer />
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

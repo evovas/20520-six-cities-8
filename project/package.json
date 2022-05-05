@@ -1,5 +1,6 @@
 {
   "name": "project",
+  "homepage": "https://zvovas.github.io/20520-six-cities-8/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +9,7 @@
     "@types/validator": "^13.6.6",
     "axios": "^0.21.1",
     "dayjs": "^1.10.7",
+    "gh-pages": "^3.2.3",
     "history": "^4.10.1",
     "leaflet": "^1.7.1",
     "react": "^17.0.2",
@@ -21,6 +23,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
