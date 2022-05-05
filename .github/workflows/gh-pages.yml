@@ -37,9 +37,11 @@ jobs:
             if [ -d 'project' ]; then cd project && npm run deploy; else echo 'Skip. The project directory does not exist'; fi
 
       - name: Deploy
+        run: |
+          if [ -d 'project' ]; then cd project
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FOLDER: ./project/build
+          FOLDER: ./build
           BRANCH: gh-pages
           SINGLE_COMMIT: false
