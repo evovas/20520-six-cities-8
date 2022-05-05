@@ -12,7 +12,7 @@ function HostUser({user}: HostUserProps): JSX.Element {
       <div className={cn('property__avatar-wrapper', 'user__avatar-wrapper', {'property__avatar-wrapper--pro': user.isPro})}>
         <img
           className='property__avatar user__avatar'
-          src={user.avatarUrl}
+          src={`'/20520-six-cities-8/'${user.avatarUrl}`}
           width='74'
           height='74'
           alt='Host avatar'
